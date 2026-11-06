@@ -3,89 +3,530 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>NFL EDGE PRO | Football Intelligence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap');
 :root{
---bg:#080e17;--panel:#121e2d;--panel2:#1c2c40;
---border:#304459;--text:#f3f8ff;--muted:#9eafc3;
---green:#38d9a3;--blue:#78b8ff;--gold:#f5cb74;--red:#ff8292
+--bg:#080d15;
+--surface:#101b29;
+--surface2:#182739;
+--border:#2a3d50;
+--text:#f3f8ff;
+--muted:#9cb0c4;
+--green:#42dfad;
+--blue:#77b7ff;
+--gold:#ffd17b;
+--red:#ff8290;
 }
 *{box-sizing:border-box}
-body{margin:0;background:radial-gradient(ellipse at 80% -10%,#1b3d54,transparent 43%),var(--bg);color:var(--text);font:14px Inter,Arial,sans-serif}
+body{
+margin:0;
+background:radial-gradient(ellipse at 85% -10%,#1a3b4b,transparent 38%),var(--bg);
+color:var(--text);
+font:14px Inter,Arial,sans-serif;
+}
 button,input,select{font:inherit}
-button{background:#203247;color:white;border:1px solid #3b536a;border-radius:9px;padding:11px 15px;font-weight:700;cursor:pointer}
-button:hover{background:#2c435b}
+button{
+background:#203348;
+border:1px solid #38516a;
+color:white;
+padding:11px 16px;
+border-radius:9px;
+font-weight:700;
+cursor:pointer;
+}
+button:hover{background:#2b455e}
 button:disabled{opacity:.5;cursor:wait}
-button.primary{background:#119c77;border-color:#37d4a4}
-input,select{background:#1b2b3d;border:1px solid #40576c;color:white;border-radius:9px;padding:11px;max-width:100%}
-header{padding:26px max(20px,calc((100vw - 1400px)/2));background:linear-gradient(115deg,#172b3e,#0d1725);border-bottom:1px solid var(--border)}
-.brand{font:800 44px 'Barlow Condensed',sans-serif;letter-spacing:1px}
+button.primary{
+background:linear-gradient(120deg,#21b889,#13876e);
+border-color:#40d5a7;
+}
+input,select{
+background:#1a2b3e;
+border:1px solid #40586d;
+border-radius:9px;
+padding:11px;
+color:white;
+max-width:100%;
+}
+header{
+padding:25px max(18px,calc((100vw - 1400px)/2));
+background:linear-gradient(110deg,#172b3d,#0c1623);
+border-bottom:1px solid var(--border);
+}
+.brand{
+font:900 44px 'Barlow Condensed',sans-serif;
+letter-spacing:1px;
+}
 .brand span{color:var(--green)}
-.brand small{font:800 10px Inter,sans-serif;color:var(--green);background:#17433d;padding:7px 10px;border:1px solid #2e7768;border-radius:30px;vertical-align:middle;margin-left:10px}
+.brand small{
+font:800 10px Inter,sans-serif;
+background:#17443e;
+color:#83f4ce;
+border:1px solid #307b69;
+padding:7px 10px;
+border-radius:30px;
+vertical-align:middle;
+margin-left:10px;
+}
 .subtitle{color:var(--muted);margin-top:5px}
-nav{display:flex;gap:6px;overflow-x:auto;position:sticky;top:0;z-index:20;padding:10px max(14px,calc((100vw - 1400px)/2));background:#0e1926f2;border-bottom:1px solid var(--border);backdrop-filter:blur(12px)}
-nav button{white-space:nowrap;background:transparent;border-color:transparent;color:#aabed0;font-size:12px}
-nav button.active{background:#1b3e43;border-color:#378575;color:#91f4d3}
+nav{
+display:flex;
+gap:6px;
+overflow-x:auto;
+position:sticky;
+top:0;
+z-index:30;
+padding:10px max(12px,calc((100vw - 1400px)/2));
+background:#0d1725f2;
+border-bottom:1px solid var(--border);
+backdrop-filter:blur(15px);
+}
+nav button{
+background:transparent;
+border-color:transparent;
+color:#b1c0d0;
+white-space:nowrap;
+font-size:12px;
+}
+nav button.active{
+background:#1c3d40;
+border-color:#347d70;
+color:#a1f9da;
+}
 main{max-width:1440px;margin:auto;padding:24px 20px}
-.tab{display:none}.tab.active{display:block}
+.tab{display:none}
+.tab.active{display:block}
 h2,h3,.display{font-family:'Barlow Condensed',sans-serif}
-h2{font-size:35px;margin:0 0 19px}
-h3{font-size:24px;margin:0 0 13px}
-.panel{background:linear-gradient(145deg,#162436,#111b29);border:1px solid var(--border);border-radius:16px;padding:22px;margin-bottom:18px}
-.muted,.small{color:var(--muted)}.small{font-size:11px}
-.green{color:var(--green)}.red{color:var(--red)}.gold{color:var(--gold)}
+h2{font-size:36px;margin:0 0 20px}
+h3{font-size:25px;margin:0 0 14px}
+.panel{
+background:linear-gradient(145deg,#162537,#101b29);
+border:1px solid var(--border);
+border-radius:16px;
+padding:22px;
+margin-bottom:18px;
+}
+.muted,.small{color:var(--muted)}
+.small{font-size:11px;line-height:1.6}
+.green{color:var(--green)}
+.red{color:var(--red)}
+.gold{color:var(--gold)}
+.eyebrow{
+font-size:10px;
+font-weight:800;
+letter-spacing:2px;
+text-transform:uppercase;
+color:var(--green);
+}
 .controls{display:flex;flex-wrap:wrap;gap:12px;align-items:end;margin-bottom:16px}
 .field{display:flex;flex-direction:column;gap:7px}
-.field label{font-size:10px;font-weight:800;color:#b2c3d3;text-transform:uppercase;letter-spacing:1px}
-.status{color:var(--muted);padding:12px 0;white-space:pre-wrap;line-height:1.6}
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(235px,1fr));gap:14px}
-.card{background:linear-gradient(145deg,#1d3044,#152333);border:1px solid #364d62;border-radius:15px;padding:19px}
-.card:hover{border-color:#648da2}
-.metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:12px;margin-bottom:18px}
-.metric{background:#1a2c3e;border:1px solid #334a60;border-radius:12px;padding:17px;color:var(--muted);font-size:12px}
-.metric strong{display:block;font:800 34px 'Barlow Condensed',sans-serif;color:white;margin-top:8px}
-.tablewrap{overflow-x:auto;border:1px solid #2b4053;border-radius:12px}
+.field label{
+font-size:10px;
+font-weight:800;
+color:#b5c6d7;
+letter-spacing:1px;
+text-transform:uppercase;
+}
+.status{color:var(--muted);padding:12px 0;line-height:1.6}
+.cards{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(235px,1fr));
+gap:14px;
+}
+.card{
+background:linear-gradient(145deg,#1c3043,#142334);
+border:1px solid #354d62;
+border-radius:15px;
+padding:19px;
+}
+.card:hover{border-color:#5c92a2}
+.metrics{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(145px,1fr));
+gap:12px;
+margin-bottom:18px;
+}
+.metric{
+background:#1a2d40;
+border:1px solid #344e63;
+border-radius:12px;
+padding:17px;
+color:var(--muted);
+font-size:12px;
+}
+.metric strong{
+display:block;
+font:800 34px 'Barlow Condensed',sans-serif;
+color:white;
+margin-top:8px;
+}
+.tablewrap{
+overflow-x:auto;
+border:1px solid #304459;
+border-radius:12px;
+}
 table{width:100%;border-collapse:collapse;white-space:nowrap}
-th,td{padding:13px;text-align:left;border-bottom:1px solid #293c50}
-th{background:#203247;font-size:10px;color:#b8c9d9;letter-spacing:.8px;text-transform:uppercase}
-tbody tr:hover{background:#203549}
-.player{display:flex;align-items:center;gap:12px;min-width:150px}
+th,td{padding:13px;text-align:left;border-bottom:1px solid #293f51}
+th{
+background:#203348;
+color:#b5c9d9;
+font-size:10px;
+letter-spacing:.8px;
+text-transform:uppercase;
+}
+tbody tr:hover{background:#20364a}
+.player{display:flex;align-items:center;gap:11px;min-width:145px}
 .player strong{display:block}
-.headshot{width:51px;height:51px;object-fit:cover;object-position:center top;border-radius:50%;background:#244057;border:1px solid #49677d;flex-shrink:0}
-.player button{padding:0;background:none;border:0;text-align:left}
+.headshot{
+width:50px;
+height:50px;
+object-fit:cover;
+object-position:center top;
+border-radius:50%;
+background:#254258;
+border:1px solid #4c7184;
+flex-shrink:0;
+}
+.player button{
+background:none;
+border:0;
+padding:0;
+text-align:left;
+}
 .player button:hover{color:var(--green)}
-.tag{display:inline-block;padding:6px 9px;border-radius:7px;background:#1d3d4f;border:1px solid #34637a;color:#b4e8fa;font-size:11px;font-weight:700}
-.rank{display:inline-grid;place-items:center;width:34px;height:34px;background:#453b26;color:var(--gold);border-radius:9px;font-weight:800}
-.hero{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(300px,1fr);gap:17px;margin-bottom:20px}
-.hero-main{padding:34px;min-height:340px;border-radius:19px;border:1px solid #426a7c;background:radial-gradient(circle at 88% 24%,#26727a,transparent 48%),linear-gradient(115deg,#1d4055,#101d2c);display:flex;flex-direction:column;align-items:flex-start;justify-content:center}
-.eyebrow{font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--green)}
-.hero-title{font:800 clamp(46px,6vw,80px)/.9 'Barlow Condensed',sans-serif;margin:19px 0}
-.hero-desc{color:#c2d3e1;line-height:1.7;max-width:470px}
-.hero-feature{background:linear-gradient(145deg,#1c3b4b,#132331);border:1px solid #426577;border-radius:19px;padding:24px;min-height:340px}
-.hero-feature .headshot{width:78px;height:78px}
-.feature-line{font:800 35px 'Barlow Condensed',sans-serif;margin:17px 0 8px}
-.feature-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:17px}
-.feature-stat{background:#ffffff0a;border:1px solid #ffffff17;border-radius:10px;padding:12px 9px}
-.feature-stat strong{display:block;font:800 25px 'Barlow Condensed',sans-serif;margin-top:6px}
-.feature-stat span{font-size:10px;color:var(--muted)}
-.section-heading{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:27px 0 14px}
-.section-heading h3{margin:0}
-.leader-stat{font:800 46px 'Barlow Condensed',sans-serif;margin:12px 0}
+.tag{
+display:inline-block;
+background:#203e50;
+border:1px solid #3c687e;
+border-radius:7px;
+padding:6px 9px;
+color:#b7e9ff;
+font-size:11px;
+font-weight:700;
+}
+.rank{
+display:inline-grid;
+place-items:center;
+width:34px;
+height:34px;
+background:#443923;
+color:var(--gold);
+border-radius:9px;
+font-weight:800;
+}
 .team-row{display:flex;align-items:center;gap:14px}
-.team-logo{width:55px;height:55px;object-fit:contain}
-footer{text-align:center;padding:28px;color:var(--muted);font-size:11px}
-@media(max-width:800px){
-.hero{grid-template-columns:1fr}
-.hero-main{min-height:250px;padding:25px}
-.hero-feature{min-height:0}
-main{padding:15px 11px}
-.panel{padding:15px}
+.team-logo{width:56px;height:56px;object-fit:contain}
+footer{
+text-align:center;
+padding:30px;
+color:var(--muted);
+font-size:11px;
+}
+
+/* PREMIUM HOME */
+
+.home-top{
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:12px;
+flex-wrap:wrap;
+margin-bottom:16px;
+}
+.live-dot{
+display:inline-block;
+width:8px;
+height:8px;
+background:var(--green);
+border-radius:50%;
+box-shadow:0 0 15px var(--green);
+margin-right:9px;
+}
+.home-date{
+color:#8da7b9;
+font-size:11px;
+margin-left:12px;
+}
+.free-pill{
+border:1px solid #337565;
+background:#143b34;
+color:#9af5d5;
+border-radius:30px;
+padding:9px 13px;
+font-size:10px;
+font-weight:800;
+}
+.home-hero{
+display:grid;
+grid-template-columns:1.06fr 1fr;
+gap:17px;
+margin-bottom:18px;
+}
+.home-intro{
+min-height:410px;
+padding:38px;
+border:1px solid #3a6674;
+border-radius:20px;
+background:
+radial-gradient(circle at 90% 10%,#286875,transparent 43%),
+linear-gradient(130deg,#1d4053,#0e1c2b);
+display:flex;
+flex-direction:column;
+justify-content:center;
+position:relative;
+overflow:hidden;
+}
+.home-intro:after{
+content:"";
+position:absolute;
+right:-130px;
+bottom:-150px;
+width:360px;
+height:360px;
+border:42px solid #ffffff08;
+border-radius:50%;
+pointer-events:none;
+}
+.home-headline{
+font:900 clamp(55px,6vw,91px)/.87 'Barlow Condensed',sans-serif;
+letter-spacing:-1px;
+margin:20px 0;
+position:relative;
+z-index:1;
+}
+.home-headline em{font-style:normal;color:var(--green)}
+.home-intro p{
+max-width:450px;
+color:#bfd2df;
+line-height:1.8;
+font-size:13px;
+}
+.home-actions{
+display:flex;
+flex-wrap:wrap;
+gap:10px;
+margin-top:19px;
+position:relative;
+z-index:1;
+}
+.home-footer-note{
+font-size:10px;
+color:#92b2c2;
+letter-spacing:1px;
+font-weight:700;
+margin-top:32px;
+}
+.home-spotlight{
+min-height:410px;
+padding:27px;
+border:1px solid #46737c;
+border-radius:20px;
+background:
+radial-gradient(circle at 90% 0%,#1b5961,transparent 44%),
+linear-gradient(145deg,#1d3849,#101e2d);
+}
+.spotlight-top{
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:10px;
+}
+.spotlight-badge{
+background:#205446;
+color:#9df5d2;
+padding:7px 10px;
+border-radius:7px;
+font-size:9px;
+font-weight:800;
+}
+.spotlight-player{
+display:flex;
+align-items:center;
+gap:16px;
+margin:27px 0 16px;
+}
+.spotlight-player .headshot{
+width:88px;
+height:88px;
+border:2px solid #5b9898;
+}
+.spotlight-name{
+font:800 32px/1 'Barlow Condensed',sans-serif;
+}
+.spotlight-line{
+font:900 40px/1 'Barlow Condensed',sans-serif;
+margin:15px 0 7px;
+}
+.spotlight-stats{
+display:grid;
+grid-template-columns:repeat(3,minmax(0,1fr));
+gap:8px;
+margin-top:21px;
+}
+.spotlight-stat{
+background:#ffffff09;
+border:1px solid #ffffff17;
+border-radius:11px;
+padding:12px 10px;
+}
+.spotlight-stat span{
+display:block;
+font-size:10px;
+color:#abc0ce;
+}
+.spotlight-stat strong{
+display:block;
+font:800 29px 'Barlow Condensed',sans-serif;
+margin-top:8px;
+}
+.trend-bars{
+display:flex;
+align-items:end;
+gap:8px;
+height:96px;
+margin:17px 0 6px;
+padding-bottom:4px;
+border-bottom:1px solid #456070;
+}
+.trend-column{
+flex:1;
+height:100%;
+display:flex;
+flex-direction:column;
+justify-content:flex-end;
+align-items:center;
+gap:5px;
+}
+.trend-column .bar{
+width:100%;
+max-width:45px;
+min-height:4px;
+border-radius:5px 5px 0 0;
+background:linear-gradient(0deg,#18876c,#49e2af);
+}
+.trend-column .bar.miss{
+background:linear-gradient(0deg,#8a5262,#e17b8d);
+}
+.trend-column small{
+font-size:9px;
+color:#b5c8d4;
+}
+.home-kpis{
+display:grid;
+grid-template-columns:repeat(4,minmax(0,1fr));
+gap:13px;
+margin:18px 0 30px;
+}
+.home-kpi{
+padding:20px;
+background:linear-gradient(145deg,#192c3d,#111e2d);
+border:1px solid #30485b;
+border-radius:14px;
+}
+.home-kpi span{
+font-size:10px;
+font-weight:800;
+letter-spacing:1px;
+color:#a5bbcb;
+}
+.home-kpi strong{
+display:block;
+font:800 36px 'Barlow Condensed',sans-serif;
+margin:10px 0 5px;
+}
+.home-kpi small{color:#90a9bb}
+.home-section-title{
+display:flex;
+align-items:end;
+justify-content:space-between;
+gap:12px;
+margin:28px 0 15px;
+}
+.home-section-title h3{
+font-size:32px;
+margin:6px 0 0;
+}
+.home-leaders{
+display:grid;
+grid-template-columns:repeat(3,minmax(0,1fr));
+gap:14px;
+}
+.leader-card{
+padding:22px;
+background:linear-gradient(145deg,#1d3042,#121e2e);
+border:1px solid #354d62;
+border-radius:16px;
+}
+.leader-number{
+font:900 54px 'Barlow Condensed',sans-serif;
+margin:14px 0 10px;
+}
+.leader-card .headshot{width:65px;height:65px}
+.home-games{
+display:grid;
+grid-template-columns:repeat(3,minmax(0,1fr));
+gap:14px;
+}
+.matchup-card{
+padding:19px;
+background:linear-gradient(145deg,#1c2f41,#111d2c);
+border:1px solid #344c60;
+border-radius:15px;
+}
+.matchup-teams{
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:10px;
+margin:17px 0;
+}
+.matchup-team{
+flex:1;
+display:flex;
+flex-direction:column;
+align-items:center;
+gap:8px;
+text-align:center;
+font-weight:800;
+}
+.matchup-team img{
+width:62px;
+height:62px;
+object-fit:contain;
+}
+.matchup-vs{
+font:800 21px 'Barlow Condensed',sans-serif;
+color:#86a1b4;
+}
+.home-disclaimer{
+font-size:10px;
+color:#829caf;
+line-height:1.8;
+letter-spacing:.3px;
+margin:24px 0;
+}
+@media(max-width:900px){
+.home-hero{grid-template-columns:1fr}
+.home-intro{min-height:290px}
+.home-leaders,.home-games{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:600px){
 header{padding:20px 15px}
-.brand{font-size:37px}
+.brand{font-size:36px}
+main{padding:15px 11px}
 nav{padding:8px}
-.hero-title{font-size:54px}
+.panel{padding:15px}
+.home-intro{padding:26px;min-height:290px}
+.home-headline{font-size:64px}
+.home-spotlight{padding:20px;min-height:0}
+.home-kpis{grid-template-columns:repeat(2,1fr)}
+.home-leaders,.home-games{grid-template-columns:1fr}
+.home-section-title h3{font-size:27px}
+.spotlight-line{font-size:33px}
 }
 </style>
 </head>
@@ -93,7 +534,7 @@ nav{padding:8px}
 
 <header>
 <div class="brand">NFL <span>EDGE</span><small>PRO ANALYTICS</small></div>
-<div class="subtitle">Football intelligence • ESPN statistics • Sportsbook research</div>
+<div class="subtitle">Premium football intelligence • ESPN statistics • Sportsbook research</div>
 </header>
 
 <nav>
@@ -110,50 +551,109 @@ nav{padding:8px}
 <main>
 
 <section id="home" class="tab active">
-<div class="hero">
-<div class="hero-main">
-<div class="eyebrow">NFL EDGE / WEEKLY INTELLIGENCE</div>
-<div class="hero-title">THE GAME<br>BEHIND THE GAME.</div>
-<p class="hero-desc">Discover standout performances, emerging statistical trends, upcoming NFL matchups and sportsbook research in one place.</p>
+
+<div class="home-top">
+<div class="eyebrow">
+<span class="live-dot"></span>
+NFL EDGE INTELLIGENCE
+<span id="homeDate" class="home-date"></span>
+</div>
+<div class="free-pill">ESPN POWERED · ZERO ODDS CREDITS</div>
+</div>
+
+<div class="home-hero">
+
+<div class="home-intro">
+<div class="eyebrow">THE WEEKLY PLAYBOOK</div>
+<div class="home-headline">
+EVERY YARD.<br>
+<em>EVERY EDGE.</em>
+</div>
+<p>
+The performances that matter. The trends worth watching.
+Your NFL analytics command center, built around real player statistics.
+</p>
+<div class="home-actions">
 <button class="primary" onclick="showTab('scanner')">Explore Prop Scanner</button>
+<button onclick="showTab('schedule')">View Schedule</button>
 </div>
-<div class="hero-feature">
-<div class="eyebrow">FEATURED STAT TREND • ESPN POWERED</div>
-<div id="homeFeatured" class="status">Finding this week's featured player...</div>
+<div class="home-footer-note">
+ESPN STATISTICS · UPDATED ON LOAD
+</div>
+</div>
+
+<div class="home-spotlight">
+<div class="spotlight-top">
+<div class="eyebrow">★ FEATURED STATISTICAL TREND</div>
+<div class="spotlight-badge">FREE DATA</div>
+</div>
+<div id="homeFeatured" class="status">
+Analyzing this week's standout players...
 </div>
 </div>
 
-<div class="metrics">
-<div class="metric">NFL Teams<strong>32</strong></div>
-<div class="metric">Prop Categories<strong>4</strong></div>
-<div class="metric">Sportsbooks<strong>2</strong></div>
-<div class="metric">Featured Trend Cost<strong class="green">0 Credits</strong></div>
 </div>
 
-<div class="section-heading">
-<h3>Last Week's Standouts</h3>
-<span class="small" id="homeWeek"></span>
+<div class="home-kpis">
+<div class="home-kpi">
+<span>THE LEAGUE</span>
+<strong>32</strong>
+<small>NFL teams</small>
 </div>
-<div id="homeLeaders" class="cards">
+<div class="home-kpi">
+<span>STAT MARKETS</span>
+<strong>04</strong>
+<small>Passing, rushing, receiving, catches</small>
+</div>
+<div class="home-kpi">
+<span>SPORTSBOOKS</span>
+<strong>02</strong>
+<small>DraftKings + FanDuel</small>
+</div>
+<div class="home-kpi">
+<span>HOME API COST</span>
+<strong class="green">$0</strong>
+<small>No paid odds requests</small>
+</div>
+</div>
+
+<div class="home-section-title">
+<div>
+<div class="eyebrow">THE WEEK THAT WAS</div>
+<h3>Last Week's Leaders</h3>
+</div>
+<div class="small" id="homeWeek">Loading...</div>
+</div>
+<div id="homeLeaders" class="home-leaders">
 <div class="card muted">Loading ESPN statistics...</div>
 </div>
 
-<div class="section-heading">
+<div class="home-section-title">
+<div>
+<div class="eyebrow">COMING UP NEXT</div>
 <h3>Upcoming Matchups</h3>
-<span class="small">ESPN Schedule</span>
 </div>
-<div id="homeGames" class="cards"></div>
+<button onclick="showTab('schedule')">Full Schedule</button>
+</div>
+<div id="homeGames" class="home-games">
+<div class="card muted">Loading NFL matchups...</div>
+</div>
 
-<p class="small" style="margin-top:20px">
-Featured statistical trends use ESPN performance data and illustrative benchmark lines. They are not verified sportsbook offers or predictive betting recommendations.
-</p>
+<div class="home-disclaimer">
+FEATURED STATISTICAL TRENDS ARE HISTORICAL COMPARISONS AGAINST ILLUSTRATIVE BENCHMARKS.
+THEY ARE NOT VERIFIED SPORTSBOOK LINES, CALIBRATED PREDICTIONS, OR BETTING RECOMMENDATIONS.
+</div>
+
 </section>
 
 <section id="schedule" class="tab">
 <h2>Live NFL Schedule</h2>
 <div class="panel">
 <div class="controls">
-<div class="field"><label>Game Date</label><input type="date" id="scheduleDate"></div>
+<div class="field">
+<label>Game Date</label>
+<input type="date" id="scheduleDate">
+</div>
 <button class="primary" onclick="loadSchedule()">Load Games</button>
 </div>
 <div id="scheduleStatus" class="status"></div>
@@ -165,7 +665,10 @@ Featured statistical trends use ESPN performance data and illustrative benchmark
 <h2>Player Stats</h2>
 <div class="panel">
 <div class="controls">
-<div class="field"><label>Game Date</label><input type="date" id="playerDate"></div>
+<div class="field">
+<label>Game Date</label>
+<input type="date" id="playerDate">
+</div>
 <button class="primary" onclick="loadPlayers()">Load Box Scores</button>
 </div>
 <div id="playersStatus" class="status"></div>
@@ -177,9 +680,16 @@ Featured statistical trends use ESPN performance data and illustrative benchmark
 <h2>Player Analysis</h2>
 <div class="panel">
 <div class="controls">
-<div class="field"><label>ESPN Player ID</label><input id="athleteId" placeholder="Player ID"></div>
-<div class="field"><label>Season</label><input id="analysisSeason" type="number"></div>
-<div class="field"><label>Stat Category</label>
+<div class="field">
+<label>ESPN Player ID</label>
+<input id="athleteId" placeholder="Player ID">
+</div>
+<div class="field">
+<label>Season</label>
+<input id="analysisSeason" type="number">
+</div>
+<div class="field">
+<label>Stat Category</label>
 <select id="analysisMarket">
 <option value="passing">Passing Yards</option>
 <option value="rushing">Rushing Yards</option>
@@ -187,10 +697,15 @@ Featured statistical trends use ESPN performance data and illustrative benchmark
 <option value="receptions">Receptions</option>
 </select>
 </div>
-<div class="field"><label>Comparison Line</label><input id="analysisLine" type="number" step=".5" value="50.5"></div>
+<div class="field">
+<label>Comparison Line</label>
+<input id="analysisLine" type="number" step=".5" value="50.5">
+</div>
 <button class="primary" onclick="runAnalysis()">Analyze Player</button>
 </div>
-<p class="small">Click a player under Player Stats to automatically fill in their ESPN ID.</p>
+<p class="small">
+Click a player in Player Stats to fill in their ESPN ID.
+</p>
 <div id="analysisStatus" class="status"></div>
 <div id="analysisResults"></div>
 </div>
@@ -208,7 +723,10 @@ Featured statistical trends use ESPN performance data and illustrative benchmark
 <section id="rankings" class="tab">
 <h2>Top 10 Player Props</h2>
 <div class="panel">
-<p class="muted">Historical rankings against available sportsbook lines. Run the Prop Scanner to populate this section.</p>
+<p class="muted">
+Historical rankings using available sportsbook lines.
+Run the Prop Scanner to populate this section.
+</p>
 <div id="rankingsStatus" class="status">No scan completed yet.</div>
 <div id="rankingsResults" class="tablewrap"></div>
 </div>
@@ -218,8 +736,12 @@ Featured statistical trends use ESPN performance data and illustrative benchmark
 <h2>DraftKings + FanDuel Prop Scanner</h2>
 <div class="panel">
 <div class="controls">
-<div class="field"><label>Game Date</label><input type="date" id="scanDate"></div>
-<div class="field"><label>Prop Type</label>
+<div class="field">
+<label>Game Date</label>
+<input type="date" id="scanDate">
+</div>
+<div class="field">
+<label>Prop Type</label>
 <select id="scanMarket">
 <option value="all">All Props</option>
 <option value="passing">Passing Yards</option>
@@ -228,7 +750,8 @@ Featured statistical trends use ESPN performance data and illustrative benchmark
 <option value="receptions">Receptions</option>
 </select>
 </div>
-<div class="field"><label>Games to Scan</label>
+<div class="field">
+<label>Games to Scan</label>
 <select id="maxGames">
 <option value="1">1 Game — Testing</option>
 <option value="3" selected>3 Games</option>
@@ -236,9 +759,14 @@ Featured statistical trends use ESPN performance data and illustrative benchmark
 <option value="16">Full Slate</option>
 </select>
 </div>
-<button class="primary" id="scanButton" onclick="runScanner()">Scan Player Props</button>
+<button class="primary" id="scanButton" onclick="runScanner()">
+Scan Player Props
+</button>
 </div>
-<p class="small">Only the Prop Scanner requests sportsbook odds. The Home page never requests the paid Odds API.</p>
+<p class="small">
+Only the Prop Scanner requests sportsbook odds.
+The Home page never calls the paid Odds API.
+</p>
 <div id="scanEstimate" class="status"></div>
 <div id="scanStatus" class="status"></div>
 <div id="scanMetrics" class="metrics"></div>
@@ -253,18 +781,32 @@ Featured statistical trends use ESPN performance data and illustrative benchmark
 <h2>Prop Calculator</h2>
 <div class="panel">
 <div class="controls">
-<div class="field"><label>American Odds</label><input id="calcOdds" type="number" value="-110"></div>
-<div class="field"><label>Stake ($)</label><input id="calcStake" type="number" value="10"></div>
-<div class="field"><label>Estimated Win Probability (%)</label><input id="calcProb" type="number" value="55" min="0" max="100"></div>
+<div class="field">
+<label>American Odds</label>
+<input id="calcOdds" type="number" value="-110">
+</div>
+<div class="field">
+<label>Stake ($)</label>
+<input id="calcStake" type="number" value="10">
+</div>
+<div class="field">
+<label>Estimated Win Probability (%)</label>
+<input id="calcProb" type="number" value="55" min="0" max="100">
+</div>
 <button class="primary" onclick="calculate()">Calculate</button>
 </div>
 <div id="calcResults" class="metrics"></div>
-<p class="small">Expected value depends on your independently estimated probability.</p>
+<p class="small">
+Expected value depends on your independently estimated probability.
+</p>
 </div>
 </section>
 
 </main>
-<footer>NFL EDGE PRO • Unofficial analytics dashboard • ESPN and third-party sportsbook feeds</footer>
+
+<footer>
+NFL EDGE PRO • Unofficial football analytics • ESPN and third-party sportsbook feeds
+</footer>
 
 <script>
 "use strict";
@@ -286,9 +828,15 @@ let scanning=false;
 
 const $=id=>document.getElementById(id);
 
-const esc=v=>String(v??"").replace(/[&<>"']/g,c=>({
-"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+function esc(v){
+return String(v??"").replace(/[&<>"']/g,c=>({
+"&":"&amp;",
+"<":"&lt;",
+">":"&gt;",
+'"':"&quot;",
+"'":"&#39;"
 })[c]);
+}
 
 function number(v){
 if(v==null||v===""||v==="--")return NaN;
@@ -296,17 +844,25 @@ const n=Number(String(v).replace(/,/g,""));
 return Number.isFinite(n)?n:NaN;
 }
 
-const fmt=(n,d=1)=>Number.isFinite(n)?n.toFixed(d):"—";
-const pct=n=>Number.isFinite(n)?fmt(n*100,0)+"%":"—";
+function fmt(n,d=1){
+return Number.isFinite(n)?n.toFixed(d):"—";
+}
+
+function pct(n){
+return Number.isFinite(n)?fmt(n*100,0)+"%":"—";
+}
 
 function avg(values){
 const valid=values.filter(Number.isFinite);
-return valid.length?valid.reduce((a,b)=>a+b,0)/valid.length:NaN;
+return valid.length?
+valid.reduce((a,b)=>a+b,0)/valid.length:NaN;
 }
 
 function nameKey(s){
-return String(s||"").normalize("NFD")
-.replace(/[\u0300-\u036f]/g,"").toLowerCase()
+return String(s||"")
+.normalize("NFD")
+.replace(/[\u0300-\u036f]/g,"")
+.toLowerCase()
 .replace(/\b(jr|sr|ii|iii|iv)\b/g,"")
 .replace(/[^a-z0-9]/g,"");
 }
@@ -319,9 +875,13 @@ String(d.getDate()).padStart(2,"0");
 
 function chicagoDate(d){
 const parts=new Intl.DateTimeFormat("en-US",{
-timeZone:"America/Chicago",year:"numeric",month:"2-digit",day:"2-digit"
+timeZone:"America/Chicago",
+year:"numeric",
+month:"2-digit",
+day:"2-digit"
 }).formatToParts(d);
-const get=type=>parts.find(p=>p.type===type)?.value||"";
+
+const get=t=>parts.find(p=>p.type===t)?.value||"";
 return get("year")+"-"+get("month")+"-"+get("day");
 }
 
@@ -331,8 +891,9 @@ $(id).style.color=error?"var(--red)":"var(--muted)";
 }
 
 async function json(url,ttl=60000){
-const cached=cache.get(url);
-if(cached&&cached.until>Date.now())return cached.data;
+const found=cache.get(url);
+
+if(found&&found.until>Date.now())return found.data;
 
 const controller=new AbortController();
 const timer=setTimeout(()=>controller.abort(),20000);
@@ -340,7 +901,11 @@ const timer=setTimeout(()=>controller.abort(),20000);
 try{
 const response=await fetch(url,{signal:controller.signal});
 const data=await response.json();
-if(!response.ok)throw Error(data.error||data.message||"HTTP "+response.status);
+
+if(!response.ok){
+throw Error(data.error||data.message||"HTTP "+response.status);
+}
+
 cache.set(url,{data,until:Date.now()+ttl});
 return data;
 }finally{
@@ -350,6 +915,7 @@ clearTimeout(timer);
 
 async function batch(items,size,fn){
 const output=[];
+
 for(let i=0;i<items.length;i+=size){
 const part=await Promise.all(
 items.slice(i,i+size).map(x=>
@@ -358,34 +924,48 @@ Promise.resolve().then(()=>fn(x))
 ));
 output.push(...part);
 }
+
 return output;
 }
 
 function photo(id,name){
-const initials=String(name||"P").split(/\s+/).slice(0,2)
+const initials=String(name||"P")
+.split(/\s+/).slice(0,2)
 .map(x=>x[0]||"").join("").toUpperCase();
-const svg='<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96">'+
+
+const svg=
+'<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96">'+
 '<rect width="96" height="96" rx="48" fill="#254157"/>'+
 '<text x="48" y="58" text-anchor="middle" font-family="Arial" font-size="30" fill="white">'+
 esc(initials)+'</text></svg>';
+
 const fallback="data:image/svg+xml,"+encodeURIComponent(svg);
+
 const src=/^\d+$/.test(String(id||""))?
-"https://a.espncdn.com/i/headshots/nfl/players/full/"+encodeURIComponent(id)+".png":
-fallback;
+"https://a.espncdn.com/i/headshots/nfl/players/full/"+
+encodeURIComponent(id)+".png":fallback;
+
 return `<img class="headshot" loading="lazy" alt=""
 src="${src}" onerror="this.onerror=null;this.src='${fallback}'">`;
 }
 
 function playerHTML(name,id,subtitle=""){
-return `<div class="player">${photo(id,name)}
-<div><strong>${esc(name)}</strong><div class="small">${esc(subtitle)}</div></div>
+return `<div class="player">
+${photo(id,name)}
+<div>
+<strong>${esc(name)}</strong>
+<div class="small">${esc(subtitle)}</div>
+</div>
 </div>`;
 }
 
 function showTab(id){
-document.querySelectorAll(".tab").forEach(x=>x.classList.toggle("active",x.id===id));
+document.querySelectorAll(".tab").forEach(x=>
+x.classList.toggle("active",x.id===id));
+
 document.querySelectorAll("nav button").forEach(x=>
 x.classList.toggle("active",x.dataset.tab===id));
+
 window.scrollTo({top:0,behavior:"smooth"});
 }
 
@@ -393,13 +973,18 @@ document.querySelectorAll("nav button").forEach(button=>{
 button.onclick=()=>showTab(button.dataset.tab);
 });
 
+/* ESPN SCHEDULE */
+
 async function gamesOn(date){
-const data=await json(ESPN+"/scoreboard?dates="+date.replace(/-/g,"")+"&limit=100");
+const data=await json(
+ESPN+"/scoreboard?dates="+date.replace(/-/g,"")+"&limit=100"
+);
 return data.events||[];
 }
 
 function teamsInGame(game){
 const list=game.competitions?.[0]?.competitors||[];
+
 return {
 home:list.find(x=>x.homeAway==="home"),
 away:list.find(x=>x.homeAway==="away")
@@ -415,11 +1000,18 @@ return (t.away?.team?.displayName||"Away")+" @ "+
 function gameCard(game){
 const t=teamsInGame(game);
 const played=game.status?.type?.state!=="pre";
+
 const score=played?
-`<div class="leader-stat">${esc(t.away?.score??"0")} – ${esc(t.home?.score??"0")}</div>`:"";
+`<div style="font:800 40px 'Barlow Condensed',sans-serif;margin:15px 0">
+${esc(t.away?.score??"0")} – ${esc(t.home?.score??"0")}
+</div>`:"";
+
 const time=new Date(game.date).toLocaleString(undefined,{
-weekday:"short",hour:"numeric",minute:"2-digit"
+weekday:"short",
+hour:"numeric",
+minute:"2-digit"
 });
+
 return `<div class="card">
 <div class="small">${esc(time)}</div>
 <h3 style="margin:12px 0">${esc(gameName(game))}</h3>
@@ -434,51 +1026,64 @@ return json(ESPN+"/summary?event="+encodeURIComponent(id),120000);
 
 function boxRows(data,game){
 const rows=[];
+
 for(const team of data.boxscore?.players||[]){
 for(const group of team.statistics||[]){
 const labels=group.labels||group.names||[];
+
 for(const entry of group.athletes||[]){
 const athlete=entry.athlete||{};
+
 rows.push({
 id:String(athlete.id||""),
 name:athlete.displayName||athlete.fullName||"",
 team:team.team?.abbreviation||"",
 category:group.name||group.label||"",
-labels,stats:entry.stats||[],game
+labels,
+stats:entry.stats||[],
+game
 });
 }
 }
 }
+
 return rows;
 }
 
 function statFromBox(row,market){
 const category=nameKey(row.category);
 if(!category.includes(market))return NaN;
+
+const wanted=market==="receptions"?
+["rec","receptions"]:
+["yds","yards",market+"yards"];
+
 for(let i=0;i<row.labels.length;i++){
-const label=nameKey(row.labels[i]);
-if(["yds","yards",market+"yards"].includes(label)){
+if(wanted.includes(nameKey(row.labels[i]))){
 return number(row.stats[i]);
 }
 }
+
 return NaN;
 }
 
-/* =====================================
-   HOME: FREE ESPN FEATURED STAT TREND
-===================================== */
+/* PREMIUM HOME */
 
 function lastWeekDates(){
 const now=new Date();
 const day=now.getDay();
+
 const monday=new Date(now);
 monday.setDate(now.getDate()-((day+6)%7)-7);
+
 const dates=[];
+
 for(let i=0;i<7;i++){
 const d=new Date(monday);
 d.setDate(monday.getDate()+i);
 dates.push(dateLocal(d));
 }
+
 return dates;
 }
 
@@ -497,35 +1102,48 @@ const candidates=[];
 
 for(const market of categories){
 const rows=weeklyRows.map(row=>({
-...row,value:statFromBox(row,market)
-})).filter(x=>Number.isFinite(x.value)&&x.id);
+...row,
+value:statFromBox(row,market)
+}))
+.filter(x=>Number.isFinite(x.value)&&x.id);
 
 rows.sort((a,b)=>b.value-a.value);
+
 for(const row of rows.slice(0,4)){
 if(!candidates.some(c=>c.id===row.id&&c.market===market)){
 candidates.push({...row,market});
 }
 }
 }
+
 return candidates.slice(0,9);
 }
 
 function featuredScore(rows,line){
 const values=rows.map(x=>x.value).filter(Number.isFinite);
+
 if(values.length<3)return null;
+
 const recent=values.slice(0,5);
 const hits=values.filter(x=>x>line).length;
 const recentHits=recent.filter(x=>x>line).length;
+
 const seasonRate=hits/values.length;
 const recentRate=recentHits/recent.length;
-const mean=avg(values);
-const recentMean=avg(recent);
 
 return {
-line,hits,games:values.length,recentHits,
-recentGames:recent.length,seasonRate,recentRate,
-mean,recentMean,
-score:recentRate*.55+seasonRate*.35+
+line,
+hits,
+games:values.length,
+recentHits,
+recentGames:recent.length,
+seasonRate,
+recentRate,
+mean:avg(values),
+recentMean:avg(recent),
+recentValues:recent,
+score:recentRate*.55+
+seasonRate*.35+
 Math.min(values.length,12)/12*.1
 };
 }
@@ -536,11 +1154,18 @@ const picks=[];
 for(const candidate of candidates){
 const log=logMap.get(candidate.id);
 if(!log)continue;
+
 const rows=parseLog(log,candidate.market);
+
 for(const line of benchmarks(candidate.market)){
 const result=featuredScore(rows,line);
 if(!result)continue;
-picks.push({...candidate,...result,season});
+
+picks.push({
+...candidate,
+...result,
+season
+});
 }
 }
 
@@ -549,81 +1174,194 @@ b.score-a.score||
 b.recentHits-a.recentHits||
 b.games-a.games
 );
+
 return picks[0]||null;
 }
 
 function renderFeatured(pick){
 if(!pick){
 $("homeFeatured").innerHTML=`
-<p class="muted">No featured trend is available yet. ESPN may not have enough completed games or accessible player game logs.</p>`;
+<p class="muted" style="margin-top:25px">
+No featured statistical trend is available yet.
+ESPN may not have enough completed games or accessible player logs.
+</p>`;
 return;
 }
 
+const max=Math.max(
+pick.line*1.3,
+...pick.recentValues,
+1
+);
+
+const bars=pick.recentValues.slice().reverse().map((value,i)=>{
+const height=Math.max(5,Math.min(100,value/max*100));
+const hit=value>pick.line;
+
+return `<div class="trend-column">
+<small>${fmt(value,0)}</small>
+<div class="bar ${hit?"":"miss"}" style="height:${height}%"></div>
+<small>G${i+1}</small>
+</div>`;
+}).join("");
+
 $("homeFeatured").innerHTML=`
-<div style="margin-top:20px">
-${playerHTML(pick.name,pick.id,pick.team)}
+<div class="spotlight-player">
+${photo(pick.id,pick.name)}
+<div>
+<div class="spotlight-name">${esc(pick.name)}</div>
+<div class="small">${esc(pick.team)} • ${esc(MARKETS[pick.market])}</div>
 </div>
-<div class="feature-line">OVER ${fmt(pick.line)} ${esc(MARKETS[pick.market])}</div>
-<div class="small">Illustrative statistical benchmark • Not a live sportsbook line</div>
-<div class="feature-stats">
-<div class="feature-stat">
-<span>Last 5 Hits</span>
+</div>
+
+<div class="spotlight-line">
+OVER ${fmt(pick.line)}
+<span style="color:var(--green)">${esc(MARKETS[pick.market])}</span>
+</div>
+
+<div class="small">
+Illustrative benchmark · Not a live sportsbook line
+</div>
+
+<div class="spotlight-stats">
+<div class="spotlight-stat">
+<span>LAST 5 HITS</span>
 <strong>${pick.recentHits}/${pick.recentGames}</strong>
 </div>
-<div class="feature-stat">
-<span>Season Hit Rate</span>
+<div class="spotlight-stat">
+<span>SEASON HIT RATE</span>
 <strong class="green">${pct(pick.seasonRate)}</strong>
 </div>
-<div class="feature-stat">
-<span>Season Average</span>
+<div class="spotlight-stat">
+<span>SEASON AVERAGE</span>
 <strong>${fmt(pick.mean)}</strong>
 </div>
 </div>
-<div class="small" style="margin-top:16px">
-Last 5 average: ${fmt(pick.recentMean)} • ${pick.games} recorded games
+
+<div style="margin-top:18px" class="eyebrow">
+LAST FIVE GAME PERFORMANCE
 </div>
-<div class="small" style="margin-top:9px">
-ESPN statistical data • ${pick.season} season
+
+<div class="trend-bars">${bars}</div>
+
+<div class="small" style="margin-top:13px">
+Last 5 average: ${fmt(pick.recentMean)}
+&nbsp;•&nbsp; ${pick.games} recorded games
 </div>
-<div class="small" style="margin-top:9px">
-Updated: ${esc(new Date().toLocaleString())}
+
+<div class="small" style="margin-top:7px">
+ESPN ${pick.season} season
+&nbsp;•&nbsp; Updated ${esc(new Date().toLocaleString())}
 </div>
 `;
 }
 
+function teamLogo(team){
+const url=team?.logo||team?.logos?.[0]?.href||
+"https://a.espncdn.com/i/teamlogos/nfl/500/"+
+String(team?.abbreviation||"nfl").toLowerCase()+".png";
+
+return `<img src="${esc(url)}" alt="" loading="lazy">`;
+}
+
+function homeMatchup(game){
+const t=teamsInGame(game);
+
+const kickoff=new Date(game.date).toLocaleString(undefined,{
+weekday:"short",
+month:"short",
+day:"numeric",
+hour:"numeric",
+minute:"2-digit"
+});
+
+return `<div class="matchup-card">
+<div class="eyebrow">UPCOMING MATCHUP</div>
+
+<div class="matchup-teams">
+<div class="matchup-team">
+${teamLogo(t.away?.team)}
+<span>${esc(t.away?.team?.abbreviation||"AWAY")}</span>
+</div>
+
+<div class="matchup-vs">@</div>
+
+<div class="matchup-team">
+${teamLogo(t.home?.team)}
+<span>${esc(t.home?.team?.abbreviation||"HOME")}</span>
+</div>
+</div>
+
+<div class="small" style="text-align:center">
+${esc(kickoff)}
+</div>
+</div>`;
+}
+
 async function loadHome(){
+$("homeDate").textContent=new Date().toLocaleDateString(undefined,{
+weekday:"long",
+month:"short",
+day:"numeric",
+year:"numeric"
+});
+
 const dates=lastWeekDates();
 $("homeWeek").textContent=dates[0]+" through "+dates[6];
 
 try{
-const weekly=await Promise.all(dates.map(d=>gamesOn(d).catch(()=>[])));
-const games=[...new Map(weekly.flat().map(x=>[x.id,x])).values()]
-.filter(x=>x.status?.type?.state==="post");
+const weekly=await Promise.all(
+dates.map(d=>gamesOn(d).catch(()=>[]))
+);
+
+const games=[
+...new Map(weekly.flat().map(x=>[x.id,x])).values()
+].filter(x=>x.status?.type?.state==="post");
 
 const results=await batch(games,5,async game=>
-boxRows(await summary(game.id),gameName(game)));
+boxRows(await summary(game.id),gameName(game))
+);
+
 const rows=results.filter(Array.isArray).flat();
 
 $("homeLeaders").innerHTML=[
-["passing","Passing Yards Leader"],
-["rushing","Rushing Yards Leader"],
-["receiving","Receiving Yards Leader"]
-].map(([market,label])=>{
-const leaders=rows.map(row=>({...row,value:statFromBox(row,market)}))
+["passing","PASSING LEADER","Passing Yards"],
+["rushing","RUSHING LEADER","Rushing Yards"],
+["receiving","RECEIVING LEADER","Receiving Yards"]
+].map(([market,label,description])=>{
+const leaders=rows.map(row=>({
+...row,
+value:statFromBox(row,market)
+}))
 .filter(x=>Number.isFinite(x.value))
 .sort((a,b)=>b.value-a.value);
+
 const best=leaders[0];
 
-if(!best)return `<div class="card">
+if(!best){
+return `<div class="leader-card">
 <div class="eyebrow">${label}</div>
 <p class="muted">No completed statistics available.</p>
 </div>`;
+}
 
-return `<div class="card">
+return `<div class="leader-card">
 <div class="eyebrow">${label}</div>
-<div class="leader-stat">${fmt(best.value,0)} <span class="small">YDS</span></div>
+
+<div class="leader-number">
+${fmt(best.value,0)}
+<span style="font-size:17px;color:var(--muted)">YDS</span>
+</div>
+
 ${playerHTML(best.name,best.id,best.team)}
-<p class="small">${esc(best.game)}</p>
+
+<div class="small" style="margin-top:17px">
+${esc(best.game)}
+</div>
+
+<div class="small" style="margin-top:5px">
+${esc(description)}
+</div>
 </div>`;
 }).join("");
 
@@ -633,82 +1371,122 @@ if(!candidates.length){
 renderFeatured(null);
 }else{
 const season=Number(dates[6].slice(0,4));
+
 const logs=await batch(candidates,4,async player=>({
 id:player.id,
 data:await gameLog(player.id,season)
 }));
-const logMap=new Map(logs.filter(x=>x.id).map(x=>[x.id,x.data]));
+
+const logMap=new Map(
+logs.filter(x=>x.id).map(x=>[x.id,x.data])
+);
+
 renderFeatured(chooseFeatured(candidates,logMap,season));
 }
+
 }catch(error){
-console.warn("Home ESPN data error:",error);
-$("homeLeaders").innerHTML='<div class="card muted">Weekly ESPN statistics are unavailable.</div>';
+console.warn("Home data error:",error);
+
+$("homeLeaders").innerHTML=
+'<div class="card muted">Weekly ESPN statistics unavailable.</div>';
+
 renderFeatured(null);
 }
 
 try{
 const dates=[];
+
 for(let i=0;i<14;i++){
 const d=new Date();
 d.setDate(d.getDate()+i);
 dates.push(dateLocal(d));
 }
-const schedules=await Promise.all(dates.map(d=>gamesOn(d).catch(()=>[])));
-const upcoming=[...new Map(schedules.flat().map(x=>[x.id,x])).values()]
+
+const schedules=await Promise.all(
+dates.map(d=>gamesOn(d).catch(()=>[]))
+);
+
+const upcoming=[
+...new Map(schedules.flat().map(x=>[x.id,x])).values()
+]
 .filter(g=>g.status?.type?.state==="pre")
 .sort((a,b)=>new Date(a.date)-new Date(b.date))
 .slice(0,6);
 
-$("homeGames").innerHTML=upcoming.map(gameCard).join("")||
+$("homeGames").innerHTML=
+upcoming.map(homeMatchup).join("")||
 '<div class="card muted">No upcoming games in the next 14 days.</div>';
+
 }catch(error){
-$("homeGames").innerHTML='<div class="card muted">Schedule unavailable.</div>';
+$("homeGames").innerHTML=
+'<div class="card muted">Upcoming schedule unavailable.</div>';
 }
 }
 
-/* =====================================
-   LIVE SCHEDULE
-===================================== */
+/* LIVE SCHEDULE */
 
 async function loadSchedule(){
 status("scheduleStatus","Loading NFL games...");
 $("scheduleResults").innerHTML="";
+
 try{
 const games=await gamesOn($("scheduleDate").value);
-$("scheduleResults").innerHTML=games.map(gameCard).join("")||
+
+$("scheduleResults").innerHTML=
+games.map(gameCard).join("")||
 '<div class="card">No games scheduled.</div>';
+
 status("scheduleStatus",games.length+" games found.");
+
 }catch(e){
 status("scheduleStatus",e.message,true);
 }
 }
 
-/* =====================================
-   PLAYER STATS
-===================================== */
+/* PLAYER STATS */
 
 async function loadPlayers(){
 status("playersStatus","Loading box scores...");
 $("playersResults").innerHTML="";
+
 try{
 const games=await gamesOn($("playerDate").value);
+
 const responses=await batch(games,4,async game=>
-boxRows(await summary(game.id),gameName(game)));
+boxRows(await summary(game.id),gameName(game))
+);
+
 const rows=responses.filter(Array.isArray).flat();
 
 $("playersResults").innerHTML=`
-<table><thead><tr>
-<th>Player</th><th>Team</th><th>Category</th><th>Statistics</th><th>Game</th>
-</tr></thead><tbody>
+<table>
+<thead>
+<tr>
+<th>Player</th>
+<th>Team</th>
+<th>Category</th>
+<th>Statistics</th>
+<th>Game</th>
+</tr>
+</thead>
+<tbody>
 ${rows.map(row=>`<tr>
-<td><div class="player">${photo(row.id,row.name)}
-<button data-athlete="${esc(row.id)}">${esc(row.name)}</button></div></td>
+<td>
+<div class="player">
+${photo(row.id,row.name)}
+<button data-athlete="${esc(row.id)}">
+${esc(row.name)}
+</button>
+</div>
+</td>
 <td>${esc(row.team)}</td>
 <td>${esc(row.category)}</td>
-<td>${esc(row.labels.map((x,i)=>x+": "+(row.stats[i]??"—")).join(" | "))}</td>
+<td>${esc(row.labels.map((x,i)=>
+x+": "+(row.stats[i]??"—")).join(" | "))}</td>
 <td>${esc(row.game)}</td>
 </tr>`).join("")}
-</tbody></table>`;
+</tbody>
+</table>`;
 
 $("playersResults").querySelectorAll("[data-athlete]").forEach(button=>{
 button.onclick=()=>{
@@ -716,22 +1494,26 @@ $("athleteId").value=button.dataset.athlete;
 showTab("analysis");
 };
 });
+
 status("playersStatus",rows.length+" player-stat rows loaded.");
+
 }catch(e){
 status("playersStatus",e.message,true);
 }
 }
 
-/* =====================================
-   PLAYER GAME LOGS
-===================================== */
+/* ESPN GAME LOGS */
 
 async function gameLog(id,season){
-return json(LOG_API+encodeURIComponent(id)+"/gamelog?season="+season,300000);
+return json(
+LOG_API+encodeURIComponent(id)+"/gamelog?season="+season,
+300000
+);
 }
 
 function parseLog(data,market){
 const events=data.events||{};
+
 const aliases={
 passing:["passingyards","passyds","pyds"],
 rushing:["rushingyards","rushyds","ryds"],
@@ -744,8 +1526,12 @@ const rows=[];
 function collect(groups){
 for(const group of groups||[]){
 const keys=group.names||group.keys||data.names||[];
+
 for(const item of group.events||[]){
-const id=String(item.eventId||item.id||item.event?.id||"");
+const id=String(
+item.eventId||item.id||item.event?.id||""
+);
+
 const stats={};
 
 if(Array.isArray(item.stats)){
@@ -757,6 +1543,7 @@ Object.assign(stats,item.stats);
 }
 
 let value=NaN;
+
 for(const [key,v] of Object.entries(stats)){
 if(aliases.includes(nameKey(key))){
 value=number(v);
@@ -767,7 +1554,9 @@ break;
 if(Number.isFinite(value)){
 rows.push({
 id,
-date:events[id]?.gameDate||events[id]?.date||item.date||"",
+date:events[id]?.gameDate||
+events[id]?.date||
+item.date||"",
 value
 });
 }
@@ -775,20 +1564,32 @@ value
 }
 }
 
-for(const type of data.seasonTypes||[])collect(type.categories);
-if(!rows.length)collect(data.categories);
+for(const type of data.seasonTypes||[]){
+collect(type.categories);
+}
+
+if(!rows.length){
+collect(data.categories);
+}
 
 const unique=new Map();
-rows.forEach(r=>unique.set(r.id||r.date+"-"+r.value,r));
+
+rows.forEach(r=>{
+unique.set(r.id||r.date+"-"+r.value,r);
+});
+
 return [...unique.values()].sort((a,b)=>
-String(b.date).localeCompare(String(a.date)));
+String(b.date).localeCompare(String(a.date))
+);
 }
 
 function evaluate(rows,line){
 const values=rows.map(x=>x.value).filter(Number.isFinite);
 const recent=values.slice(0,5);
+
 const over=values.filter(x=>x>line).length;
 const under=values.filter(x=>x<line).length;
+
 return {
 games:values.length,
 average:avg(values),
@@ -801,9 +1602,12 @@ recentGames:recent.length
 };
 }
 
+/* PLAYER ANALYSIS */
+
 async function runAnalysis(){
 status("analysisStatus","Loading player game log...");
 $("analysisResults").innerHTML="";
+
 try{
 const id=$("athleteId").value.trim();
 const season=Number($("analysisSeason").value);
@@ -819,98 +1623,156 @@ const result=evaluate(rows,line);
 
 $("analysisResults").innerHTML=`
 <div class="metrics">
-<div class="metric">Season Average<strong>${fmt(result.average)}</strong></div>
-<div class="metric">Last 5 Average<strong>${fmt(result.recentAverage)}</strong></div>
-<div class="metric">Over Hit Rate<strong>${pct(result.overRate)}</strong></div>
-<div class="metric">Last 5 Overs<strong>${result.last5Over}/${result.recentGames}</strong></div>
+<div class="metric">
+Season Average
+<strong>${fmt(result.average)}</strong>
 </div>
+<div class="metric">
+Last 5 Average
+<strong>${fmt(result.recentAverage)}</strong>
+</div>
+<div class="metric">
+Over Hit Rate
+<strong>${pct(result.overRate)}</strong>
+</div>
+<div class="metric">
+Last 5 Overs
+<strong>${result.last5Over}/${result.recentGames}</strong>
+</div>
+</div>
+
 <div class="tablewrap">
-<table><thead><tr><th>Date</th><th>${MARKETS[market]}</th><th>Result vs ${fmt(line)}</th></tr></thead>
-<tbody>${rows.map(r=>`<tr>
+<table>
+<thead>
+<tr>
+<th>Date</th>
+<th>${MARKETS[market]}</th>
+<th>Result vs ${fmt(line)}</th>
+</tr>
+</thead>
+<tbody>
+${rows.map(r=>`<tr>
 <td>${esc(r.date||r.id)}</td>
 <td>${fmt(r.value)}</td>
 <td class="${r.value>line?"green":r.value<line?"red":"gold"}">
 ${r.value>line?"OVER":r.value<line?"UNDER":"PUSH"}
 </td>
-</tr>`).join("")}</tbody></table>
+</tr>`).join("")}
+</tbody>
+</table>
 </div>`;
 
 status("analysisStatus",rows.length+" historical games found.");
+
 }catch(e){
 status("analysisStatus",e.message,true);
 }
 }
 
-/* =====================================
-   32 NFL TEAMS
-===================================== */
+/* NFL TEAMS */
 
 const TEAM_DATA=[
-[22,"Arizona Cardinals","ARI"],[1,"Atlanta Falcons","ATL"],
-[33,"Baltimore Ravens","BAL"],[2,"Buffalo Bills","BUF"],
-[29,"Carolina Panthers","CAR"],[3,"Chicago Bears","CHI"],
-[4,"Cincinnati Bengals","CIN"],[5,"Cleveland Browns","CLE"],
-[6,"Dallas Cowboys","DAL"],[7,"Denver Broncos","DEN"],
-[8,"Detroit Lions","DET"],[9,"Green Bay Packers","GB"],
-[34,"Houston Texans","HOU"],[11,"Indianapolis Colts","IND"],
-[30,"Jacksonville Jaguars","JAX"],[12,"Kansas City Chiefs","KC"],
-[13,"Las Vegas Raiders","LV"],[24,"Los Angeles Chargers","LAC"],
-[14,"Los Angeles Rams","LAR"],[15,"Miami Dolphins","MIA"],
-[16,"Minnesota Vikings","MIN"],[17,"New England Patriots","NE"],
-[18,"New Orleans Saints","NO"],[19,"New York Giants","NYG"],
-[20,"New York Jets","NYJ"],[21,"Philadelphia Eagles","PHI"],
-[23,"Pittsburgh Steelers","PIT"],[25,"San Francisco 49ers","SF"],
-[26,"Seattle Seahawks","SEA"],[27,"Tampa Bay Buccaneers","TB"],
-[10,"Tennessee Titans","TEN"],[28,"Washington Commanders","WSH"]
+[22,"Arizona Cardinals","ARI"],
+[1,"Atlanta Falcons","ATL"],
+[33,"Baltimore Ravens","BAL"],
+[2,"Buffalo Bills","BUF"],
+[29,"Carolina Panthers","CAR"],
+[3,"Chicago Bears","CHI"],
+[4,"Cincinnati Bengals","CIN"],
+[5,"Cleveland Browns","CLE"],
+[6,"Dallas Cowboys","DAL"],
+[7,"Denver Broncos","DEN"],
+[8,"Detroit Lions","DET"],
+[9,"Green Bay Packers","GB"],
+[34,"Houston Texans","HOU"],
+[11,"Indianapolis Colts","IND"],
+[30,"Jacksonville Jaguars","JAX"],
+[12,"Kansas City Chiefs","KC"],
+[13,"Las Vegas Raiders","LV"],
+[24,"Los Angeles Chargers","LAC"],
+[14,"Los Angeles Rams","LAR"],
+[15,"Miami Dolphins","MIA"],
+[16,"Minnesota Vikings","MIN"],
+[17,"New England Patriots","NE"],
+[18,"New Orleans Saints","NO"],
+[19,"New York Giants","NYG"],
+[20,"New York Jets","NYJ"],
+[21,"Philadelphia Eagles","PHI"],
+[23,"Pittsburgh Steelers","PIT"],
+[25,"San Francisco 49ers","SF"],
+[26,"Seattle Seahawks","SEA"],
+[27,"Tampa Bay Buccaneers","TB"],
+[10,"Tennessee Titans","TEN"],
+[28,"Washington Commanders","WSH"]
 ].map(([id,displayName,abbreviation])=>({
-id,displayName,abbreviation,
-logos:[{href:"https://a.espncdn.com/i/teamlogos/nfl/500/"+
-abbreviation.toLowerCase()+".png"}]
+id,
+displayName,
+abbreviation,
+logos:[{
+href:"https://a.espncdn.com/i/teamlogos/nfl/500/"+
+abbreviation.toLowerCase()+".png"
+}]
 }));
 
 async function loadTeams(){
 status("teamsStatus","Loading all NFL teams...");
+
 let teams=TEAM_DATA;
 let source="Built-in team directory";
 
 try{
 const data=await json(ESPN+"/teams?limit=50",3600000);
 const result=data.sports?.[0]?.leagues?.[0]?.teams;
+
 if(Array.isArray(result)&&result.length>=32){
 teams=result.map(x=>x.team||x);
 source="ESPN";
 }
+
 }catch(e){
 console.warn("Using fallback teams:",e);
 }
 
-teams=[...teams].sort((a,b)=>a.displayName.localeCompare(b.displayName));
+teams=[...teams].sort((a,b)=>
+a.displayName.localeCompare(b.displayName)
+);
 
 $("teamsResults").innerHTML=teams.map(team=>`
 <div class="card">
 <div class="team-row">
 <img class="team-logo" loading="lazy"
 src="${esc(team.logos?.[0]?.href||"")}" alt="">
-<div><strong>${esc(team.displayName)}</strong>
-<div class="small">${esc(team.abbreviation)}</div></div>
+<div>
+<strong>${esc(team.displayName)}</strong>
+<div class="small">${esc(team.abbreviation)}</div>
+</div>
 </div>
 </div>`).join("");
 
 status("teamsStatus",teams.length+" teams loaded • "+source);
 }
 
-/* =====================================
-   ESPN ROSTERS
-===================================== */
+/* ESPN ROSTERS */
 
 function rosterPlayers(data){
 const result=[];
+
 function walk(items){
 for(const x of items||[]){
-if(Array.isArray(x.items)){walk(x.items);continue}
-if(Array.isArray(x.athletes)){walk(x.athletes);continue}
+if(Array.isArray(x.items)){
+walk(x.items);
+continue;
+}
+
+if(Array.isArray(x.athletes)){
+walk(x.athletes);
+continue;
+}
+
 const a=x.athlete||x;
+
 if(!a.id)continue;
+
 result.push({
 id:String(a.id),
 name:a.displayName||a.fullName||a.name||"",
@@ -918,69 +1780,99 @@ position:a.position?.abbreviation||""
 });
 }
 }
+
 walk(data.athletes);
 walk(data.team?.athletes);
+
 return result;
 }
 
 async function rosterForGames(games){
 const teams=new Map();
+
 for(const game of games){
 for(const c of game.competitions?.[0]?.competitors||[]){
-if(c.team?.id)teams.set(c.team.id,c.team);
+if(c.team?.id){
+teams.set(c.team.id,c.team);
+}
 }
 }
 
 const responses=await batch([...teams.values()],4,async team=>{
-const data=await json(ESPN+"/teams/"+team.id+"/roster",300000);
-return rosterPlayers(data).map(x=>({...x,team:team.abbreviation}));
+const data=await json(
+ESPN+"/teams/"+team.id+"/roster",
+300000
+);
+
+return rosterPlayers(data).map(x=>({
+...x,
+team:team.abbreviation
+}));
 });
 
-return [...new Map(responses.filter(Array.isArray).flat()
-.map(x=>[nameKey(x.name),x])).entries()];
+return [...new Map(
+responses.filter(Array.isArray).flat()
+.map(x=>[nameKey(x.name),x])
+).entries()];
 }
 
-/* =====================================
-   SPORTSBOOK ODDS
-===================================== */
+/* SPORTSBOOK ODDS */
 
 async function oddsEvents(){
 const response=await json(ODDS+"/events");
-return Array.isArray(response)?response:response.data||[];
+return Array.isArray(response)?
+response:response.data||[];
 }
 
 async function oddsProps(id,market){
-return json(ODDS+"/props?eventId="+encodeURIComponent(id)+
-"&market="+encodeURIComponent(market),120000);
+return json(
+ODDS+"/props?eventId="+encodeURIComponent(id)+
+"&market="+encodeURIComponent(market),
+120000
+);
 }
 
 function parseOdds(data){
 const players=new Map();
 
 for(const bookmaker of data.bookmakers||[]){
-if(!["draftkings","fanduel"].includes(bookmaker.key))continue;
+if(!["draftkings","fanduel"].includes(bookmaker.key)){
+continue;
+}
 
 for(const market of bookmaker.markets||[]){
 for(const outcome of market.outcomes||[]){
 const name=outcome.description;
 const line=number(outcome.point);
+
 if(!name||!Number.isFinite(line))continue;
 
 const key=nameKey(name);
-if(!players.has(key))players.set(key,{name,books:{}});
+
+if(!players.has(key)){
+players.set(key,{name,books:{}});
+}
+
 const p=players.get(key);
 const book=bookmaker.key;
 
 if(!p.books[book]){
-p.books[book]={line,over:null,under:null};
+p.books[book]={
+line,
+over:null,
+under:null
+};
 }
+
 const side=String(outcome.name).toLowerCase();
+
 if(side==="over"||side==="under"){
 p.books[book][side]=number(outcome.price);
 }
 }
 }
 }
+
 return [...players.values()];
 }
 
@@ -991,8 +1883,11 @@ return Number.isFinite(number(n))?
 
 function bookCell(book){
 if(!book)return "—";
+
 return `<strong>${fmt(book.line)}</strong>
-<div class="small">O ${oddsText(book.over)} / U ${oddsText(book.under)}</div>`;
+<div class="small">
+O ${oddsText(book.over)} / U ${oddsText(book.under)}
+</div>`;
 }
 
 function historicalPick(rows,books){
@@ -1000,33 +1895,44 @@ const candidates=[];
 
 for(const [book,entry] of Object.entries(books)){
 const stats=evaluate(rows,entry.line);
+
 if(!stats.games)continue;
 
 for(const side of ["Over","Under"]){
 const odds=entry[side.toLowerCase()];
+
 if(!Number.isFinite(odds))continue;
+
 candidates.push({
-book,side,line:entry.line,odds,
+book,
+side,
+line:entry.line,
+odds,
 rate:side==="Over"?stats.overRate:stats.underRate,
 last5:side==="Over"?stats.last5Over:stats.last5Under,
-games:stats.games,recentGames:stats.recentGames,
-average:stats.average,recentAverage:stats.recentAverage
+games:stats.games,
+recentGames:stats.recentGames,
+average:stats.average,
+recentAverage:stats.recentAverage
 });
 }
 }
+
 return candidates.sort((a,b)=>
-b.rate-a.rate||b.last5-a.last5)[0]||null;
+b.rate-a.rate||
+b.last5-a.last5
+)[0]||null;
 }
 
-/* =====================================
-   PROP SCANNER — MANUAL ONLY
-===================================== */
+/* MANUAL PROP SCANNER */
 
 function updateScanEstimate(){
 const markets=$("scanMarket").value==="all"?4:1;
 const games=Number($("maxGames").value);
+
 $("scanEstimate").textContent=
-"Potential sportsbook requests: up to "+(games*markets)+
+"Potential sportsbook requests: up to "+
+(games*markets)+
 " ("+games+" games × "+markets+" markets).";
 }
 
@@ -1035,20 +1941,26 @@ $("maxGames").onchange=updateScanEstimate;
 
 async function runScanner(){
 if(scanning)return;
+
 scanning=true;
 $("scanButton").disabled=true;
 
 try{
 const date=$("scanDate").value;
+
 const markets=$("scanMarket").value==="all"?
-Object.keys(MARKETS):[$("scanMarket").value];
+Object.keys(MARKETS):
+[$("scanMarket").value];
 
 status("scanStatus","Loading sportsbook events...");
+
 const events=await oddsEvents();
 
 const selected=events.filter(x=>{
 const d=new Date(x.commence_time);
-return !Number.isNaN(d.getTime())&&chicagoDate(d)===date;
+
+return !Number.isNaN(d.getTime())&&
+chicagoDate(d)===date;
 }).slice(0,Number($("maxGames").value));
 
 if(!selected.length){
@@ -1056,11 +1968,14 @@ throw Error("No sportsbook games available for this date.");
 }
 
 const requests=selected.flatMap(event=>
-markets.map(market=>({event,market})));
+markets.map(market=>({event,market}))
+);
 
 const uncached=requests.filter(x=>{
-const key=ODDS+"/props?eventId="+encodeURIComponent(x.event.id)+
+const key=ODDS+"/props?eventId="+
+encodeURIComponent(x.event.id)+
 "&market="+encodeURIComponent(x.market);
+
 return !(cache.get(key)?.until>Date.now());
 }).length;
 
@@ -1076,81 +1991,128 @@ const responses=[];
 
 for(let i=0;i<requests.length;i++){
 const {event,market}=requests[i];
-status("scanStatus","Loading odds "+(i+1)+"/"+requests.length);
+
+status("scanStatus",
+"Loading odds "+(i+1)+"/"+requests.length
+);
 
 try{
 const data=await oddsProps(event.id,market);
+
 responses.push({
-event,market,players:parseOdds(data.data||data)
+event,
+market,
+players:parseOdds(data.data||data)
 });
+
 }catch(e){
 console.warn("Odds request failed:",e);
 }
 }
 
-const props=responses.flatMap(r=>r.players.map(p=>({
-...p,event:r.event,market:r.market
-})));
+const props=responses.flatMap(r=>
+r.players.map(p=>({
+...p,
+event:r.event,
+market:r.market
+}))
+);
 
 if(!props.length){
-throw Error("No player props returned. Check the date or odds Worker.");
+throw Error(
+"No player props returned. Check the date or odds Worker."
+);
 }
 
 status("scanStatus","Matching ESPN player IDs...");
 
 let athletes=new Map();
+
 try{
 const games=await gamesOn(date);
 athletes=new Map(await rosterForGames(games));
+
 }catch(e){
 console.warn("Roster lookup failed:",e);
 }
 
 const matched=props.map(p=>({
-...p,athlete:athletes.get(nameKey(p.name))
+...p,
+athlete:athletes.get(nameKey(p.name))
 }));
 
-const unique=[...new Map(matched.filter(p=>p.athlete)
-.map(p=>[p.athlete.id,p.athlete])).values()];
+const unique=[...new Map(
+matched.filter(p=>p.athlete)
+.map(p=>[p.athlete.id,p.athlete])
+).values()];
 
-status("scanStatus","Loading "+unique.length+" ESPN player game logs...");
+status("scanStatus",
+"Loading "+unique.length+" ESPN player game logs..."
+);
 
 const season=Number(date.slice(0,4));
+
 const logs=await batch(unique,5,async a=>({
-id:a.id,data:await gameLog(a.id,season)
+id:a.id,
+data:await gameLog(a.id,season)
 }));
 
-const logMap=new Map(logs.filter(x=>x.id).map(x=>[x.id,x.data]));
+const logMap=new Map(
+logs.filter(x=>x.id).map(x=>[x.id,x.data])
+);
+
 const parsed=new Map();
 
 function rowsFor(player){
-if(!player.athlete||!logMap.has(player.athlete.id))return [];
+if(!player.athlete||!logMap.has(player.athlete.id)){
+return [];
+}
+
 const key=player.athlete.id+":"+player.market;
 
 if(!parsed.has(key)){
 const cutoff=Date.parse(date+"T00:00:00Z");
-parsed.set(key,parseLog(logMap.get(player.athlete.id),player.market)
-.filter(x=>!x.date||Date.parse(x.date)<cutoff));
+
+parsed.set(
+key,
+parseLog(
+logMap.get(player.athlete.id),
+player.market
+).filter(x=>
+!x.date||Date.parse(x.date)<cutoff
+)
+);
 }
+
 return parsed.get(key);
 }
 
 latestScan=matched.map(p=>{
 const rows=rowsFor(p);
+
 return {
-...p,rows,best:historicalPick(rows,p.books),
+...p,
+rows,
+best:historicalPick(rows,p.books),
 average:avg(rows.map(x=>x.value)),
-recentAverage:avg(rows.slice(0,5).map(x=>x.value))
+recentAverage:avg(
+rows.slice(0,5).map(x=>x.value)
+)
 };
-}).sort((a,b)=>(b.best?.rate??-1)-(a.best?.rate??-1));
+}).sort((a,b)=>
+(b.best?.rate??-1)-(a.best?.rate??-1)
+);
 
 renderScanner();
 renderRankings();
 
-status("scanStatus","Scan complete • "+latestScan.length+" player props found.");
+status("scanStatus",
+"Scan complete • "+latestScan.length+" player props found."
+);
 
 }catch(e){
 status("scanStatus",e.message,true);
+
 }finally{
 scanning=false;
 $("scanButton").disabled=false;
@@ -1161,93 +2123,193 @@ function renderScanner(){
 const matched=latestScan.filter(x=>x.athlete).length;
 
 $("scanMetrics").innerHTML=`
-<div class="metric">Player Props<strong>${latestScan.length}</strong></div>
-<div class="metric">ESPN Matched<strong>${matched}</strong></div>
-<div class="metric">With Game Logs<strong>${latestScan.filter(x=>x.rows.length).length}</strong></div>
-<div class="metric">Prop Categories<strong>${new Set(latestScan.map(x=>x.market)).size}</strong></div>`;
+<div class="metric">
+Player Props
+<strong>${latestScan.length}</strong>
+</div>
+<div class="metric">
+ESPN Matched
+<strong>${matched}</strong>
+</div>
+<div class="metric">
+With Game Logs
+<strong>${latestScan.filter(x=>x.rows.length).length}</strong>
+</div>
+<div class="metric">
+Prop Categories
+<strong>${new Set(latestScan.map(x=>x.market)).size}</strong>
+</div>`;
 
 $("scanResults").innerHTML=`
-<table><thead><tr>
-<th>Player</th><th>Prop Type</th><th>Matchup</th>
-<th>DraftKings</th><th>FanDuel</th>
-<th>Season Avg</th><th>Last 5 Avg</th><th>Historical Best</th>
-</tr></thead><tbody>
+<table>
+<thead>
+<tr>
+<th>Player</th>
+<th>Prop Type</th>
+<th>Matchup</th>
+<th>DraftKings</th>
+<th>FanDuel</th>
+<th>Season Avg</th>
+<th>Last 5 Avg</th>
+<th>Historical Best</th>
+</tr>
+</thead>
+<tbody>
 ${latestScan.map(p=>`<tr>
-<td>${playerHTML(p.name,p.athlete?.id,p.athlete?.team||"")}</td>
-<td><span class="tag">${MARKETS[p.market]}</span></td>
-<td>${esc(p.event.away_team+" @ "+p.event.home_team)}</td>
+<td>${playerHTML(
+p.name,
+p.athlete?.id,
+p.athlete?.team||""
+)}</td>
+<td>
+<span class="tag">${MARKETS[p.market]}</span>
+</td>
+<td>
+${esc(p.event.away_team+" @ "+p.event.home_team)}
+</td>
 <td>${bookCell(p.books.draftkings)}</td>
 <td>${bookCell(p.books.fanduel)}</td>
 <td>${fmt(p.average)}</td>
 <td>${fmt(p.recentAverage)}</td>
-<td>${p.best?
+<td>
+${p.best?
 `<strong>${p.best.side} ${fmt(p.best.line)}</strong>
-<div class="small">${pct(p.best.rate)} historical hits</div>`:"—"}</td>
+<div class="small">
+${pct(p.best.rate)} historical hits
+</div>`:"—"}
+</td>
 </tr>`).join("")}
-</tbody></table>`;
+</tbody>
+</table>`;
 }
 
 function renderRankings(){
-const ranked=latestScan.filter(p=>p.best&&p.best.games>=3).slice(0,10);
+const ranked=latestScan.filter(p=>
+p.best&&p.best.games>=3
+).slice(0,10);
 
-status("rankingsStatus",ranked.length+" ranked historical props.");
+status("rankingsStatus",
+ranked.length+" ranked historical props."
+);
 
 $("rankingsResults").innerHTML=`
-<table><thead><tr>
-<th>Rank</th><th>Player</th><th>Prop Pick</th>
-<th>Sportsbook</th><th>Odds</th>
-<th>Season Hit Rate</th><th>Last 5</th><th>Season Avg</th>
-</tr></thead><tbody>
+<table>
+<thead>
+<tr>
+<th>Rank</th>
+<th>Player</th>
+<th>Prop Pick</th>
+<th>Sportsbook</th>
+<th>Odds</th>
+<th>Season Hit Rate</th>
+<th>Last 5</th>
+<th>Season Avg</th>
+</tr>
+</thead>
+<tbody>
 ${ranked.map((p,i)=>`<tr>
-<td><span class="rank">#${i+1}</span></td>
-<td>${playerHTML(p.name,p.athlete?.id,p.athlete?.team||"")}</td>
-<td><strong>${p.best.side} ${fmt(p.best.line)}</strong>
-<div class="small">${MARKETS[p.market]}</div></td>
-<td>${p.best.book==="draftkings"?"DraftKings":"FanDuel"}</td>
+<td>
+<span class="rank">#${i+1}</span>
+</td>
+<td>
+${playerHTML(
+p.name,
+p.athlete?.id,
+p.athlete?.team||""
+)}
+</td>
+<td>
+<strong>
+${p.best.side} ${fmt(p.best.line)}
+</strong>
+<div class="small">
+${MARKETS[p.market]}
+</div>
+</td>
+<td>
+${p.best.book==="draftkings"?
+"DraftKings":"FanDuel"}
+</td>
 <td>${oddsText(p.best.odds)}</td>
-<td class="green"><strong>${pct(p.best.rate)}</strong>
-<div class="small">${p.best.games} games</div></td>
-<td>${p.best.last5}/${p.best.recentGames}</td>
+<td class="green">
+<strong>${pct(p.best.rate)}</strong>
+<div class="small">
+${p.best.games} games
+</div>
+</td>
+<td>
+${p.best.last5}/${p.best.recentGames}
+</td>
 <td>${fmt(p.best.average)}</td>
 </tr>`).join("")}
-</tbody></table>`;
+</tbody>
+</table>`;
 }
 
-/* =====================================
-   CALCULATOR
-===================================== */
+/* CALCULATOR */
 
 function calculate(){
 const odds=number($("calcOdds").value);
 const stake=number($("calcStake").value);
 const probability=number($("calcProb").value)/100;
 
-if(!Number.isFinite(odds)||odds===0||
-!Number.isFinite(stake)||stake<=0||
-!Number.isFinite(probability)||probability<0||probability>1){
-$("calcResults").textContent="Enter valid calculator values.";
+if(
+!Number.isFinite(odds)||
+odds===0||
+!Number.isFinite(stake)||
+stake<=0||
+!Number.isFinite(probability)||
+probability<0||
+probability>1
+){
+$("calcResults").textContent=
+"Enter valid calculator values.";
 return;
 }
 
-const profit=odds>0?stake*odds/100:stake*100/Math.abs(odds);
-const implied=odds>0?100/(odds+100):-odds/(100-odds);
-const ev=probability*profit-(1-probability)*stake;
+const profit=odds>0?
+stake*odds/100:
+stake*100/Math.abs(odds);
+
+const implied=odds>0?
+100/(odds+100):
+-odds/(100-odds);
+
+const ev=
+probability*profit-
+(1-probability)*stake;
 
 $("calcResults").innerHTML=`
-<div class="metric">Potential Profit<strong>$${fmt(profit,2)}</strong></div>
-<div class="metric">Total Return<strong>$${fmt(stake+profit,2)}</strong></div>
-<div class="metric">Break-even Rate<strong>${pct(implied)}</strong></div>
-<div class="metric">Expected Value<strong class="${ev>=0?"green":"red"}">$${fmt(ev,2)}</strong></div>`;
+<div class="metric">
+Potential Profit
+<strong>$${fmt(profit,2)}</strong>
+</div>
+<div class="metric">
+Total Return
+<strong>$${fmt(stake+profit,2)}</strong>
+</div>
+<div class="metric">
+Break-even Rate
+<strong>${pct(implied)}</strong>
+</div>
+<div class="metric">
+Expected Value
+<strong class="${ev>=0?"green":"red"}">
+$${fmt(ev,2)}
+</strong>
+</div>`;
 }
 
-/* =====================================
-   INITIALIZATION
-===================================== */
+/* INITIALIZATION */
 
 function init(){
 const today=dateLocal();
 const sunday=new Date();
-sunday.setDate(sunday.getDate()+(7-sunday.getDay())%7);
+
+sunday.setDate(
+sunday.getDate()+
+(7-sunday.getDay())%7
+);
 
 $("scheduleDate").value=dateLocal(sunday);
 $("scanDate").value=dateLocal(sunday);
