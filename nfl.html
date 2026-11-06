@@ -8,63 +8,227 @@
 <style>
 :root{
   color-scheme:dark;
-  --bg:#080e1b;--panel:#142238;--line:#304057;
-  --text:#f5f7fb;--muted:#9fb0c7;--blue:#38bdf8;
+  --bg:#080e1b;
+  --panel:#142238;
+  --line:#304057;
+  --text:#f5f7fb;
+  --muted:#9fb0c7;
+  --blue:#38bdf8;
+  --green:#4ade80;
 }
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,sans-serif}
-header{background:#101d30;border-bottom:1px solid var(--line);padding:24px 20px}
-.wrap{max-width:1150px;margin:auto}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:Arial,Helvetica,sans-serif;
+}
+header{
+  background:#101d30;
+  border-bottom:1px solid var(--line);
+  padding:24px 20px;
+}
+.wrap{max-width:1200px;margin:auto}
 h1{font-size:30px;margin:0}
 h1 span{color:var(--blue)}
+h2{margin-top:0}
 header p,.muted{color:var(--muted)}
-nav{display:flex;gap:9px;flex-wrap:wrap;margin:22px 0}
+nav{
+  display:flex;
+  gap:9px;
+  flex-wrap:wrap;
+  margin:22px 0;
+}
 button,input,select{font:inherit}
-button{cursor:pointer;border:1px solid var(--line);border-radius:9px;padding:11px 15px;background:#1b2c45;color:white}
+button{
+  cursor:pointer;
+  border:1px solid var(--line);
+  border-radius:9px;
+  padding:11px 15px;
+  background:#1b2c45;
+  color:white;
+}
 button:hover{border-color:var(--blue)}
-button.active,.primary{background:var(--blue);color:#07111f;border-color:var(--blue);font-weight:bold}
+button.active,.primary{
+  background:var(--blue);
+  color:#07111f;
+  border-color:var(--blue);
+  font-weight:bold;
+}
 button:disabled{opacity:.6;cursor:wait}
 main{padding:0 18px 40px}
 section{display:none}
 section.active{display:block}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:20px;margin:14px 0}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.card{
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:13px;
+  padding:20px;
+  margin:14px 0;
+}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:12px;
+}
 .grid .card{margin:0}
-input,select{background:#0c1728;color:white;border:1px solid var(--line);border-radius:8px;padding:11px;max-width:100%}
-label{display:block;margin:12px 0 6px;color:var(--muted)}
-.controls{display:flex;gap:10px;align-items:end;flex-wrap:wrap}
+input,select{
+  background:#0c1728;
+  color:white;
+  border:1px solid var(--line);
+  border-radius:8px;
+  padding:11px;
+  max-width:100%;
+}
+label{
+  display:block;
+  margin:12px 0 6px;
+  color:var(--muted);
+}
+.controls{
+  display:flex;
+  gap:10px;
+  align-items:end;
+  flex-wrap:wrap;
+}
 .controls>div{min-width:150px}
-.team{display:flex;align-items:center;gap:10px;padding:10px;border-bottom:1px solid #273850}
-.team img{width:38px;height:38px;object-fit:contain}
-.team small{display:block;color:var(--muted);margin-top:4px}
-.game{background:#0c1728;border:1px solid var(--line);border-radius:10px;padding:16px;margin:12px 0}
+.team{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:10px;
+  border-bottom:1px solid #273850;
+}
+.team img{
+  width:38px;
+  height:38px;
+  object-fit:contain;
+}
+.team small{
+  display:block;
+  color:var(--muted);
+  margin-top:4px;
+}
+.game{
+  background:#0c1728;
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:16px;
+  margin:12px 0;
+}
 .game .team{font-weight:bold}
-.note{border-left:3px solid var(--blue);padding:12px;background:#101e32;color:var(--muted);border-radius:5px}
-.stat{font-size:27px;font-weight:bold;color:var(--blue)}
+.note{
+  border-left:3px solid var(--blue);
+  padding:12px;
+  background:#101e32;
+  color:var(--muted);
+  border-radius:5px;
+  line-height:1.5;
+}
+.stat{
+  font-size:27px;
+  font-weight:bold;
+  color:var(--blue);
+}
 a{color:var(--blue)}
-.player{display:flex;gap:12px;align-items:center;margin-bottom:12px}
-.player img{width:68px;height:68px;object-fit:contain;border-radius:50%;background:#22334a}
+.player{
+  display:flex;
+  gap:12px;
+  align-items:center;
+  margin-bottom:12px;
+}
+.player img{
+  width:68px;
+  height:68px;
+  object-fit:contain;
+  border-radius:50%;
+  background:#22334a;
+}
 .player strong{font-size:17px}
-.player small{display:block;color:var(--muted);margin-top:5px}
-.stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
-.statbox{padding:12px;background:#0c1728;border-radius:8px}
-.statbox b{font-size:20px;color:var(--blue);display:block}
-.statbox span{font-size:12px;color:var(--muted)}
-.tag{display:inline-block;padding:5px 9px;border-radius:6px;background:#223850;color:#bdeaff;font-size:12px;margin:3px}
-footer{padding:20px;color:var(--muted);text-align:center;border-top:1px solid var(--line)}
-@media(max-width:550px){h1{font-size:25px}.card{padding:15px}}
+.player small{
+  display:block;
+  color:var(--muted);
+  margin-top:5px;
+}
+.stats{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:8px;
+}
+.statbox{
+  padding:12px;
+  background:#0c1728;
+  border-radius:8px;
+}
+.statbox b{
+  font-size:20px;
+  color:var(--blue);
+  display:block;
+}
+.statbox span{
+  font-size:12px;
+  color:var(--muted);
+}
+.tag{
+  display:inline-block;
+  padding:5px 9px;
+  border-radius:6px;
+  background:#223850;
+  color:#bdeaff;
+  font-size:12px;
+  margin:3px;
+}
+.good{color:var(--green)}
+.table-wrap{overflow-x:auto}
+table{
+  width:100%;
+  border-collapse:collapse;
+  min-width:700px;
+}
+th,td{
+  padding:12px 10px;
+  border-bottom:1px solid var(--line);
+  text-align:left;
+}
+th{color:var(--muted);font-size:13px}
+tr:hover{background:#1b2c45}
+.progress{
+  height:8px;
+  background:#0c1728;
+  border-radius:20px;
+  overflow:hidden;
+  margin:12px 0;
+}
+.progress>div{
+  height:100%;
+  background:var(--blue);
+  width:0%;
+  transition:width .2s;
+}
+footer{
+  padding:20px;
+  color:var(--muted);
+  text-align:center;
+  border-top:1px solid var(--line);
+}
+@media(max-width:550px){
+  h1{font-size:25px}
+  .card{padding:15px}
+}
 </style>
 </head>
 <body>
+
 <header>
  <div class="wrap">
   <h1>NFL <span>EDGE</span></h1>
-  <p>Football analytics • Full-slate coverage</p>
+  <p>Football analytics • Player trends • Full-slate scanning</p>
   <a href="/">← Back to NHL EDGE</a>
  </div>
 </header>
 
 <main class="wrap">
+
 <nav id="tabs">
  <button class="active" data-tab="schedule">Live Schedule</button>
  <button data-tab="players">Player Stats</button>
@@ -78,12 +242,15 @@ footer{padding:20px;color:var(--muted);text-align:center;border-top:1px solid va
 <section id="schedule" class="active">
  <div class="card">
   <h2>Live NFL Schedule</h2>
-  <p class="muted">Every game on the selected date.</p>
+  <p class="muted">NFL games on the selected date.</p>
   <div class="controls">
-   <div><label for="game-date">Select date</label><input type="date" id="game-date"></div>
+   <div>
+    <label for="game-date">Select date</label>
+    <input type="date" id="game-date">
+   </div>
    <button class="primary" id="load-games">Load Games</button>
   </div>
-  <p id="schedule-message" aria-live="polite">Select a date.</p>
+  <p id="schedule-message" aria-live="polite"></p>
   <div id="games"></div>
  </div>
 </section>
@@ -91,18 +258,25 @@ footer{padding:20px;color:var(--muted);text-align:center;border-top:1px solid va
 <section id="players">
  <div class="card">
   <h2>Player Statistics & Headshots</h2>
-  <p class="muted">Select a date and a game to view real box-score statistics.</p>
+  <p class="muted">View actual game box scores.</p>
   <div class="controls">
-   <div><label for="player-date">Game date</label><input type="date" id="player-date"></div>
-   <button id="find-player-games" class="primary">Find Games</button>
-   <div><label for="player-game">Game</label>
-    <select id="player-game"><option value="">Select a game</option></select>
+   <div>
+    <label for="player-date">Game date</label>
+    <input type="date" id="player-date">
    </div>
-   <button id="load-players" class="primary">Load Player Stats</button>
+   <button class="primary" id="find-player-games">Find Games</button>
+   <div>
+    <label for="player-game">Game</label>
+    <select id="player-game">
+     <option value="">Select a game</option>
+    </select>
+   </div>
+   <button class="primary" id="load-players">Load Player Stats</button>
   </div>
-  <p id="player-message" aria-live="polite">Choose a date and find games.</p>
+  <p id="player-message" aria-live="polite"></p>
   <div class="controls">
-   <div><label for="player-market">Stat category</label>
+   <div>
+    <label for="player-market">Category</label>
     <select id="player-market">
      <option value="all">All Categories</option>
      <option value="passing">Passing</option>
@@ -110,7 +284,8 @@ footer{padding:20px;color:var(--muted);text-align:center;border-top:1px solid va
      <option value="receiving">Receiving</option>
     </select>
    </div>
-   <div><label for="player-search">Search player</label>
+   <div>
+    <label for="player-search">Search player</label>
     <input id="player-search" placeholder="Player name">
    </div>
   </div>
@@ -120,17 +295,37 @@ footer{padding:20px;color:var(--muted);text-align:center;border-top:1px solid va
 
 <section id="analysis">
  <div class="card">
-  <h2>Player Analysis • Last 5 & Season</h2>
-  <p class="muted">Select a player from a completed game's Player Stats cards, or enter an ESPN athlete ID. Game-log data is requested separately from ESPN and may be unavailable.</p>
+  <h2>Player Analysis</h2>
+  <p class="muted">Last five games, season averages and historical hit rates.</p>
   <div class="controls">
-   <div><label for="analysis-id">ESPN athlete ID</label><input id="analysis-id" placeholder="Select player or enter ID"></div>
-   <div><label for="analysis-name">Player name</label><input id="analysis-name" placeholder="Player"></div>
-   <div><label for="analysis-season">Season</label><input id="analysis-season" type="number" min="2000" max="2100" value="2026"></div>
-   <div><label for="analysis-market">Market</label><select id="analysis-market"><option value="passing">Passing yards</option><option value="rushing">Rushing yards</option><option value="receiving">Receiving yards</option><option value="receptions">Receptions</option></select></div>
-   <div><label for="analysis-line">Your prop line</label><input id="analysis-line" type="number" step="0.5" value="65.5"></div>
+   <div>
+    <label for="analysis-id">ESPN athlete ID</label>
+    <input id="analysis-id" placeholder="Select player or enter ID">
+   </div>
+   <div>
+    <label for="analysis-name">Player name</label>
+    <input id="analysis-name" placeholder="Player">
+   </div>
+   <div>
+    <label for="analysis-season">Season</label>
+    <input id="analysis-season" type="number" min="2000" max="2100">
+   </div>
+   <div>
+    <label for="analysis-market">Market</label>
+    <select id="analysis-market">
+     <option value="passing">Passing yards</option>
+     <option value="rushing">Rushing yards</option>
+     <option value="receiving">Receiving yards</option>
+     <option value="receptions">Receptions</option>
+    </select>
+   </div>
+   <div>
+    <label for="analysis-line">Your prop line</label>
+    <input id="analysis-line" type="number" step="0.5" value="65.5">
+   </div>
    <button class="primary" id="run-analysis">Analyze</button>
   </div>
-  <p id="analysis-message" aria-live="polite">Choose a player to begin.</p>
+  <p id="analysis-message" aria-live="polite"></p>
   <div id="analysis-results"></div>
  </div>
 </section>
@@ -139,11 +334,16 @@ footer{padding:20px;color:var(--muted);text-align:center;border-top:1px solid va
  <div class="card">
   <h2>All 32 NFL Teams</h2>
   <div class="controls">
-   <div><label for="team-search">Search teams</label><input id="team-search" placeholder="Team or city"></div>
-   <div><label for="conference">Conference</label>
+   <div>
+    <label for="team-search">Search teams</label>
+    <input id="team-search" placeholder="Team or city">
+   </div>
+   <div>
+    <label for="conference">Conference</label>
     <select id="conference">
      <option value="">All conferences</option>
-     <option>AFC</option><option>NFC</option>
+     <option>AFC</option>
+     <option>NFC</option>
     </select>
    </div>
   </div>
@@ -153,167 +353,368 @@ footer{padding:20px;color:var(--muted);text-align:center;border-top:1px solid va
 
 <section id="rankings">
  <div class="card">
-  <h2>Top 10 Player Props</h2>
-  <p class="note">Coming next: data-driven player rankings based on recent games, season performance, matchup context, and actual sportsbook lines. No invented picks are displayed.</p>
+  <h2>Top 10 Historical Prop Trends</h2>
+  <p class="muted">
+   Rankings are generated from the latest completed scan.
+   A higher hit rate does not guarantee a better bet.
+  </p>
+  <div id="ranking-message">Run the Prop Scanner first.</div>
+  <div id="ranking-results"></div>
  </div>
 </section>
 
 <section id="scanner">
  <div class="card">
   <h2>Full-Slate Prop Scanner</h2>
-  <div class="grid">
-   <div class="card"><h3>Passing Yards</h3><p>QB passing projections</p></div>
-   <div class="card"><h3>Rushing Yards</h3><p>RB and QB rushing projections</p></div>
-   <div class="card"><h3>Receiving Yards</h3><p>WR, TE and RB receiving projections</p></div>
-   <div class="card"><h3>Receptions</h3><p>Catch-volume projections</p></div>
+  <p class="muted">
+   Discover players on the selected slate and compare their ESPN
+   game logs with your entered line.
+  </p>
+
+  <div class="controls">
+   <div>
+    <label for="scan-date">NFL slate date</label>
+    <input id="scan-date" type="date">
+   </div>
+   <div>
+    <label for="scan-market">Prop market</label>
+    <select id="scan-market">
+     <option value="passing">Passing Yards</option>
+     <option value="rushing">Rushing Yards</option>
+     <option value="receiving">Receiving Yards</option>
+     <option value="receptions">Receptions</option>
+    </select>
+   </div>
+   <div>
+    <label for="scan-line">Comparison line</label>
+    <input id="scan-line" type="number" step="0.5" value="65.5">
+   </div>
+   <button class="primary" id="run-scanner">Scan NFL Slate</button>
   </div>
-  <p class="note">Automated predictions will be enabled after historical player statistics and betting lines are connected.</p>
+
+  <p class="note">
+   The same comparison line is applied to every player.
+   This is a historical screening tool, not a live sportsbook
+   line feed or a calibrated probability model.
+  </p>
+
+  <p id="scan-message" aria-live="polite">
+   Choose a date, market and comparison line.
+  </p>
+
+  <div class="progress">
+   <div id="scan-progress"></div>
+  </div>
+
+  <div id="scan-summary"></div>
+  <div id="scan-results"></div>
  </div>
 </section>
 
 <section id="calculator">
  <div class="card">
   <h2>Player Prop Probability Calculator</h2>
-  <p class="muted">Enter your own projection and standard deviation.</p>
+  <p class="muted">
+   Normal-distribution estimate using your own projection inputs.
+  </p>
   <div class="grid">
-   <div><label for="player">Player</label><input id="player" placeholder="Player name"></div>
-   <div><label for="market">Market</label>
+   <div>
+    <label for="player">Player</label>
+    <input id="player" placeholder="Player name">
+   </div>
+   <div>
+    <label for="market">Market</label>
     <select id="market">
-     <option>Passing Yards</option><option>Rushing Yards</option>
-     <option>Receiving Yards</option><option>Receptions</option>
+     <option>Passing Yards</option>
+     <option>Rushing Yards</option>
+     <option>Receiving Yards</option>
+     <option>Receptions</option>
     </select>
    </div>
-   <div><label for="line">Betting line</label><input id="line" type="number" step="0.5" value="65.5"></div>
-   <div><label for="mean">Projected average</label><input id="mean" type="number" step="0.1" value="72"></div>
-   <div><label for="sd">Standard deviation</label><input id="sd" type="number" step="0.1" min="0.1" value="20"></div>
-   <div><label for="odds">Over odds</label><input id="odds" type="number" step="1" value="-110"></div>
+   <div>
+    <label for="line">Betting line</label>
+    <input id="line" type="number" step="0.5" value="65.5">
+   </div>
+   <div>
+    <label for="mean">Projected average</label>
+    <input id="mean" type="number" step="0.1" value="72">
+   </div>
+   <div>
+    <label for="sd">Standard deviation</label>
+    <input id="sd" type="number" step="0.1" min="0.1" value="20">
+   </div>
+   <div>
+    <label for="odds">Over odds</label>
+    <input id="odds" type="number" step="1" value="-110">
+   </div>
   </div>
-  <p><button class="primary" id="calculate">Calculate Probability</button></p>
+  <p>
+   <button class="primary" id="calculate">Calculate Probability</button>
+  </p>
   <div id="calc-results" aria-live="polite"></div>
  </div>
 </section>
+
 </main>
 
-<footer>NFL EDGE • Statistics are informational, not betting guarantees.</footer>
+<footer>
+ NFL EDGE • ESPN data may be delayed or unavailable.
+ Historical trends are not betting guarantees.
+</footer>
 
 <script>
 (function(){
 "use strict";
 
+/* ==============================
+   GLOBAL HELPERS
+============================== */
+
 const $=id=>document.getElementById(id);
-const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({
- "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
-})[c]);
 
-const BASE="https://site.api.espn.com/apis/site/v2/sports/football/nfl";
+const BASE=
+ "https://site.api.espn.com/apis/site/v2/sports/football/nfl";
 
-const teams=[
-["Arizona Cardinals","ARI","NFC","West"],["Atlanta Falcons","ATL","NFC","South"],
-["Baltimore Ravens","BAL","AFC","North"],["Buffalo Bills","BUF","AFC","East"],
-["Carolina Panthers","CAR","NFC","South"],["Chicago Bears","CHI","NFC","North"],
-["Cincinnati Bengals","CIN","AFC","North"],["Cleveland Browns","CLE","AFC","North"],
-["Dallas Cowboys","DAL","NFC","East"],["Denver Broncos","DEN","AFC","West"],
-["Detroit Lions","DET","NFC","North"],["Green Bay Packers","GB","NFC","North"],
-["Houston Texans","HOU","AFC","South"],["Indianapolis Colts","IND","AFC","South"],
-["Jacksonville Jaguars","JAX","AFC","South"],["Kansas City Chiefs","KC","AFC","West"],
-["Las Vegas Raiders","LV","AFC","West"],["Los Angeles Chargers","LAC","AFC","West"],
-["Los Angeles Rams","LAR","NFC","West"],["Miami Dolphins","MIA","AFC","East"],
-["Minnesota Vikings","MIN","NFC","North"],["New England Patriots","NE","AFC","East"],
-["New Orleans Saints","NO","NFC","South"],["New York Giants","NYG","NFC","East"],
-["New York Jets","NYJ","AFC","East"],["Philadelphia Eagles","PHI","NFC","East"],
-["Pittsburgh Steelers","PIT","AFC","North"],["San Francisco 49ers","SF","NFC","West"],
-["Seattle Seahawks","SEA","NFC","West"],["Tampa Bay Buccaneers","TB","NFC","South"],
-["Tennessee Titans","TEN","AFC","South"],["Washington Commanders","WSH","NFC","East"]
-];
+const LOG=
+ "https://site.web.api.espn.com/apis/common/v3/sports/football/nfl/athletes/";
 
-function logo(abbr){
- return "https://a.espncdn.com/i/teamlogos/nfl/500/"+encodeURIComponent(abbr)+".png";
+const cache=new Map();
+
+function esc(value){
+ return String(value??"").replace(/[&<>"']/g,c=>({
+  "&":"&amp;",
+  "<":"&lt;",
+  ">":"&gt;",
+  '"':"&quot;",
+  "'":"&#39;"
+ })[c]);
 }
-function headshot(id){
- return "https://a.espncdn.com/i/headshots/nfl/players/full/"+encodeURIComponent(id)+".png";
-}
+
 function localDate(){
  const d=new Date();
- return [d.getFullYear(),String(d.getMonth()+1).padStart(2,"0"),String(d.getDate()).padStart(2,"0")].join("-");
+ return [
+  d.getFullYear(),
+  String(d.getMonth()+1).padStart(2,"0"),
+  String(d.getDate()).padStart(2,"0")
+ ].join("-");
 }
-function dateParam(date){return date.replace(/-/g,"");}
+
+function dateParam(date){
+ return date.replace(/-/g,"");
+}
+
+function seasonForDate(date){
+ const year=Number(date.slice(0,4));
+ const month=Number(date.slice(5,7));
+ return month<=2?year-1:year;
+}
+
+function headshot(id){
+ return "https://a.espncdn.com/i/headshots/nfl/players/full/"+
+  encodeURIComponent(id)+".png";
+}
+
+function logo(abbr){
+ return "https://a.espncdn.com/i/teamlogos/nfl/500/"+
+  encodeURIComponent(abbr)+".png";
+}
 
 async function getJSON(url){
- const controller=new AbortController();
- const timer=setTimeout(()=>controller.abort(),12000);
+ if(cache.has(url))return cache.get(url);
+
+ const request=(async()=>{
+  const controller=new AbortController();
+  const timer=setTimeout(()=>controller.abort(),15000);
+
+  try{
+   const response=await fetch(url,{
+    signal:controller.signal
+   });
+
+   if(!response.ok){
+    throw new Error("HTTP "+response.status);
+   }
+
+   return await response.json();
+  }finally{
+   clearTimeout(timer);
+  }
+ })();
+
+ cache.set(url,request);
+
  try{
-  const res=await fetch(url,{signal:controller.signal});
-  if(!res.ok)throw Error("HTTP "+res.status);
-  return await res.json();
- }finally{clearTimeout(timer);}
+  return await request;
+ }catch(error){
+  cache.delete(url);
+  throw error;
+ }
 }
 
 function showTab(id){
- document.querySelectorAll("main section").forEach(s=>s.classList.toggle("active",s.id===id));
- document.querySelectorAll("#tabs button").forEach(b=>b.classList.toggle("active",b.dataset.tab===id));
+ document.querySelectorAll("main section").forEach(section=>{
+  section.classList.toggle("active",section.id===id);
+ });
+
+ document.querySelectorAll("#tabs button").forEach(button=>{
+  button.classList.toggle(
+   "active",
+   button.dataset.tab===id
+  );
+ });
 }
-document.querySelectorAll("#tabs button").forEach(b=>{
- b.addEventListener("click",()=>showTab(b.dataset.tab));
+
+document.querySelectorAll("#tabs button").forEach(button=>{
+ button.addEventListener("click",()=>{
+  showTab(button.dataset.tab);
+ });
 });
+
+/* ==============================
+   NFL TEAMS
+============================== */
+
+const teams=[
+ ["Arizona Cardinals","ARI","NFC","West"],
+ ["Atlanta Falcons","ATL","NFC","South"],
+ ["Baltimore Ravens","BAL","AFC","North"],
+ ["Buffalo Bills","BUF","AFC","East"],
+ ["Carolina Panthers","CAR","NFC","South"],
+ ["Chicago Bears","CHI","NFC","North"],
+ ["Cincinnati Bengals","CIN","AFC","North"],
+ ["Cleveland Browns","CLE","AFC","North"],
+ ["Dallas Cowboys","DAL","NFC","East"],
+ ["Denver Broncos","DEN","AFC","West"],
+ ["Detroit Lions","DET","NFC","North"],
+ ["Green Bay Packers","GB","NFC","North"],
+ ["Houston Texans","HOU","AFC","South"],
+ ["Indianapolis Colts","IND","AFC","South"],
+ ["Jacksonville Jaguars","JAX","AFC","South"],
+ ["Kansas City Chiefs","KC","AFC","West"],
+ ["Las Vegas Raiders","LV","AFC","West"],
+ ["Los Angeles Chargers","LAC","AFC","West"],
+ ["Los Angeles Rams","LAR","NFC","West"],
+ ["Miami Dolphins","MIA","AFC","East"],
+ ["Minnesota Vikings","MIN","NFC","North"],
+ ["New England Patriots","NE","AFC","East"],
+ ["New Orleans Saints","NO","NFC","South"],
+ ["New York Giants","NYG","NFC","East"],
+ ["New York Jets","NYJ","AFC","East"],
+ ["Philadelphia Eagles","PHI","NFC","East"],
+ ["Pittsburgh Steelers","PIT","AFC","North"],
+ ["San Francisco 49ers","SF","NFC","West"],
+ ["Seattle Seahawks","SEA","NFC","West"],
+ ["Tampa Bay Buccaneers","TB","NFC","South"],
+ ["Tennessee Titans","TEN","AFC","South"],
+ ["Washington Commanders","WSH","NFC","East"]
+];
 
 function renderTeams(){
  const q=$("team-search").value.toLowerCase().trim();
  const conf=$("conference").value;
- const filtered=teams.filter(t=>(!conf||t[2]===conf)&&
- (!q||t[0].toLowerCase().includes(q)||t[1].toLowerCase().includes(q)));
- $("team-grid").innerHTML=filtered.map(t=>`
-  <div class="card"><div class="team">
-   <img src="${logo(t[1])}" alt="" loading="lazy">
-   <div><strong>${esc(t[0])}</strong>
-   <small>${esc(t[2])} ${esc(t[3])} • ${esc(t[1])}</small></div>
-  </div></div>`).join("")||"<p>No teams found.</p>";
+
+ const filtered=teams.filter(team=>
+  (!conf||team[2]===conf)&&
+  (!q||
+   team[0].toLowerCase().includes(q)||
+   team[1].toLowerCase().includes(q))
+ );
+
+ $("team-grid").innerHTML=filtered.map(team=>`
+  <div class="card">
+   <div class="team">
+    <img src="${logo(team[1])}" alt="" loading="lazy">
+    <div>
+     <strong>${esc(team[0])}</strong>
+     <small>${esc(team[2])} ${esc(team[3])}
+      • ${esc(team[1])}</small>
+    </div>
+   </div>
+  </div>
+ `).join("")||"<p>No teams found.</p>";
 }
+
 $("team-search").addEventListener("input",renderTeams);
 $("conference").addEventListener("change",renderTeams);
 renderTeams();
 
-function gameTeam(t){
- if(!t)return '<div class="team">TBD</div>';
- const name=esc(t.team?.displayName||"TBD");
- const img=t.team?.logo;
- const image=img&&/^https:\/\//.test(img)?`<img src="${esc(img)}" alt="">`:"";
- const score=t.score!=null?` <strong>${esc(t.score)}</strong>`:"";
- return `<div class="team">${image}<span>${name}${score}</span></div>`;
-}
+/* ==============================
+   SCHEDULE
+============================== */
 
 async function scheduleEvents(date){
- const data=await getJSON(BASE+"/scoreboard?dates="+dateParam(date));
+ const data=await getJSON(
+  BASE+"/scoreboard?dates="+dateParam(date)+"&limit=100"
+ );
  return Array.isArray(data.events)?data.events:[];
+}
+
+function gameTeam(team){
+ if(!team)return '<div class="team">TBD</div>';
+
+ const name=esc(team.team?.displayName||"TBD");
+ const image=team.team?.logo;
+ const photo=image&&image.startsWith("https://")?
+  `<img src="${esc(image)}" alt="">`:"";
+
+ const score=team.score!=null?
+  ` <strong>${esc(team.score)}</strong>`:"";
+
+ return `<div class="team">${photo}
+  <span>${name}${score}</span></div>`;
 }
 
 async function loadGames(){
  const date=$("game-date").value;
  if(!date)return;
+
  $("schedule-message").textContent="Loading NFL games...";
  $("games").innerHTML="";
  $("load-games").disabled=true;
+
  try{
   const events=await scheduleEvents(date);
+
   if(!events.length){
-   $("schedule-message").textContent="No NFL games scheduled for this date.";
+   $("schedule-message").textContent=
+    "No NFL games scheduled for this date.";
    return;
   }
-  $("schedule-message").textContent=events.length+" game(s) found.";
+
+  $("schedule-message").textContent=
+   events.length+" game(s) found.";
+
   $("games").innerHTML=events.map(event=>{
-   const comp=event.competitions?.[0]||{};
-   const entries=comp.competitors||[];
+   const competition=event.competitions?.[0]||{};
+   const entries=competition.competitors||[];
+
    const away=entries.find(t=>t.homeAway==="away");
    const home=entries.find(t=>t.homeAway==="home");
+
    const when=new Date(event.date);
-   const kickoff=Number.isNaN(when.getTime())?"Time TBD":
-    when.toLocaleString([],{weekday:"short",hour:"numeric",minute:"2-digit"});
+
+   const kickoff=Number.isNaN(when.getTime())?
+    "Time TBD":
+    when.toLocaleString([],{
+     weekday:"short",
+     hour:"numeric",
+     minute:"2-digit"
+    });
+
    const status=event.status?.type?.description||"Scheduled";
+
    return `<article class="game">
-    <p class="muted">${esc(kickoff)} • ${esc(status)}</p>
-    ${gameTeam(away)}${gameTeam(home)}
-    <button data-game="${esc(event.id)}" class="view-stats">View Player Stats</button>
+    <p class="muted">${esc(kickoff)}
+     • ${esc(status)}</p>
+    ${gameTeam(away)}
+    ${gameTeam(home)}
+    <button class="view-stats"
+     data-game="${esc(event.id)}">
+     View Player Stats
+    </button>
    </article>`;
   }).join("");
+
   document.querySelectorAll(".view-stats").forEach(button=>{
    button.addEventListener("click",async()=>{
     $("player-date").value=date;
@@ -321,73 +722,63 @@ async function loadGames(){
     await findPlayerGames(button.dataset.game);
    });
   });
- }catch(err){
-  $("schedule-message").textContent="Could not load schedule: "+err.message;
- }finally{$("load-games").disabled=false;}
+
+ }catch(error){
+  $("schedule-message").textContent=
+   "Could not load schedule: "+error.message;
+ }finally{
+  $("load-games").disabled=false;
+ }
 }
 
-$("game-date").value=localDate();
-$("player-date").value=localDate();
-$("load-games").addEventListener("click",loadGames);
-loadGames();
-
-async function findPlayerGames(selectedId=""){
- const date=$("player-date").value;
- if(!date)return;
- $("player-message").textContent="Finding games...";
- $("player-grid").innerHTML="";
- $("player-game").innerHTML='<option value="">Select a game</option>';
- $("find-player-games").disabled=true;
- try{
-  const events=await scheduleEvents(date);
-  events.forEach(event=>{
-   const option=document.createElement("option");
-   option.value=event.id;
-   option.textContent=event.name||event.shortName||event.id;
-   $("player-game").appendChild(option);
-  });
-  if(selectedId&&events.some(e=>e.id===selectedId)){
-   $("player-game").value=selectedId;
-   await loadPlayers();
-  }else{
-   $("player-message").textContent=events.length?
-    "Select one of "+events.length+" game(s) and click Load Player Stats.":
-    "No NFL games found for this date.";
-  }
- }catch(err){
-  $("player-message").textContent="Could not find games: "+err.message;
- }finally{$("find-player-games").disabled=false;}
-}
-$("find-player-games").addEventListener("click",()=>findPlayerGames());
+/* ==============================
+   PLAYER BOX SCORES
+============================== */
 
 let loadedPlayers=[];
 
 function parsePlayers(data){
  const result=[];
  const groups=data.boxscore?.players||[];
+
  groups.forEach(group=>{
-  const team=group.team?.displayName||group.team?.abbreviation||"NFL";
+  const team=
+   group.team?.displayName||
+   group.team?.abbreviation||
+   "NFL";
+
   (group.statistics||[]).forEach(statGroup=>{
    const name=(statGroup.name||"").toLowerCase();
+
    let category="";
+
    if(name.includes("passing"))category="passing";
    else if(name.includes("rushing"))category="rushing";
    else if(name.includes("receiving"))category="receiving";
+
    if(!category)return;
 
-   const labels=(statGroup.labels||[]).map(x=>String(x).toUpperCase());
-   const keys=(statGroup.keys||[]).map(x=>String(x).toLowerCase());
+   const labels=(statGroup.labels||[]).map(
+    value=>String(value).toUpperCase()
+   );
+
+   const keys=(statGroup.keys||[]).map(
+    value=>String(value).toLowerCase()
+   );
 
    (statGroup.athletes||[]).forEach(entry=>{
     const athlete=entry.athlete||{};
     const values=entry.stats||[];
+
     const stats=values.map((value,i)=>({
      label:labels[i]||keys[i]||"Stat "+(i+1),
      value:String(value)
     }));
+
     result.push({
-     id:athlete.id||"",
-     name:athlete.displayName||athlete.fullName||"Unknown Player",
+     id:String(athlete.id||""),
+     name:athlete.displayName||
+      athlete.fullName||"Unknown Player",
      team,
      position:athlete.position?.abbreviation||"",
      image:athlete.headshot?.href||"",
@@ -397,112 +788,251 @@ function parsePlayers(data){
    });
   });
  });
+
  return result;
 }
 
 function renderPlayers(){
  const category=$("player-market").value;
  const query=$("player-search").value.toLowerCase().trim();
- const filtered=loadedPlayers.filter(p=>
-  (category==="all"||p.category===category)&&
-  (!query||p.name.toLowerCase().includes(query))
+
+ const filtered=loadedPlayers.filter(player=>
+  (category==="all"||player.category===category)&&
+  (!query||player.name.toLowerCase().includes(query))
  );
- $("player-grid").innerHTML=filtered.map(p=>{
-  const image=p.image&&/^https:\/\//.test(p.image)?
-   p.image:(p.id?headshot(p.id):"");
-  const photo=image?
-   `<img src="${esc(image)}" alt="${esc(p.name)}" loading="lazy" onerror="this.style.display='none'">`:"";
+
+ $("player-grid").innerHTML=filtered.map(player=>{
+  const image=player.image?.startsWith("https://")?
+   player.image:
+   player.id?headshot(player.id):"";
+
   return `<div class="card">
    <div class="player">
-    ${photo}
-    <div><strong>${esc(p.name)}</strong>
-    <small>${esc(p.team)} • ${esc(p.position)}</small>
-    <span class="tag">${esc(p.category.toUpperCase())}</span></div>
+    ${image?`<img src="${esc(image)}"
+     alt="${esc(player.name)}"
+     loading="lazy">`:""}
+    <div>
+     <strong>${esc(player.name)}</strong>
+     <small>${esc(player.team)}
+      • ${esc(player.position)}</small>
+     <span class="tag">
+      ${esc(player.category.toUpperCase())}
+     </span>
+    </div>
    </div>
-   <button class="analyze-player" data-id="${esc(p.id)}" data-name="${esc(p.name)}" data-market="${esc(p.category)}">Analyze Recent Games</button>
+
+   <button class="analyze-player"
+    data-id="${esc(player.id)}"
+    data-name="${esc(player.name)}"
+    data-market="${esc(player.category)}">
+    Analyze Recent Games
+   </button>
+
    <div class="stats">
-    ${p.stats.map(s=>`<div class="statbox">
-     <b>${esc(s.value)}</b><span>${esc(s.label)}</span>
-    </div>`).join("")}
+    ${player.stats.map(stat=>`
+     <div class="statbox">
+      <b>${esc(stat.value)}</b>
+      <span>${esc(stat.label)}</span>
+     </div>
+    `).join("")}
    </div>
   </div>`;
- }).join("")||'<div class="card">No player statistics match your filters.</div>';
- document.querySelectorAll(".analyze-player").forEach(btn=>btn.addEventListener("click",()=>{
-  $("analysis-id").value=btn.dataset.id;
-  $("analysis-name").value=btn.dataset.name;
-  $("analysis-market").value=btn.dataset.market;
-  showTab("analysis");
-  runAnalysis();
- }));
+ }).join("")||
+ '<div class="card">No matching player statistics.</div>';
+
+ document.querySelectorAll(".analyze-player").forEach(button=>{
+  button.addEventListener("click",()=>{
+   $("analysis-id").value=button.dataset.id;
+   $("analysis-name").value=button.dataset.name;
+   $("analysis-market").value=button.dataset.market;
+   showTab("analysis");
+   runAnalysis();
+  });
+ });
+}
+
+async function findPlayerGames(selectedId=""){
+ const date=$("player-date").value;
+ if(!date)return;
+
+ $("player-message").textContent="Finding games...";
+ $("player-grid").innerHTML="";
+ $("player-game").innerHTML=
+  '<option value="">Select a game</option>';
+
+ $("find-player-games").disabled=true;
+
+ try{
+  const events=await scheduleEvents(date);
+
+  events.forEach(event=>{
+   const option=document.createElement("option");
+   option.value=event.id;
+   option.textContent=
+    event.name||event.shortName||event.id;
+   $("player-game").appendChild(option);
+  });
+
+  if(selectedId&&events.some(e=>String(e.id)===selectedId)){
+   $("player-game").value=selectedId;
+   await loadPlayers();
+  }else{
+   $("player-message").textContent=events.length?
+    "Select a game and click Load Player Stats.":
+    "No games found for this date.";
+  }
+
+ }catch(error){
+  $("player-message").textContent=
+   "Could not find games: "+error.message;
+ }finally{
+  $("find-player-games").disabled=false;
+ }
 }
 
 async function loadPlayers(){
  const id=$("player-game").value;
+
  if(!id){
   $("player-message").textContent="Select a game first.";
   return;
  }
+
  $("load-players").disabled=true;
- $("player-message").textContent="Loading player box scores...";
+ $("player-message").textContent="Loading box scores...";
  $("player-grid").innerHTML="";
  loadedPlayers=[];
+
  try{
-  const data=await getJSON(BASE+"/summary?event="+encodeURIComponent(id));
+  const data=await getJSON(
+   BASE+"/summary?event="+encodeURIComponent(id)
+  );
+
   loadedPlayers=parsePlayers(data);
+
   if(!loadedPlayers.length){
    $("player-message").textContent=
-    "No player box-score statistics are available yet. Try a completed game.";
+    "No player box scores available. Try a completed game.";
    return;
   }
-  const unique=new Set(loadedPlayers.map(p=>p.id+"-"+p.category));
+
   $("player-message").textContent=
-   unique.size+" player stat entries loaded from this game's box score.";
+   loadedPlayers.length+" player stat entries loaded.";
+
   renderPlayers();
- }catch(err){
-  $("player-message").textContent="Could not load player statistics: "+err.message;
- }finally{$("load-players").disabled=false;}
+
+ }catch(error){
+  $("player-message").textContent=
+   "Could not load stats: "+error.message;
+ }finally{
+  $("load-players").disabled=false;
+ }
 }
 
-$("load-players").addEventListener("click",loadPlayers);
-$("player-market").addEventListener("change",renderPlayers);
-$("player-search").addEventListener("input",renderPlayers);
+/* ==============================
+   PLAYER GAME LOGS
+============================== */
 
 function extractGameLog(data,market){
  const result=[];
- const keyHints={passing:["passingYards","passYds","PYDS"],rushing:["rushingYards","rushYds","RYDS"],receiving:["receivingYards","recYds","RECYDS"],receptions:["receptions","REC"]};
- const hints=keyHints[market];
+
+ const keyHints={
+  passing:["passingYards","passYds","PYDS"],
+  rushing:["rushingYards","rushYds","RYDS"],
+  receiving:["receivingYards","recYds","RECYDS"],
+  receptions:["receptions","REC"]
+ };
+
+ const hints=keyHints[market]||[];
  const names=(data.names||data.labels||[]).map(String);
  const events=data.events||{};
+
  function pushRow(id,raw){
   if(!raw||typeof raw!=="object")return;
-  let val;
+
+  let value;
   const obj=raw.stats||raw.statistics||raw;
+
   if(Array.isArray(obj)){
-   const idx=names.findIndex(n=>hints.some(h=>h.toLowerCase()===n.toLowerCase()));
-   if(idx>=0)val=obj[idx];
+   const index=names.findIndex(name=>
+    hints.some(h=>h.toLowerCase()===name.toLowerCase())
+   );
+
+   if(index>=0)value=obj[index];
+
   }else if(obj&&typeof obj==="object"){
-   for(const k of hints){if(obj[k]!=null){val=obj[k];break;}}
-   if(val==null&&Array.isArray(obj.stats)){
-    const idx=names.findIndex(n=>hints.some(h=>h.toLowerCase()===n.toLowerCase()));
-    if(idx>=0)val=obj.stats[idx];
+   for(const key of hints){
+    if(obj[key]!=null){
+     value=obj[key];
+     break;
+    }
+   }
+
+   if(value==null&&Array.isArray(obj.stats)){
+    const index=names.findIndex(name=>
+     hints.some(h=>h.toLowerCase()===name.toLowerCase())
+    );
+    if(index>=0)value=obj.stats[index];
    }
   }
-  const num=Number(val);
-  if(val==null||val===""||!Number.isFinite(num))return;
+
+  const number=Number(value);
+
+  if(value==null||value===""||
+   !Number.isFinite(number))return;
+
   const event=events[id]||{};
-  result.push({id,date:event.gameDate||event.date||raw.date||"",value:num});
+
+  result.push({
+   id:String(id),
+   date:event.gameDate||event.date||raw.date||"",
+   value:number
+  });
  }
- for(const st of data.seasonTypes||[]){
-  for(const cat of st.categories||[]){
-   for(const row of cat.events||[]){pushRow(String(row.eventId||row.id||""),row);}
+
+ for(const seasonType of data.seasonTypes||[]){
+  for(const category of seasonType.categories||[]){
+   for(const row of category.events||[]){
+    pushRow(String(row.eventId||row.id||""),row);
+   }
   }
  }
+
  if(!result.length){
-  for(const [id,row] of Object.entries(data.gameLog||data.gameLogs||{}))pushRow(id,row);
+  for(const [id,row] of Object.entries(
+   data.gameLog||data.gameLogs||{}
+  )){
+   pushRow(id,row);
+  }
  }
+
  const unique=new Map();
- for(const r of result)if(r.id)unique.set(r.id,r);
- return [...unique.values()].sort((a,b)=>String(b.date).localeCompare(String(a.date)));
+
+ for(const row of result){
+  if(row.id)unique.set(row.id,row);
+ }
+
+ return [...unique.values()].sort(
+  (a,b)=>String(b.date).localeCompare(String(a.date))
+ );
+
+}
+
+async function athleteGameLog(id,season){
+ const url=LOG+encodeURIComponent(id)+
+  "/gamelog?season="+encodeURIComponent(season);
+
+ return await getJSON(url);
+}
+
+function average(rows){
+ return rows.length?
+  rows.reduce((sum,row)=>sum+row.value,0)/rows.length:
+  0;
+}
+
+function overHits(rows,line){
+ return rows.filter(row=>row.value>line).length;
 }
 
 async function runAnalysis(){
@@ -510,73 +1040,612 @@ async function runAnalysis(){
  const season=Number($("analysis-season").value);
  const market=$("analysis-market").value;
  const line=Number($("analysis-line").value);
- if(!/^\d+$/.test(id)||!Number.isInteger(season)||season<2000||season>2100||$("analysis-line").value===""||!Number.isFinite(line)){
-  $("analysis-message").textContent="Select a player and enter a valid season and prop line.";return;
+
+ if(!/^\d+$/.test(id)||
+  !Number.isInteger(season)||
+  season<2000||season>2100||
+  $("analysis-line").value===""||
+  !Number.isFinite(line)){
+  $("analysis-message").textContent=
+   "Enter a valid athlete ID, season and line.";
+  return;
  }
+
  $("analysis-results").innerHTML="";
- $("analysis-message").textContent="Loading season game log...";
+ $("analysis-message").textContent="Loading game log...";
  $("run-analysis").disabled=true;
+
  try{
-  const url="https://site.web.api.espn.com/apis/common/v3/sports/football/nfl/athletes/"+encodeURIComponent(id)+"/gamelog?season="+season;
-  const data=await getJSON(url);
+  const data=await athleteGameLog(id,season);
   const rows=extractGameLog(data,market);
+
   if(!rows.length){
-   $("analysis-message").textContent="The game-log response did not contain verified "+market+" values. This ESPN endpoint may use a different format or have no data for this player/season.";
+   $("analysis-message").textContent=
+    "No verified "+market+" values found for this player.";
    return;
   }
+
   const last=rows.slice(0,5);
-  const average=arr=>arr.reduce((sum,r)=>sum+r.value,0)/arr.length;
-  const hits=arr=>arr.filter(r=>r.value>line).length;
-  $("analysis-message").textContent=rows.length+" games found for "+($("analysis-name").value||"this player")+" ("+season+").";
-  $("analysis-results").innerHTML=`<div class="grid">
-   <div class="card"><p class="muted">Last ${last.length} average</p><div class="stat">${average(last).toFixed(1)}</div></div>
-   <div class="card"><p class="muted">Season average (${rows.length} games)</p><div class="stat">${average(rows).toFixed(1)}</div></div>
-   <div class="card"><p class="muted">Last ${last.length} over ${esc(line)}</p><div class="stat">${hits(last)}/${last.length}</div></div>
-   <div class="card"><p class="muted">Season over ${esc(line)}</p><div class="stat">${hits(rows)}/${rows.length}</div></div>
-   </div><h3>Most recent games</h3><div class="grid">${last.map(r=>`<div class="card"><strong>${esc(r.date||r.id)}</strong><div class="stat">${esc(r.value)}</div><small>${esc(market)}</small></div>`).join("")}</div>
-   <p class="note">Historical hit rates describe past results against your entered line. They are not model probabilities or sportsbook recommendations. Games equal to the line are not counted as overs.</p>`;
- }catch(err){
-  $("analysis-message").textContent="Could not retrieve game logs: "+err.message+". The unofficial ESPN endpoint may be blocked or unavailable.";
- }finally{$("run-analysis").disabled=false;}
+
+  $("analysis-message").textContent=
+   rows.length+" games found for "+
+   ($("analysis-name").value||"this player")+
+   " ("+season+").";
+
+  $("analysis-results").innerHTML=`
+   <div class="grid">
+    <div class="card">
+     <p class="muted">Last ${last.length} average</p>
+     <div class="stat">${average(last).toFixed(1)}</div>
+    </div>
+    <div class="card">
+     <p class="muted">Season average</p>
+     <div class="stat">${average(rows).toFixed(1)}</div>
+    </div>
+    <div class="card">
+     <p class="muted">Last ${last.length} overs</p>
+     <div class="stat">${overHits(last,line)}/${last.length}</div>
+    </div>
+    <div class="card">
+     <p class="muted">Season overs</p>
+     <div class="stat">${overHits(rows,line)}/${rows.length}</div>
+    </div>
+   </div>
+
+   <h3>Recent Games</h3>
+
+   <div class="grid">
+    ${last.map(row=>`
+     <div class="card">
+      <strong>${esc(row.date||row.id)}</strong>
+      <div class="stat">${esc(row.value)}</div>
+      <small>${esc(market)}</small>
+     </div>
+    `).join("")}
+   </div>
+
+   <p class="note">
+    Historical results against your entered line.
+    These are not model probabilities.
+   </p>
+  `;
+
+ }catch(error){
+  $("analysis-message").textContent=
+   "Could not retrieve game log: "+error.message;
+ }finally{
+  $("run-analysis").disabled=false;
+ }
 }
-$("run-analysis").addEventListener("click",runAnalysis);
+
+/* ==============================
+   SCANNER PLAYER DISCOVERY
+============================== */
+
+function eligiblePositions(market){
+ if(market==="passing")return new Set(["QB"]);
+
+ if(market==="rushing"){
+  return new Set(["RB","QB","FB"]);
+ }
+
+ return new Set(["WR","TE","RB","FB"]);
+}
+
+function rosterAthletes(data){
+ const found=[];
+
+ function add(athlete){
+  if(!athlete||!athlete.id)return;
+
+  found.push({
+   id:String(athlete.id),
+   name:athlete.displayName||
+    athlete.fullName||athlete.name||"Unknown",
+   position:athlete.position?.abbreviation||
+    athlete.position?.name||"",
+   image:athlete.headshot?.href||""
+  });
+ }
+
+ // ESPN may return flat or position-grouped rosters.
+ for(const entry of data.athletes||[]){
+  if(Array.isArray(entry.items)){
+   for(const athlete of entry.items)add(athlete);
+  }else{
+   add(entry.athlete||entry);
+  }
+ }
+
+ return found;
+}
+
+async function discoverSlatePlayers(events,market){
+ const positions=eligiblePositions(market);
+ const teamMap=new Map();
+
+ for(const event of events){
+  const competitors=
+   event.competitions?.[0]?.competitors||[];
+
+  for(const competitor of competitors){
+   const team=competitor.team||{};
+
+   if(team.id){
+    teamMap.set(String(team.id),{
+     id:String(team.id),
+     name:team.displayName||team.name||"NFL Team"
+    });
+   }
+  }
+ }
+
+ if(!teamMap.size){
+  throw new Error(
+   "The selected slate did not include identifiable NFL teams."
+  );
+ }
+
+ const teamList=[...teamMap.values()];
+ const discovered=new Map();
+ let successfulRosters=0;
+ let failedRosters=0;
+
+ // Use batches to avoid flooding the public ESPN API.
+ for(let i=0;i<teamList.length;i+=4){
+  const batch=teamList.slice(i,i+4);
+
+  const results=await Promise.allSettled(
+   batch.map(team=>
+    getJSON(
+     BASE+"/teams/"+encodeURIComponent(team.id)+"/roster"
+    )
+   )
+  );
+
+  results.forEach((result,index)=>{
+   const team=batch[index];
+
+   if(result.status!=="fulfilled"){
+    failedRosters++;
+    return;
+   }
+
+   successfulRosters++;
+
+   const athletes=rosterAthletes(result.value);
+
+   for(const athlete of athletes){
+    const position=athlete.position.toUpperCase();
+
+    if(!positions.has(position))continue;
+
+    discovered.set(athlete.id,{
+     ...athlete,
+     team:team.name
+    });
+   }
+  });
+ }
+
+ return {
+  players:[...discovered.values()],
+  teamCount:teamList.length,
+  successfulRosters,
+  failedRosters
+ };
+}
+
+/* ==============================
+   SCANNER ANALYSIS
+============================== */
+
+let lastScan=[];
+
+function setScanProgress(percent){
+ $("scan-progress").style.width=
+  Math.max(0,Math.min(100,percent))+"%";
+}
+
+function buildScanRow(player,rows,line,market){
+ const last=rows.slice(0,5);
+ if(!last.length)return null;
+
+ const lastAverage=average(last);
+ const seasonAverage=average(rows);
+ const hits=overHits(last,line);
+
+ return {
+  id:player.id,
+  name:player.name,
+  team:player.team,
+  position:player.position,
+  market,
+  line,
+  games:last.length,
+  seasonGames:rows.length,
+  lastAverage,
+  seasonAverage,
+  hits,
+  hitRate:hits/last.length,
+  seasonHitRate:overHits(rows,line)/rows.length,
+  margin:lastAverage-line,
+  recent:last
+ };
+}
+
+function sortScanRows(rows){
+ return [...rows].sort((a,b)=>
+  b.hitRate-a.hitRate||
+  b.margin-a.margin||
+  b.games-a.games
+ );
+}
+
+function scanTable(rows,topOnly=false){
+ if(!rows.length){
+  return '<p class="muted">No qualifying players found.</p>';
+ }
+
+ const displayed=topOnly?rows.slice(0,10):rows;
+
+ return `<div class="table-wrap">
+  <table>
+   <thead>
+    <tr>
+     <th>Rank</th>
+     <th>Player</th>
+     <th>Team</th>
+     <th>Last 5 Avg</th>
+     <th>Season Avg</th>
+     <th>Over Hits</th>
+     <th>Hit Rate</th>
+     <th>Avg vs Line</th>
+    </tr>
+   </thead>
+   <tbody>
+    ${displayed.map((row,index)=>`
+     <tr>
+      <td>${index+1}</td>
+      <td>
+       <strong>${esc(row.name)}</strong>
+       <div class="muted">${esc(row.position)}</div>
+      </td>
+      <td>${esc(row.team)}</td>
+      <td>${row.lastAverage.toFixed(1)}</td>
+      <td>${row.seasonAverage.toFixed(1)}</td>
+      <td>${row.hits}/${row.games}</td>
+      <td class="${row.hitRate>=.8?"good":""}">
+       ${(row.hitRate*100).toFixed(0)}%
+      </td>
+      <td>${row.margin>=0?"+":""}${row.margin.toFixed(1)}</td>
+     </tr>
+    `).join("")}
+   </tbody>
+  </table>
+ </div>`;
+}
+
+function renderScan(rows,details){
+ const sorted=sortScanRows(rows);
+ lastScan=sorted;
+
+ $("scan-summary").innerHTML=`
+  <div class="grid">
+   <div class="card">
+    <p class="muted">Games on Slate</p>
+    <div class="stat">${details.games}</div>
+   </div>
+   <div class="card">
+    <p class="muted">Players With Usable Logs</p>
+    <div class="stat">${rows.length}</div>
+   </div>
+   <div class="card">
+    <p class="muted">Comparison Line</p>
+    <div class="stat">${esc(details.line)}</div>
+   </div>
+   <div class="card">
+    <p class="muted">Market</p>
+    <div class="stat" style="font-size:20px">
+     ${esc(details.market)}
+    </div>
+   </div>
+  </div>
+ `;
+
+ $("scan-results").innerHTML=`
+  <h3>Full-Slate Historical Rankings</h3>
+  ${scanTable(sorted)}
+  <p class="note">
+   Sorted by last-five over hit rate, then average
+   margin above your comparison line. Players with
+   fewer than five logged games can appear.
+   All statistics are historical.
+  </p>
+ `;
+
+ $("ranking-message").textContent=
+  "Top 10 for "+details.date+
+  " • "+details.market+
+  " • Comparison line "+details.line;
+
+ $("ranking-results").innerHTML=`
+  ${scanTable(sorted,true)}
+  <p class="note">
+   These are the ten highest-ranked available historical
+   trends, not ten recommended wagers.
+  </p>
+ `;
+}
+
+async function runScan(){
+ const date=$("scan-date").value;
+ const market=$("scan-market").value;
+ const lineText=$("scan-line").value;
+ const line=Number(lineText);
+
+ if(!date||lineText.trim()===""||
+  !Number.isFinite(line)){
+  $("scan-message").textContent=
+   "Select a valid date and comparison line.";
+  return;
+ }
+
+ const button=$("run-scanner");
+ button.disabled=true;
+
+ $("scan-results").innerHTML="";
+ $("scan-summary").innerHTML="";
+ $("scan-message").textContent="Loading selected NFL slate...";
+ setScanProgress(2);
+
+ try{
+  const events=await scheduleEvents(date);
+
+  if(!events.length){
+   throw new Error(
+    "No NFL games were returned for the selected date."
+   );
+  }
+
+  $("scan-message").textContent=
+   "Found "+events.length+" games. Loading team rosters...";
+
+  setScanProgress(10);
+
+  const discovery=await discoverSlatePlayers(
+   events,market
+  );
+
+  const players=discovery.players;
+
+  if(!players.length){
+   throw new Error(
+    "No eligible players were returned by ESPN rosters. "+
+    "Successful rosters: "+
+    discovery.successfulRosters+
+    "/"+discovery.teamCount+
+    ". Failed rosters: "+
+    discovery.failedRosters+
+    "."
+   );
+  }
+
+  const season=seasonForDate(date);
+  const results=[];
+  let processed=0;
+  let failedLogs=0;
+  let emptyLogs=0;
+
+  $("scan-message").textContent=
+   "Found "+players.length+
+   " eligible players. Checking historical game logs...";
+
+  // Keep concurrent requests limited.
+  const batchSize=5;
+
+  for(let i=0;i<players.length;i+=batchSize){
+   const batch=players.slice(i,i+batchSize);
+
+   const responses=await Promise.allSettled(
+    batch.map(player=>
+     athleteGameLog(player.id,season)
+    )
+   );
+
+   responses.forEach((response,index)=>{
+    const player=batch[index];
+
+    if(response.status!=="fulfilled"){
+     failedLogs++;
+     return;
+    }
+
+    let rows=extractGameLog(response.value,market);
+
+    // Never include a game played on or after the slate.
+    rows=rows.filter(row=>{
+     if(!row.date)return true;
+
+     const parsed=Date.parse(row.date);
+
+     if(!Number.isFinite(parsed))return true;
+
+     return parsed<Date.parse(date+"T00:00:00Z");
+    });
+
+    if(!rows.length){
+     emptyLogs++;
+     return;
+    }
+
+    const item=buildScanRow(
+     player,rows,line,market
+    );
+
+    if(item)results.push(item);
+   });
+
+   processed+=batch.length;
+
+   const percent=15+
+    Math.round(85*processed/players.length);
+
+   setScanProgress(percent);
+
+   $("scan-message").textContent=
+    "Analyzing players: "+processed+
+    "/"+players.length+
+    " • Usable logs: "+results.length+
+    " • Failed requests: "+failedLogs;
+  }
+
+  if(!results.length){
+   throw new Error(
+    "No usable player game logs were retrieved. "+
+    "Eligible players: "+players.length+
+    ". Failed requests: "+failedLogs+
+    ". Empty or unmatched logs: "+emptyLogs+
+    ". Try Player Analysis for one athlete "+
+    "to confirm ESPN is returning this market."
+   );
+  }
+
+  renderScan(results,{
+   games:events.length,
+   line,
+   market,
+   date
+  });
+
+  $("scan-message").textContent=
+   "Scan complete: "+results.length+
+   " players ranked from "+players.length+
+   " eligible players. "+
+   failedLogs+" game-log requests failed; "+
+   emptyLogs+" returned no usable market data.";
+
+  setScanProgress(100);
+
+ }catch(error){
+  $("scan-message").textContent=
+   "Scanner error: "+error.message;
+  setScanProgress(0);
+ }finally{
+  button.disabled=false;
+ }
+}
+
+/* ==============================
+   PROBABILITY CALCULATOR
+============================== */
 
 function erf(x){
  const sign=x<0?-1:1;
  x=Math.abs(x);
+
  const t=1/(1+0.3275911*x);
- return sign*(1-(((((1.061405429*t-1.453152027)*t)+1.421413741)*t-0.284496736)*t+0.254829592)*t*Math.exp(-x*x));
-}
-function cdf(x){return .5*(1+erf(x/Math.sqrt(2)));}
-function implied(o){return o<0?-o/(-o+100):100/(o+100);}
-function american(p){
- if(p<=0||p>=1)return "N/A";
- return p>=.5?String(Math.round(-100*p/(1-p))):
-  "+"+Math.round(100*(1-p)/p);
+
+ return sign*(1-
+  (((((1.061405429*t-1.453152027)*t)+
+   1.421413741)*t-0.284496736)*t+
+   0.254829592)*t*Math.exp(-x*x));
 }
 
-$("calculate").addEventListener("click",()=>{
+function cdf(x){
+ return .5*(1+erf(x/Math.sqrt(2)));
+}
+
+function implied(odds){
+ return odds<0?
+  -odds/(-odds+100):
+  100/(odds+100);
+}
+
+function american(probability){
+ if(probability<=0||probability>=1)return "N/A";
+
+ return probability>=.5?
+  String(Math.round(-100*probability/(1-probability))):
+  "+"+Math.round(100*(1-probability)/probability);
+}
+
+function calculate(){
  const fields=["line","mean","sd","odds"];
- const values=fields.map(id=>$(id).value);
- const [line,mean,sd,odds]=values.map(Number);
- if(values.some(v=>v.trim()==="")||
+ const raw=fields.map(id=>$(id).value);
+ const [line,mean,sd,odds]=raw.map(Number);
+
+ if(raw.some(value=>value.trim()==="")||
   ![line,mean,sd,odds].every(Number.isFinite)||
   sd<=0||odds===0||Math.abs(odds)<100){
-  $("calc-results").textContent="Enter valid values and American odds.";
+  $("calc-results").textContent=
+   "Enter valid projection values and American odds.";
   return;
  }
+
  const over=1-cdf((line-mean)/sd);
  const under=1-over;
  const edge=(over-implied(odds))*100;
+
  $("calc-results").innerHTML=`
   <div class="grid">
-   <div class="card"><p class="muted">Estimated Over</p><div class="stat">${(over*100).toFixed(1)}%</div></div>
-   <div class="card"><p class="muted">Estimated Under</p><div class="stat">${(under*100).toFixed(1)}%</div></div>
-   <div class="card"><p class="muted">Over Fair Odds</p><div class="stat">${american(over)}</div></div>
-   <div class="card"><p class="muted">Estimated Edge</p><div class="stat">${edge.toFixed(1)} pp</div></div>
+   <div class="card">
+    <p class="muted">Estimated Over</p>
+    <div class="stat">${(over*100).toFixed(1)}%</div>
+   </div>
+   <div class="card">
+    <p class="muted">Estimated Under</p>
+    <div class="stat">${(under*100).toFixed(1)}%</div>
+   </div>
+   <div class="card">
+    <p class="muted">Over Fair Odds</p>
+    <div class="stat">${american(over)}</div>
+   </div>
+   <div class="card">
+    <p class="muted">Estimated Edge</p>
+    <div class="stat">${edge.toFixed(1)} pp</div>
+   </div>
   </div>
-  <p class="muted">Normal-distribution estimate using your inputs. Whole-number lines may push, which this simplified model does not account for.</p>`;
-});
+  <p class="note">
+   Simplified normal-distribution model based on
+   manually entered inputs. It does not model
+   pushes on whole-number lines.
+  </p>
+ `;
+}
+
+/* ==============================
+   EVENT LISTENERS
+============================== */
+
+$("load-games").addEventListener("click",loadGames);
+
+$("find-player-games").addEventListener(
+ "click",()=>findPlayerGames()
+);
+
+$("load-players").addEventListener("click",loadPlayers);
+
+$("player-market").addEventListener("change",renderPlayers);
+$("player-search").addEventListener("input",renderPlayers);
+
+$("run-analysis").addEventListener("click",runAnalysis);
+$("run-scanner").addEventListener("click",runScan);
+$("calculate").addEventListener("click",calculate);
+
+/* ==============================
+   INITIALIZATION
+============================== */
+
+const today=localDate();
+
+$("game-date").value=today;
+$("player-date").value=today;
+$("scan-date").value=today;
+
+$("analysis-season").value=seasonForDate(today);
+
+loadGames();
 
 })();
 </script>
