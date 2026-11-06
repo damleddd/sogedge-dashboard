@@ -12,7 +12,7 @@
   --text:#f5f7fb;--muted:#9fb0c7;--blue:#38bdf8;
 }
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,Helvetica,sans-serif}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,sans-serif}
 header{background:#101d30;border-bottom:1px solid var(--line);padding:24px 20px}
 .wrap{max-width:1150px;margin:auto}
 h1{font-size:30px;margin:0}
@@ -39,10 +39,18 @@ label{display:block;margin:12px 0 6px;color:var(--muted)}
 .team small{display:block;color:var(--muted);margin-top:4px}
 .game{background:#0c1728;border:1px solid var(--line);border-radius:10px;padding:16px;margin:12px 0}
 .game .team{font-weight:bold}
-.status{color:#4ade80}
 .note{border-left:3px solid var(--blue);padding:12px;background:#101e32;color:var(--muted);border-radius:5px}
 .stat{font-size:27px;font-weight:bold;color:var(--blue)}
 a{color:var(--blue)}
+.player{display:flex;gap:12px;align-items:center;margin-bottom:12px}
+.player img{width:68px;height:68px;object-fit:contain;border-radius:50%;background:#22334a}
+.player strong{font-size:17px}
+.player small{display:block;color:var(--muted);margin-top:5px}
+.stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.statbox{padding:12px;background:#0c1728;border-radius:8px}
+.statbox b{font-size:20px;color:var(--blue);display:block}
+.statbox span{font-size:12px;color:var(--muted)}
+.tag{display:inline-block;padding:5px 9px;border-radius:6px;background:#223850;color:#bdeaff;font-size:12px;margin:3px}
 footer{padding:20px;color:var(--muted);text-align:center;border-top:1px solid var(--line)}
 @media(max-width:550px){h1{font-size:25px}.card{padding:15px}}
 </style>
@@ -55,26 +63,58 @@ footer{padding:20px;color:var(--muted);text-align:center;border-top:1px solid va
   <a href="/">← Back to NHL EDGE</a>
  </div>
 </header>
+
 <main class="wrap">
-<nav id="tabs" aria-label="NFL dashboard sections">
+<nav id="tabs">
  <button class="active" data-tab="schedule">Live Schedule</button>
+ <button data-tab="players">Player Stats</button>
  <button data-tab="teams">32 Teams</button>
  <button data-tab="rankings">Top 10</button>
  <button data-tab="scanner">Prop Scanner</button>
- <button data-tab="calculator">Probability Calculator</button>
+ <button data-tab="calculator">Calculator</button>
 </nav>
 
 <section id="schedule" class="active">
  <div class="card">
   <h2>Live NFL Schedule</h2>
-  <p class="muted">View every game on a selected date, including kickoff times, scores and matchup information.</p>
+  <p class="muted">Every game on the selected date.</p>
   <div class="controls">
    <div><label for="game-date">Select date</label><input type="date" id="game-date"></div>
    <button class="primary" id="load-games">Load Games</button>
   </div>
-  <p id="schedule-message" aria-live="polite">Select a date to load games.</p>
+  <p id="schedule-message" aria-live="polite">Select a date.</p>
   <div id="games"></div>
  </div>
+</section>
+
+<section id="players">
+ <div class="card">
+  <h2>Player Statistics & Headshots</h2>
+  <p class="muted">Select a date and a game to view real box-score statistics.</p>
+  <div class="controls">
+   <div><label for="player-date">Game date</label><input type="date" id="player-date"></div>
+   <button id="find-player-games" class="primary">Find Games</button>
+   <div><label for="player-game">Game</label>
+    <select id="player-game"><option value="">Select a game</option></select>
+   </div>
+   <button id="load-players" class="primary">Load Player Stats</button>
+  </div>
+  <p id="player-message" aria-live="polite">Choose a date and find games.</p>
+  <div class="controls">
+   <div><label for="player-market">Stat category</label>
+    <select id="player-market">
+     <option value="all">All Categories</option>
+     <option value="passing">Passing</option>
+     <option value="rushing">Rushing</option>
+     <option value="receiving">Receiving</option>
+    </select>
+   </div>
+   <div><label for="player-search">Search player</label>
+    <input id="player-search" placeholder="Player name">
+   </div>
+  </div>
+ </div>
+ <div id="player-grid" class="grid"></div>
 </section>
 
 <section id="teams">
@@ -83,7 +123,10 @@ footer{padding:20px;color:var(--muted);text-align:center;border-top:1px solid va
   <div class="controls">
    <div><label for="team-search">Search teams</label><input id="team-search" placeholder="Team or city"></div>
    <div><label for="conference">Conference</label>
-    <select id="conference"><option value="">All conferences</option><option>AFC</option><option>NFC</option></select>
+    <select id="conference">
+     <option value="">All conferences</option>
+     <option>AFC</option><option>NFC</option>
+    </select>
    </div>
   </div>
  </div>
@@ -93,48 +136,58 @@ footer{padding:20px;color:var(--muted);text-align:center;border-top:1px solid va
 <section id="rankings">
  <div class="card">
   <h2>Top 10 Player Props</h2>
-  <p class="note">Live player rankings are not yet connected. This section will rank actual model-estimated opportunities across every game, once player statistics and prop lines are available. No fabricated picks are displayed.</p>
+  <p class="note">Coming next: data-driven player rankings based on recent games, season performance, matchup context, and actual sportsbook lines. No invented picks are displayed.</p>
  </div>
 </section>
 
 <section id="scanner">
  <div class="card">
   <h2>Full-Slate Prop Scanner</h2>
-  <p class="muted">Planned markets:</p>
   <div class="grid">
-   <div class="card"><h3>Passing Yards</h3><p>Quarterback yardage projections</p></div>
-   <div class="card"><h3>Rushing Yards</h3><p>Running back and quarterback rushing projections</p></div>
-   <div class="card"><h3>Receiving Yards</h3><p>Receiver, tight end and running back receiving projections</p></div>
+   <div class="card"><h3>Passing Yards</h3><p>QB passing projections</p></div>
+   <div class="card"><h3>Rushing Yards</h3><p>RB and QB rushing projections</p></div>
+   <div class="card"><h3>Receiving Yards</h3><p>WR, TE and RB receiving projections</p></div>
    <div class="card"><h3>Receptions</h3><p>Catch-volume projections</p></div>
   </div>
-  <p class="note">The automated scanner will be enabled after real player statistics, matchup data and betting lines are integrated.</p>
+  <p class="note">Automated predictions will be enabled after historical player statistics and betting lines are connected.</p>
  </div>
 </section>
 
 <section id="calculator">
  <div class="card">
   <h2>Player Prop Probability Calculator</h2>
-  <p class="muted">Enter your own projection and standard deviation to estimate an over/under probability. This is a mathematical estimate, not a live model projection.</p>
+  <p class="muted">Enter your own projection and standard deviation.</p>
   <div class="grid">
    <div><label for="player">Player</label><input id="player" placeholder="Player name"></div>
-   <div><label for="market">Prop market</label>
-    <select id="market"><option>Passing Yards</option><option>Rushing Yards</option><option>Receiving Yards</option><option>Receptions</option></select>
+   <div><label for="market">Market</label>
+    <select id="market">
+     <option>Passing Yards</option><option>Rushing Yards</option>
+     <option>Receiving Yards</option><option>Receptions</option>
+    </select>
    </div>
    <div><label for="line">Betting line</label><input id="line" type="number" step="0.5" value="65.5"></div>
    <div><label for="mean">Projected average</label><input id="mean" type="number" step="0.1" value="72"></div>
    <div><label for="sd">Standard deviation</label><input id="sd" type="number" step="0.1" min="0.1" value="20"></div>
-   <div><label for="odds">Over odds (American)</label><input id="odds" type="number" step="1" value="-110"></div>
+   <div><label for="odds">Over odds</label><input id="odds" type="number" step="1" value="-110"></div>
   </div>
   <p><button class="primary" id="calculate">Calculate Probability</button></p>
   <div id="calc-results" aria-live="polite"></div>
  </div>
 </section>
 </main>
-<footer>NFL EDGE • Data and probabilities are informational, not guarantees.</footer>
+
+<footer>NFL EDGE • Statistics are informational, not betting guarantees.</footer>
 
 <script>
 (function(){
 "use strict";
+
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({
+ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+})[c]);
+
+const BASE="https://site.api.espn.com/apis/site/v2/sports/football/nfl";
 
 const teams=[
 ["Arizona Cardinals","ARI","NFC","West"],["Atlanta Falcons","ATL","NFC","South"],
@@ -155,42 +208,51 @@ const teams=[
 ["Tennessee Titans","TEN","AFC","South"],["Washington Commanders","WSH","NFC","East"]
 ];
 
-const $=id=>document.getElementById(id);
-const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({
-"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
-})[c]);
-
 function logo(abbr){
  return "https://a.espncdn.com/i/teamlogos/nfl/500/"+encodeURIComponent(abbr)+".png";
+}
+function headshot(id){
+ return "https://a.espncdn.com/i/headshots/nfl/players/full/"+encodeURIComponent(id)+".png";
+}
+function localDate(){
+ const d=new Date();
+ return [d.getFullYear(),String(d.getMonth()+1).padStart(2,"0"),String(d.getDate()).padStart(2,"0")].join("-");
+}
+function dateParam(date){return date.replace(/-/g,"");}
+
+async function getJSON(url){
+ const controller=new AbortController();
+ const timer=setTimeout(()=>controller.abort(),12000);
+ try{
+  const res=await fetch(url,{signal:controller.signal});
+  if(!res.ok)throw Error("HTTP "+res.status);
+  return await res.json();
+ }finally{clearTimeout(timer);}
 }
 
 function showTab(id){
  document.querySelectorAll("main section").forEach(s=>s.classList.toggle("active",s.id===id));
  document.querySelectorAll("#tabs button").forEach(b=>b.classList.toggle("active",b.dataset.tab===id));
 }
-document.querySelectorAll("#tabs button").forEach(b=>b.addEventListener("click",()=>showTab(b.dataset.tab)));
+document.querySelectorAll("#tabs button").forEach(b=>{
+ b.addEventListener("click",()=>showTab(b.dataset.tab));
+});
 
 function renderTeams(){
  const q=$("team-search").value.toLowerCase().trim();
  const conf=$("conference").value;
- const filtered=teams.filter(t=>(!conf||t[2]===conf)&&(!q||t[0].toLowerCase().includes(q)||t[1].toLowerCase().includes(q)));
+ const filtered=teams.filter(t=>(!conf||t[2]===conf)&&
+ (!q||t[0].toLowerCase().includes(q)||t[1].toLowerCase().includes(q)));
  $("team-grid").innerHTML=filtered.map(t=>`
-  <div class="card">
-   <div class="team">
-    <img src="${logo(t[1])}" alt="" loading="lazy">
-    <div><strong>${esc(t[0])}</strong><small>${esc(t[2])} ${esc(t[3])} • ${esc(t[1])}</small></div>
-   </div>
-  </div>`).join("")||'<p>No teams found.</p>';
+  <div class="card"><div class="team">
+   <img src="${logo(t[1])}" alt="" loading="lazy">
+   <div><strong>${esc(t[0])}</strong>
+   <small>${esc(t[2])} ${esc(t[3])} • ${esc(t[1])}</small></div>
+  </div></div>`).join("")||"<p>No teams found.</p>";
 }
 $("team-search").addEventListener("input",renderTeams);
 $("conference").addEventListener("change",renderTeams);
 renderTeams();
-
-function localDate(){
- const d=new Date();
- return [d.getFullYear(),String(d.getMonth()+1).padStart(2,"0"),String(d.getDate()).padStart(2,"0")].join("-");
-}
-$("game-date").value=localDate();
 
 function gameTeam(t){
  if(!t)return '<div class="team">TBD</div>';
@@ -201,22 +263,19 @@ function gameTeam(t){
  return `<div class="team">${image}<span>${name}${score}</span></div>`;
 }
 
+async function scheduleEvents(date){
+ const data=await getJSON(BASE+"/scoreboard?dates="+dateParam(date));
+ return Array.isArray(data.events)?data.events:[];
+}
+
 async function loadGames(){
  const date=$("game-date").value;
- if(!date){$("schedule-message").textContent="Choose a date.";return;}
+ if(!date)return;
  $("schedule-message").textContent="Loading NFL games...";
  $("games").innerHTML="";
  $("load-games").disabled=true;
  try{
-  const controller=new AbortController();
-  const timeout=setTimeout(()=>controller.abort(),12000);
-  let response;
-  try{
-   response=await fetch("https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?dates="+date.replace(/-/g,""),{signal:controller.signal});
-  }finally{clearTimeout(timeout);}
-  if(!response.ok)throw Error("HTTP "+response.status);
-  const data=await response.json();
-  const events=Array.isArray(data.events)?data.events:[];
+  const events=await scheduleEvents(date);
   if(!events.length){
    $("schedule-message").textContent="No NFL games scheduled for this date.";
    return;
@@ -228,62 +287,197 @@ async function loadGames(){
    const away=entries.find(t=>t.homeAway==="away");
    const home=entries.find(t=>t.homeAway==="home");
    const when=new Date(event.date);
-   const kickoff=Number.isNaN(when.getTime())?"Time TBD":when.toLocaleString([],{weekday:"short",hour:"numeric",minute:"2-digit"});
+   const kickoff=Number.isNaN(when.getTime())?"Time TBD":
+    when.toLocaleString([],{weekday:"short",hour:"numeric",minute:"2-digit"});
    const status=event.status?.type?.description||"Scheduled";
-   const venue=comp.venue?.fullName||"";
    return `<article class="game">
-    <p class="muted">${esc(kickoff)} • ${esc(status)}${venue?" • "+esc(venue):""}</p>
+    <p class="muted">${esc(kickoff)} • ${esc(status)}</p>
     ${gameTeam(away)}${gameTeam(home)}
+    <button data-game="${esc(event.id)}" class="view-stats">View Player Stats</button>
    </article>`;
   }).join("");
+  document.querySelectorAll(".view-stats").forEach(button=>{
+   button.addEventListener("click",async()=>{
+    $("player-date").value=date;
+    showTab("players");
+    await findPlayerGames(button.dataset.game);
+   });
+  });
  }catch(err){
-  $("schedule-message").textContent="Could not load schedule. "+(err.name==="AbortError"?"Request timed out.":err.message)+
-  " The ESPN service may be unavailable or may block browser requests.";
- }finally{
-  $("load-games").disabled=false;
- }
+  $("schedule-message").textContent="Could not load schedule: "+err.message;
+ }finally{$("load-games").disabled=false;}
 }
+
+$("game-date").value=localDate();
+$("player-date").value=localDate();
 $("load-games").addEventListener("click",loadGames);
 loadGames();
+
+async function findPlayerGames(selectedId=""){
+ const date=$("player-date").value;
+ if(!date)return;
+ $("player-message").textContent="Finding games...";
+ $("player-grid").innerHTML="";
+ $("player-game").innerHTML='<option value="">Select a game</option>';
+ $("find-player-games").disabled=true;
+ try{
+  const events=await scheduleEvents(date);
+  events.forEach(event=>{
+   const option=document.createElement("option");
+   option.value=event.id;
+   option.textContent=event.name||event.shortName||event.id;
+   $("player-game").appendChild(option);
+  });
+  if(selectedId&&events.some(e=>e.id===selectedId)){
+   $("player-game").value=selectedId;
+   await loadPlayers();
+  }else{
+   $("player-message").textContent=events.length?
+    "Select one of "+events.length+" game(s) and click Load Player Stats.":
+    "No NFL games found for this date.";
+  }
+ }catch(err){
+  $("player-message").textContent="Could not find games: "+err.message;
+ }finally{$("find-player-games").disabled=false;}
+}
+$("find-player-games").addEventListener("click",()=>findPlayerGames());
+
+let loadedPlayers=[];
+
+function parsePlayers(data){
+ const result=[];
+ const groups=data.boxscore?.players||[];
+ groups.forEach(group=>{
+  const team=group.team?.displayName||group.team?.abbreviation||"NFL";
+  (group.statistics||[]).forEach(statGroup=>{
+   const name=(statGroup.name||"").toLowerCase();
+   let category="";
+   if(name.includes("passing"))category="passing";
+   else if(name.includes("rushing"))category="rushing";
+   else if(name.includes("receiving"))category="receiving";
+   if(!category)return;
+
+   const labels=(statGroup.labels||[]).map(x=>String(x).toUpperCase());
+   const keys=(statGroup.keys||[]).map(x=>String(x).toLowerCase());
+
+   (statGroup.athletes||[]).forEach(entry=>{
+    const athlete=entry.athlete||{};
+    const values=entry.stats||[];
+    const stats=values.map((value,i)=>({
+     label:labels[i]||keys[i]||"Stat "+(i+1),
+     value:String(value)
+    }));
+    result.push({
+     id:athlete.id||"",
+     name:athlete.displayName||athlete.fullName||"Unknown Player",
+     team,
+     position:athlete.position?.abbreviation||"",
+     image:athlete.headshot?.href||"",
+     category,
+     stats
+    });
+   });
+  });
+ });
+ return result;
+}
+
+function renderPlayers(){
+ const category=$("player-market").value;
+ const query=$("player-search").value.toLowerCase().trim();
+ const filtered=loadedPlayers.filter(p=>
+  (category==="all"||p.category===category)&&
+  (!query||p.name.toLowerCase().includes(query))
+ );
+ $("player-grid").innerHTML=filtered.map(p=>{
+  const image=p.image&&/^https:\/\//.test(p.image)?
+   p.image:(p.id?headshot(p.id):"");
+  const photo=image?
+   `<img src="${esc(image)}" alt="${esc(p.name)}" loading="lazy" onerror="this.style.display='none'">`:"";
+  return `<div class="card">
+   <div class="player">
+    ${photo}
+    <div><strong>${esc(p.name)}</strong>
+    <small>${esc(p.team)} • ${esc(p.position)}</small>
+    <span class="tag">${esc(p.category.toUpperCase())}</span></div>
+   </div>
+   <div class="stats">
+    ${p.stats.map(s=>`<div class="statbox">
+     <b>${esc(s.value)}</b><span>${esc(s.label)}</span>
+    </div>`).join("")}
+   </div>
+  </div>`;
+ }).join("")||'<div class="card">No player statistics match your filters.</div>';
+}
+
+async function loadPlayers(){
+ const id=$("player-game").value;
+ if(!id){
+  $("player-message").textContent="Select a game first.";
+  return;
+ }
+ $("load-players").disabled=true;
+ $("player-message").textContent="Loading player box scores...";
+ $("player-grid").innerHTML="";
+ loadedPlayers=[];
+ try{
+  const data=await getJSON(BASE+"/summary?event="+encodeURIComponent(id));
+  loadedPlayers=parsePlayers(data);
+  if(!loadedPlayers.length){
+   $("player-message").textContent=
+    "No player box-score statistics are available yet. Try a completed game.";
+   return;
+  }
+  const unique=new Set(loadedPlayers.map(p=>p.id+"-"+p.category));
+  $("player-message").textContent=
+   unique.size+" player stat entries loaded from this game's box score.";
+  renderPlayers();
+ }catch(err){
+  $("player-message").textContent="Could not load player statistics: "+err.message;
+ }finally{$("load-players").disabled=false;}
+}
+
+$("load-players").addEventListener("click",loadPlayers);
+$("player-market").addEventListener("change",renderPlayers);
+$("player-search").addEventListener("input",renderPlayers);
 
 function erf(x){
  const sign=x<0?-1:1;
  x=Math.abs(x);
  const t=1/(1+0.3275911*x);
- const y=1-(((((1.061405429*t-1.453152027)*t)+1.421413741)*t-0.284496736)*t+0.254829592)*t*Math.exp(-x*x);
- return sign*y;
+ return sign*(1-(((((1.061405429*t-1.453152027)*t)+1.421413741)*t-0.284496736)*t+0.254829592)*t*Math.exp(-x*x));
 }
-function cdf(x){return 0.5*(1+erf(x/Math.sqrt(2)));}
-function implied(odds){return odds<0?(-odds)/((-odds)+100):100/(odds+100);}
+function cdf(x){return .5*(1+erf(x/Math.sqrt(2)));}
+function implied(o){return o<0?-o/(-o+100):100/(o+100);}
 function american(p){
  if(p<=0||p>=1)return "N/A";
- return p>=.5?String(Math.round(-100*p/(1-p))):"+"+Math.round(100*(1-p)/p);
+ return p>=.5?String(Math.round(-100*p/(1-p))):
+  "+"+Math.round(100*(1-p)/p);
 }
+
 $("calculate").addEventListener("click",()=>{
- const line=Number($("line").value);
- const mean=Number($("mean").value);
- const sd=Number($("sd").value);
- const odds=Number($("odds").value);
- if(![$("line").value,$("mean").value,$("sd").value,$("odds").value].every(v=>v.trim()!=="")||
-    ![line,mean,sd,odds].every(Number.isFinite)||sd<=0||odds===0||Math.abs(odds)<100){
-  $("calc-results").textContent="Enter valid values. Standard deviation must be greater than zero and American odds must be +100 or higher, or -100 or lower.";
+ const fields=["line","mean","sd","odds"];
+ const values=fields.map(id=>$(id).value);
+ const [line,mean,sd,odds]=values.map(Number);
+ if(values.some(v=>v.trim()==="")||
+  ![line,mean,sd,odds].every(Number.isFinite)||
+  sd<=0||odds===0||Math.abs(odds)<100){
+  $("calc-results").textContent="Enter valid values and American odds.";
   return;
  }
  const over=1-cdf((line-mean)/sd);
  const under=1-over;
- const market=implied(odds);
- const edge=(over-market)*100;
- const label=esc($("player").value.trim()||"Selected player");
+ const edge=(over-implied(odds))*100;
  $("calc-results").innerHTML=`
   <div class="grid">
    <div class="card"><p class="muted">Estimated Over</p><div class="stat">${(over*100).toFixed(1)}%</div></div>
    <div class="card"><p class="muted">Estimated Under</p><div class="stat">${(under*100).toFixed(1)}%</div></div>
    <div class="card"><p class="muted">Over Fair Odds</p><div class="stat">${american(over)}</div></div>
-   <div class="card"><p class="muted">Estimated Edge vs Over Odds</p><div class="stat">${edge.toFixed(1)} pp</div></div>
+   <div class="card"><p class="muted">Estimated Edge</p><div class="stat">${edge.toFixed(1)} pp</div></div>
   </div>
-  <p>${label} • ${esc($("market").value)} • Line ${esc(line)}</p>
-  <p class="muted">Assumes a normal distribution with your entered mean and standard deviation. Real player outcomes may differ substantially. Receptions are discrete, and this simplified model does not handle pushes on whole-number lines.</p>`;
+  <p class="muted">Normal-distribution estimate using your inputs. Whole-number lines may push, which this simplified model does not account for.</p>`;
 });
+
 })();
 </script>
 </body>
