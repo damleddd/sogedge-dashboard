@@ -652,30 +652,93 @@ return event.status?.type?.completed===true||
 event.status?.type?.state==="post";
 }
 
-async function teamRecentGames(teamId,date){
- const year=Number(date.slice(0,4));
- const month=Number(date.slice(5,7));
 
- // NFL seasons span two calendar years.
- const season=month<=3?year-1:year;
+const recentScoreboardCache = new Map();
 
- const url=BASE+"/teams/"+encodeURIComponent(teamId)+
- "/schedule?season="+season+"&seasontype=2";
+async function teamRecentGames(teamId, date) {
+  // Reuse one historical scoreboard search for every team.
+  if (!recentScoreboardCache.has(date)) {
+    const search = (async () => {
+      const allGames = new Map();
+      const cutoff = new Date(date + "T12:00:00Z");
 
- const data=await getJSON(url);
+      // Search the previous 12 weeks in 7-day windows.
+      const windows = [];
 
- const events=Array.isArray(data.events)?data.events:[];
+      for (let week = 0; week < 12; week++) {
+        const end = new Date(cutoff);
+        end.setUTCDate(end.getUTCDate() - 1 - week * 7);
 
- return events.filter(e=>{
-  if(!e.date||e.date.slice(0,10)>=date)return false;
+        const start = new Date(end);
+        start.setUTCDate(start.getUTCDate() - 6);
 
-  const status=e.status?.type||{};
-  return status.completed===true||
-         status.state==="post"||
-         status.name==="STATUS_FINAL"||
-         status.description==="Final";
- }).sort((a,b)=>b.date.localeCompare(a.date)).slice(0,5);
+        const fmt = d =>
+          d.toISOString().slice(0, 10).replace(/-/g, "");
+
+        windows.push(
+          BASE + "/scoreboard?dates=" +
+          fmt(start) + "-" + fmt(end) +
+          "&limit=500"
+        );
+      }
+
+      let successfulRequests = 0;
+
+      // Fetch in small batches.
+      for (let i = 0; i < windows.length; i += 3) {
+        const batch = await Promise.allSettled(
+          windows.slice(i, i + 3).map(url => getJSON(url))
+        );
+
+        for (const result of batch) {
+          if (result.status !== "fulfilled") continue;
+
+          successfulRequests++;
+
+          for (const event of result.value.events || []) {
+            if (!event.id || !event.date) continue;
+
+            const status = event.status?.type || {};
+
+            const completed =
+              status.completed === true ||
+              status.state === "post" ||
+              status.name === "STATUS_FINAL";
+
+            if (!completed) continue;
+
+            if (new Date(event.date) >= cutoff) continue;
+
+            allGames.set(String(event.id), event);
+          }
+        }
+      }
+
+      if (successfulRequests === 0) {
+        throw new Error(
+          "Historical scoreboard requests failed."
+        );
+      }
+
+      return [...allGames.values()].sort(
+        (a, b) => new Date(b.date) - new Date(a.date)
+      );
+    })();
+
+    recentScoreboardCache.set(date, search);
+  }
+
+  const games = await recentScoreboardCache.get(date);
+
+  return games.filter(event => {
+    const ids = (
+      event.competitions?.[0]?.competitors || []
+    ).map(c => String(c.team?.id || ""));
+
+    return ids.includes(String(teamId));
+  }).slice(0, 5);
 }
+
 
 async function pooled(items,limit,worker){
 let next=0;
