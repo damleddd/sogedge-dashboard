@@ -7,9 +7,9 @@
 <title>NFL EDGE | Football Analytics</title>
 <style>
 :root{
-  color-scheme:dark;
-  --bg:#080e1b;--panel:#142238;--line:#304057;
-  --text:#f5f7fb;--muted:#9fb0c7;--blue:#38bdf8;
+ color-scheme:dark;
+ --bg:#080e1b;--panel:#142238;--line:#304057;
+ --text:#f5f7fb;--muted:#9fb0c7;--blue:#38bdf8;
 }
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,sans-serif}
@@ -38,7 +38,6 @@ label{display:block;margin:12px 0 6px;color:var(--muted)}
 .team img{width:38px;height:38px;object-fit:contain}
 .team small{display:block;color:var(--muted);margin-top:4px}
 .game{background:#0c1728;border:1px solid var(--line);border-radius:10px;padding:16px;margin:12px 0}
-.game .team{font-weight:bold}
 .note{border-left:3px solid var(--blue);padding:12px;background:#101e32;color:var(--muted);border-radius:5px}
 .stat{font-size:27px;font-weight:bold;color:var(--blue)}
 a{color:var(--blue)}
@@ -51,150 +50,202 @@ a{color:var(--blue)}
 .statbox b{font-size:20px;color:var(--blue);display:block}
 .statbox span{font-size:12px;color:var(--muted)}
 .tag{display:inline-block;padding:5px 9px;border-radius:6px;background:#223850;color:#bdeaff;font-size:12px;margin:3px}
+.rank{font-size:23px;font-weight:bold;color:var(--blue)}
+.progress{height:9px;background:#273850;border-radius:10px;overflow:hidden;margin:12px 0}
+.progress div{height:100%;background:var(--blue)}
+.pill{display:inline-block;background:#213951;border-radius:6px;padding:6px 9px;font-size:12px;margin:3px}
+.tablewrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;min-width:650px}
+th,td{padding:12px;text-align:left;border-bottom:1px solid var(--line)}
+th{color:var(--muted);font-size:13px}
+td{font-size:14px}
+.status{color:var(--muted);line-height:1.5}
 footer{padding:20px;color:var(--muted);text-align:center;border-top:1px solid var(--line)}
 @media(max-width:550px){h1{font-size:25px}.card{padding:15px}}
 </style>
 </head>
 <body>
 <header>
- <div class="wrap">
-  <h1>NFL <span>EDGE</span></h1>
-  <p>Football analytics • Full-slate coverage</p>
-  <a href="/">← Back to NHL EDGE</a>
- </div>
+<div class="wrap">
+<h1>NFL <span>EDGE</span></h1>
+<p>Football analytics • Full-slate coverage</p>
+<a href="/">← Back to NHL EDGE</a>
+</div>
 </header>
 
 <main class="wrap">
 <nav id="tabs">
- <button class="active" data-tab="schedule">Live Schedule</button>
- <button data-tab="players">Player Stats</button>
- <button data-tab="analysis">Player Analysis</button>
- <button data-tab="teams">32 Teams</button>
- <button data-tab="rankings">Top 10</button>
- <button data-tab="scanner">Prop Scanner</button>
- <button data-tab="calculator">Calculator</button>
+<button class="active" data-tab="schedule">Live Schedule</button>
+<button data-tab="players">Player Stats</button>
+<button data-tab="analysis">Player Analysis</button>
+<button data-tab="teams">32 Teams</button>
+<button data-tab="rankings">Top 10</button>
+<button data-tab="scanner">Prop Scanner</button>
+<button data-tab="calculator">Calculator</button>
 </nav>
 
 <section id="schedule" class="active">
- <div class="card">
-  <h2>Live NFL Schedule</h2>
-  <p class="muted">Every game on the selected date.</p>
-  <div class="controls">
-   <div><label for="game-date">Select date</label><input type="date" id="game-date"></div>
-   <button class="primary" id="load-games">Load Games</button>
-  </div>
-  <p id="schedule-message" aria-live="polite">Select a date.</p>
-  <div id="games"></div>
- </div>
+<div class="card">
+<h2>Live NFL Schedule</h2>
+<p class="muted">Every NFL game on the selected date.</p>
+<div class="controls">
+<div><label for="game-date">Date</label><input type="date" id="game-date"></div>
+<button class="primary" id="load-games">Load Games</button>
+</div>
+<p id="schedule-message" class="status"></p>
+<div id="games"></div>
+</div>
 </section>
 
 <section id="players">
- <div class="card">
-  <h2>Player Statistics & Headshots</h2>
-  <p class="muted">Select a date and a game to view real box-score statistics.</p>
-  <div class="controls">
-   <div><label for="player-date">Game date</label><input type="date" id="player-date"></div>
-   <button id="find-player-games" class="primary">Find Games</button>
-   <div><label for="player-game">Game</label>
-    <select id="player-game"><option value="">Select a game</option></select>
-   </div>
-   <button id="load-players" class="primary">Load Player Stats</button>
-  </div>
-  <p id="player-message" aria-live="polite">Choose a date and find games.</p>
-  <div class="controls">
-   <div><label for="player-market">Stat category</label>
-    <select id="player-market">
-     <option value="all">All Categories</option>
-     <option value="passing">Passing</option>
-     <option value="rushing">Rushing</option>
-     <option value="receiving">Receiving</option>
-    </select>
-   </div>
-   <div><label for="player-search">Search player</label>
-    <input id="player-search" placeholder="Player name">
-   </div>
-  </div>
- </div>
- <div id="player-grid" class="grid"></div>
+<div class="card">
+<h2>Player Statistics & Headshots</h2>
+<div class="controls">
+<div><label for="player-date">Game date</label><input type="date" id="player-date"></div>
+<button id="find-player-games" class="primary">Find Games</button>
+<div><label for="player-game">Game</label>
+<select id="player-game"><option value="">Select game</option></select></div>
+<button id="load-players" class="primary">Load Player Stats</button>
+</div>
+<p id="player-message" class="status"></p>
+<div class="controls">
+<div><label for="player-market">Category</label>
+<select id="player-market">
+<option value="all">All Categories</option>
+<option value="passing">Passing</option>
+<option value="rushing">Rushing</option>
+<option value="receiving">Receiving</option>
+</select></div>
+<div><label for="player-search">Search</label>
+<input id="player-search" placeholder="Player name"></div>
+</div>
+</div>
+<div id="player-grid" class="grid"></div>
 </section>
 
 <section id="analysis">
- <div class="card">
-  <h2>Player Analysis • Last 5 & Season</h2>
-  <p class="muted">Select a player from a completed game's Player Stats cards, or enter an ESPN athlete ID. Game-log data is requested separately from ESPN and may be unavailable.</p>
-  <div class="controls">
-   <div><label for="analysis-id">ESPN athlete ID</label><input id="analysis-id" placeholder="Select player or enter ID"></div>
-   <div><label for="analysis-name">Player name</label><input id="analysis-name" placeholder="Player"></div>
-   <div><label for="analysis-season">Season</label><input id="analysis-season" type="number" min="2000" max="2100" value="2026"></div>
-   <div><label for="analysis-market">Market</label><select id="analysis-market"><option value="passing">Passing yards</option><option value="rushing">Rushing yards</option><option value="receiving">Receiving yards</option><option value="receptions">Receptions</option></select></div>
-   <div><label for="analysis-line">Your prop line</label><input id="analysis-line" type="number" step="0.5" value="65.5"></div>
-   <button class="primary" id="run-analysis">Analyze</button>
-  </div>
-  <p id="analysis-message" aria-live="polite">Choose a player to begin.</p>
-  <div id="analysis-results"></div>
- </div>
+<div class="card">
+<h2>Player Analysis</h2>
+<p class="muted">Last 5 games, season averages and historical hit rates.</p>
+<div class="controls">
+<div><label>ESPN athlete ID</label><input id="analysis-id" placeholder="Select a player"></div>
+<div><label>Player name</label><input id="analysis-name" placeholder="Player"></div>
+<div><label>Season</label><input id="analysis-season" type="number" value="2026"></div>
+<div><label>Market</label>
+<select id="analysis-market">
+<option value="passing">Passing yards</option>
+<option value="rushing">Rushing yards</option>
+<option value="receiving">Receiving yards</option>
+<option value="receptions">Receptions</option>
+</select></div>
+<div><label>Comparison line</label><input id="analysis-line" type="number" step="0.5" value="65.5"></div>
+<button class="primary" id="run-analysis">Analyze</button>
+</div>
+<p id="analysis-message" class="status">Select a player from Player Stats.</p>
+<div id="analysis-results"></div>
+</div>
 </section>
 
 <section id="teams">
- <div class="card">
-  <h2>All 32 NFL Teams</h2>
-  <div class="controls">
-   <div><label for="team-search">Search teams</label><input id="team-search" placeholder="Team or city"></div>
-   <div><label for="conference">Conference</label>
-    <select id="conference">
-     <option value="">All conferences</option>
-     <option>AFC</option><option>NFC</option>
-    </select>
-   </div>
-  </div>
- </div>
- <div class="grid" id="team-grid"></div>
+<div class="card">
+<h2>All 32 NFL Teams</h2>
+<div class="controls">
+<div><label>Search</label><input id="team-search" placeholder="Team or city"></div>
+<div><label>Conference</label>
+<select id="conference">
+<option value="">All</option><option>AFC</option><option>NFC</option>
+</select></div>
+</div>
+</div>
+<div class="grid" id="team-grid"></div>
 </section>
 
 <section id="rankings">
- <div class="card">
-  <h2>Top 10 Player Props</h2>
-  <p class="note">Coming next: data-driven player rankings based on recent games, season performance, matchup context, and actual sportsbook lines. No invented picks are displayed.</p>
- </div>
+<div class="card">
+<h2>Top 10 Statistical Trends</h2>
+<p class="note">
+These rankings use recent historical performance against your comparison lines.
+They are not sportsbook odds, predicted probabilities or verified betting edges.
+</p>
+<div id="rankings-message" class="status">
+Run the Full-Slate Scanner to generate rankings.
+</div>
+<div id="top-ten" class="grid"></div>
+</div>
 </section>
 
 <section id="scanner">
- <div class="card">
-  <h2>Full-Slate Prop Scanner</h2>
-  <div class="grid">
-   <div class="card"><h3>Passing Yards</h3><p>QB passing projections</p></div>
-   <div class="card"><h3>Rushing Yards</h3><p>RB and QB rushing projections</p></div>
-   <div class="card"><h3>Receiving Yards</h3><p>WR, TE and RB receiving projections</p></div>
-   <div class="card"><h3>Receptions</h3><p>Catch-volume projections</p></div>
-  </div>
-  <p class="note">Automated predictions will be enabled after historical player statistics and betting lines are connected.</p>
- </div>
+<div class="card">
+<h2>Full-Slate Player Prop Scanner</h2>
+<p class="muted">
+Select an NFL game date. The scanner retrieves completed games
+from the participating teams' recent schedules and evaluates
+players using available box-score data.
+</p>
+
+<div class="controls">
+<div><label for="scan-date">Slate date</label>
+<input type="date" id="scan-date"></div>
+<div><label for="scan-market">Market</label>
+<select id="scan-market">
+<option value="receiving">Receiving Yards</option>
+<option value="rushing">Rushing Yards</option>
+<option value="passing">Passing Yards</option>
+<option value="receptions">Receptions</option>
+</select></div>
+<div><label for="scan-line">Comparison line</label>
+<input id="scan-line" type="number" step="0.5" value="65.5"></div>
+<div><label for="scan-min">Minimum games</label>
+<select id="scan-min">
+<option value="2">2 games</option>
+<option value="3" selected>3 games</option>
+<option value="4">4 games</option>
+<option value="5">5 games</option>
+</select></div>
+<button class="primary" id="run-scan">Scan NFL Slate</button>
+</div>
+
+<p class="note">
+The comparison line is entered by you and applied to all players
+in the selected market. It is not a live sportsbook line.
+A player appearing in the rankings does not mean a bet is profitable.
+</p>
+
+<p id="scan-message" class="status" aria-live="polite">
+Ready to scan.
+</p>
+
+<div id="scan-summary" class="grid"></div>
+</div>
+
+<div class="card">
+<h3>Historical Performance Rankings</h3>
+<div id="scan-results"></div>
+</div>
 </section>
 
 <section id="calculator">
- <div class="card">
-  <h2>Player Prop Probability Calculator</h2>
-  <p class="muted">Enter your own projection and standard deviation.</p>
-  <div class="grid">
-   <div><label for="player">Player</label><input id="player" placeholder="Player name"></div>
-   <div><label for="market">Market</label>
-    <select id="market">
-     <option>Passing Yards</option><option>Rushing Yards</option>
-     <option>Receiving Yards</option><option>Receptions</option>
-    </select>
-   </div>
-   <div><label for="line">Betting line</label><input id="line" type="number" step="0.5" value="65.5"></div>
-   <div><label for="mean">Projected average</label><input id="mean" type="number" step="0.1" value="72"></div>
-   <div><label for="sd">Standard deviation</label><input id="sd" type="number" step="0.1" min="0.1" value="20"></div>
-   <div><label for="odds">Over odds</label><input id="odds" type="number" step="1" value="-110"></div>
-  </div>
-  <p><button class="primary" id="calculate">Calculate Probability</button></p>
-  <div id="calc-results" aria-live="polite"></div>
- </div>
+<div class="card">
+<h2>Player Prop Probability Calculator</h2>
+<p class="muted">Normal-distribution estimate using your own inputs.</p>
+<div class="grid">
+<div><label>Player</label><input id="player" placeholder="Player name"></div>
+<div><label>Market</label><select id="market">
+<option>Passing Yards</option><option>Rushing Yards</option>
+<option>Receiving Yards</option><option>Receptions</option>
+</select></div>
+<div><label>Betting line</label><input id="line" type="number" step="0.5" value="65.5"></div>
+<div><label>Projected average</label><input id="mean" type="number" step="0.1" value="72"></div>
+<div><label>Standard deviation</label><input id="sd" type="number" step="0.1" value="20"></div>
+<div><label>Over odds</label><input id="odds" type="number" value="-110"></div>
+</div>
+<p><button class="primary" id="calculate">Calculate Probability</button></p>
+<div id="calc-results"></div>
+</div>
 </section>
 </main>
 
-<footer>NFL EDGE • Statistics are informational, not betting guarantees.</footer>
+<footer>NFL EDGE • Historical data is not a guarantee of future results.</footer>
 
 <script>
 (function(){
@@ -202,10 +253,11 @@ footer{padding:20px;color:var(--muted);text-align:center;border-top:1px solid va
 
 const $=id=>document.getElementById(id);
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({
- "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
 })[c]);
 
 const BASE="https://site.api.espn.com/apis/site/v2/sports/football/nfl";
+const LOG="https://site.web.api.espn.com/apis/common/v3/sports/football/nfl/athletes/";
 
 const teams=[
 ["Arizona Cardinals","ARI","NFC","West"],["Atlanta Falcons","ATL","NFC","South"],
@@ -226,360 +278,670 @@ const teams=[
 ["Tennessee Titans","TEN","AFC","South"],["Washington Commanders","WSH","NFC","East"]
 ];
 
+const cache=new Map();
+
 function logo(abbr){
- return "https://a.espncdn.com/i/teamlogos/nfl/500/"+encodeURIComponent(abbr)+".png";
+return "https://a.espncdn.com/i/teamlogos/nfl/500/"+encodeURIComponent(abbr)+".png";
 }
 function headshot(id){
- return "https://a.espncdn.com/i/headshots/nfl/players/full/"+encodeURIComponent(id)+".png";
+return "https://a.espncdn.com/i/headshots/nfl/players/full/"+encodeURIComponent(id)+".png";
 }
 function localDate(){
- const d=new Date();
- return [d.getFullYear(),String(d.getMonth()+1).padStart(2,"0"),String(d.getDate()).padStart(2,"0")].join("-");
+const d=new Date();
+return [d.getFullYear(),String(d.getMonth()+1).padStart(2,"0"),String(d.getDate()).padStart(2,"0")].join("-");
 }
 function dateParam(date){return date.replace(/-/g,"");}
 
 async function getJSON(url){
- const controller=new AbortController();
- const timer=setTimeout(()=>controller.abort(),12000);
- try{
-  const res=await fetch(url,{signal:controller.signal});
-  if(!res.ok)throw Error("HTTP "+res.status);
-  return await res.json();
- }finally{clearTimeout(timer);}
+if(cache.has(url))return cache.get(url);
+const controller=new AbortController();
+const timer=setTimeout(()=>controller.abort(),15000);
+try{
+const res=await fetch(url,{signal:controller.signal});
+if(!res.ok)throw Error("HTTP "+res.status);
+const data=await res.json();
+cache.set(url,data);
+return data;
+}finally{clearTimeout(timer);}
 }
 
 function showTab(id){
- document.querySelectorAll("main section").forEach(s=>s.classList.toggle("active",s.id===id));
- document.querySelectorAll("#tabs button").forEach(b=>b.classList.toggle("active",b.dataset.tab===id));
+document.querySelectorAll("main section").forEach(s=>{
+s.classList.toggle("active",s.id===id);
+});
+document.querySelectorAll("#tabs button").forEach(b=>{
+b.classList.toggle("active",b.dataset.tab===id);
+});
 }
 document.querySelectorAll("#tabs button").forEach(b=>{
- b.addEventListener("click",()=>showTab(b.dataset.tab));
+b.addEventListener("click",()=>showTab(b.dataset.tab));
 });
 
 function renderTeams(){
- const q=$("team-search").value.toLowerCase().trim();
- const conf=$("conference").value;
- const filtered=teams.filter(t=>(!conf||t[2]===conf)&&
- (!q||t[0].toLowerCase().includes(q)||t[1].toLowerCase().includes(q)));
- $("team-grid").innerHTML=filtered.map(t=>`
-  <div class="card"><div class="team">
-   <img src="${logo(t[1])}" alt="" loading="lazy">
-   <div><strong>${esc(t[0])}</strong>
-   <small>${esc(t[2])} ${esc(t[3])} • ${esc(t[1])}</small></div>
-  </div></div>`).join("")||"<p>No teams found.</p>";
+const q=$("team-search").value.toLowerCase().trim();
+const conf=$("conference").value;
+const filtered=teams.filter(t=>
+(!conf||t[2]===conf)&&
+(!q||t[0].toLowerCase().includes(q)||t[1].toLowerCase().includes(q))
+);
+$("team-grid").innerHTML=filtered.map(t=>`
+<div class="card"><div class="team">
+<img src="${logo(t[1])}" alt="" loading="lazy">
+<div><strong>${esc(t[0])}</strong>
+<small>${esc(t[2])} ${esc(t[3])} • ${esc(t[1])}</small>
+</div></div></div>`).join("")||"No teams found.";
 }
 $("team-search").addEventListener("input",renderTeams);
 $("conference").addEventListener("change",renderTeams);
 renderTeams();
 
 function gameTeam(t){
- if(!t)return '<div class="team">TBD</div>';
- const name=esc(t.team?.displayName||"TBD");
- const img=t.team?.logo;
- const image=img&&/^https:\/\//.test(img)?`<img src="${esc(img)}" alt="">`:"";
- const score=t.score!=null?` <strong>${esc(t.score)}</strong>`:"";
- return `<div class="team">${image}<span>${name}${score}</span></div>`;
+if(!t)return '<div class="team">TBD</div>';
+const name=esc(t.team?.displayName||"TBD");
+const img=t.team?.logo;
+const image=img&&/^https:\/\//.test(img)?
+`<img src="${esc(img)}" alt="">`:"";
+const score=t.score!=null?` <strong>${esc(t.score)}</strong>`:"";
+return `<div class="team">${image}<span>${name}${score}</span></div>`;
 }
 
 async function scheduleEvents(date){
- const data=await getJSON(BASE+"/scoreboard?dates="+dateParam(date));
- return Array.isArray(data.events)?data.events:[];
+const data=await getJSON(BASE+"/scoreboard?dates="+dateParam(date));
+const events=Array.isArray(data.events)?data.events:[];
+return events.filter(e=>e.date&&e.date.slice(0,10)===date);
 }
 
 async function loadGames(){
- const date=$("game-date").value;
- if(!date)return;
- $("schedule-message").textContent="Loading NFL games...";
- $("games").innerHTML="";
- $("load-games").disabled=true;
- try{
-  const events=await scheduleEvents(date);
-  if(!events.length){
-   $("schedule-message").textContent="No NFL games scheduled for this date.";
-   return;
-  }
-  $("schedule-message").textContent=events.length+" game(s) found.";
-  $("games").innerHTML=events.map(event=>{
-   const comp=event.competitions?.[0]||{};
-   const entries=comp.competitors||[];
-   const away=entries.find(t=>t.homeAway==="away");
-   const home=entries.find(t=>t.homeAway==="home");
-   const when=new Date(event.date);
-   const kickoff=Number.isNaN(when.getTime())?"Time TBD":
-    when.toLocaleString([],{weekday:"short",hour:"numeric",minute:"2-digit"});
-   const status=event.status?.type?.description||"Scheduled";
-   return `<article class="game">
-    <p class="muted">${esc(kickoff)} • ${esc(status)}</p>
-    ${gameTeam(away)}${gameTeam(home)}
-    <button data-game="${esc(event.id)}" class="view-stats">View Player Stats</button>
-   </article>`;
-  }).join("");
-  document.querySelectorAll(".view-stats").forEach(button=>{
-   button.addEventListener("click",async()=>{
-    $("player-date").value=date;
-    showTab("players");
-    await findPlayerGames(button.dataset.game);
-   });
-  });
- }catch(err){
-  $("schedule-message").textContent="Could not load schedule: "+err.message;
- }finally{$("load-games").disabled=false;}
+const date=$("game-date").value;
+if(!date)return;
+$("schedule-message").textContent="Loading games...";
+$("games").innerHTML="";
+$("load-games").disabled=true;
+try{
+const events=await scheduleEvents(date);
+$("schedule-message").textContent=events.length?
+events.length+" game(s) found.":"No NFL games scheduled for this date.";
+$("games").innerHTML=events.map(event=>{
+const comp=event.competitions?.[0]||{};
+const entries=comp.competitors||[];
+const away=entries.find(t=>t.homeAway==="away");
+const home=entries.find(t=>t.homeAway==="home");
+const when=new Date(event.date);
+const kickoff=Number.isNaN(when.getTime())?"Time TBD":
+when.toLocaleString([],{weekday:"short",hour:"numeric",minute:"2-digit"});
+return `<article class="game">
+<p class="muted">${esc(kickoff)} • ${esc(event.status?.type?.description||"Scheduled")}</p>
+${gameTeam(away)}${gameTeam(home)}
+<button data-game="${esc(event.id)}" class="view-stats">View Player Stats</button>
+</article>`;
+}).join("");
+document.querySelectorAll(".view-stats").forEach(btn=>{
+btn.addEventListener("click",async()=>{
+$("player-date").value=date;
+showTab("players");
+await findPlayerGames(btn.dataset.game);
+});
+});
+}catch(err){
+$("schedule-message").textContent="Could not load games: "+err.message;
+}finally{$("load-games").disabled=false;}
 }
 
 $("game-date").value=localDate();
 $("player-date").value=localDate();
+$("scan-date").value=localDate();
 $("load-games").addEventListener("click",loadGames);
 loadGames();
 
 async function findPlayerGames(selectedId=""){
- const date=$("player-date").value;
- if(!date)return;
- $("player-message").textContent="Finding games...";
- $("player-grid").innerHTML="";
- $("player-game").innerHTML='<option value="">Select a game</option>';
- $("find-player-games").disabled=true;
- try{
-  const events=await scheduleEvents(date);
-  events.forEach(event=>{
-   const option=document.createElement("option");
-   option.value=event.id;
-   option.textContent=event.name||event.shortName||event.id;
-   $("player-game").appendChild(option);
-  });
-  if(selectedId&&events.some(e=>e.id===selectedId)){
-   $("player-game").value=selectedId;
-   await loadPlayers();
-  }else{
-   $("player-message").textContent=events.length?
-    "Select one of "+events.length+" game(s) and click Load Player Stats.":
-    "No NFL games found for this date.";
-  }
- }catch(err){
-  $("player-message").textContent="Could not find games: "+err.message;
- }finally{$("find-player-games").disabled=false;}
+const date=$("player-date").value;
+if(!date)return;
+$("player-message").textContent="Finding games...";
+$("player-grid").innerHTML="";
+$("player-game").innerHTML='<option value="">Select a game</option>';
+$("find-player-games").disabled=true;
+try{
+const events=await scheduleEvents(date);
+events.forEach(event=>{
+const option=document.createElement("option");
+option.value=event.id;
+option.textContent=event.name||event.shortName||event.id;
+$("player-game").appendChild(option);
+});
+if(selectedId&&events.some(e=>String(e.id)===selectedId)){
+$("player-game").value=selectedId;
+await loadPlayers();
+}else{
+$("player-message").textContent=events.length?
+"Select a game and click Load Player Stats.":"No games found.";
+}
+}catch(err){
+$("player-message").textContent="Error: "+err.message;
+}finally{$("find-player-games").disabled=false;}
 }
 $("find-player-games").addEventListener("click",()=>findPlayerGames());
 
 let loadedPlayers=[];
 
 function parsePlayers(data){
- const result=[];
- const groups=data.boxscore?.players||[];
- groups.forEach(group=>{
-  const team=group.team?.displayName||group.team?.abbreviation||"NFL";
-  (group.statistics||[]).forEach(statGroup=>{
-   const name=(statGroup.name||"").toLowerCase();
-   let category="";
-   if(name.includes("passing"))category="passing";
-   else if(name.includes("rushing"))category="rushing";
-   else if(name.includes("receiving"))category="receiving";
-   if(!category)return;
+const result=[];
+(data.boxscore?.players||[]).forEach(group=>{
+const team=group.team?.displayName||"NFL";
+const teamId=String(group.team?.id||"");
+(group.statistics||[]).forEach(statGroup=>{
+const name=String(statGroup.name||"").toLowerCase();
+let category="";
+if(name.includes("passing"))category="passing";
+else if(name.includes("rushing"))category="rushing";
+else if(name.includes("receiving"))category="receiving";
+if(!category)return;
 
-   const labels=(statGroup.labels||[]).map(x=>String(x).toUpperCase());
-   const keys=(statGroup.keys||[]).map(x=>String(x).toLowerCase());
+const labels=(statGroup.labels||[]).map(x=>String(x).toUpperCase());
+const keys=(statGroup.keys||[]).map(x=>String(x).toLowerCase());
 
-   (statGroup.athletes||[]).forEach(entry=>{
-    const athlete=entry.athlete||{};
-    const values=entry.stats||[];
-    const stats=values.map((value,i)=>({
-     label:labels[i]||keys[i]||"Stat "+(i+1),
-     value:String(value)
-    }));
-    result.push({
-     id:athlete.id||"",
-     name:athlete.displayName||athlete.fullName||"Unknown Player",
-     team,
-     position:athlete.position?.abbreviation||"",
-     image:athlete.headshot?.href||"",
-     category,
-     stats
-    });
-   });
-  });
- });
- return result;
+(statGroup.athletes||[]).forEach(entry=>{
+const athlete=entry.athlete||{};
+const values=entry.stats||[];
+const stats=values.map((value,i)=>({
+label:labels[i]||keys[i]||"STAT",
+key:keys[i]||"",
+value:String(value)
+}));
+result.push({
+id:String(athlete.id||""),
+name:athlete.displayName||athlete.fullName||"Unknown",
+team,teamId,
+position:athlete.position?.abbreviation||"",
+image:athlete.headshot?.href||"",
+category,stats
+});
+});
+});
+});
+return result;
+}
+
+function getStat(p,market){
+const names={
+passing:["YDS","PASSINGYARDS","PASSYDS"],
+rushing:["YDS","RUSHINGYARDS","RUSHYDS"],
+receiving:["YDS","RECEIVINGYARDS","RECYDS"],
+receptions:["REC","RECEPTIONS"]
+};
+const category=market==="receptions"?"receiving":market;
+if(p.category!==category)return null;
+const hints=names[market];
+const item=p.stats.find(s=>
+hints.includes(s.label.replace(/[\s_-]/g,"").toUpperCase())||
+hints.includes(s.key.replace(/[\s_-]/g,"").toUpperCase())
+);
+if(!item)return null;
+const n=Number(item.value);
+return item.value!==""&&Number.isFinite(n)?n:null;
 }
 
 function renderPlayers(){
- const category=$("player-market").value;
- const query=$("player-search").value.toLowerCase().trim();
- const filtered=loadedPlayers.filter(p=>
-  (category==="all"||p.category===category)&&
-  (!query||p.name.toLowerCase().includes(query))
- );
- $("player-grid").innerHTML=filtered.map(p=>{
-  const image=p.image&&/^https:\/\//.test(p.image)?
-   p.image:(p.id?headshot(p.id):"");
-  const photo=image?
-   `<img src="${esc(image)}" alt="${esc(p.name)}" loading="lazy" onerror="this.style.display='none'">`:"";
-  return `<div class="card">
-   <div class="player">
-    ${photo}
-    <div><strong>${esc(p.name)}</strong>
-    <small>${esc(p.team)} • ${esc(p.position)}</small>
-    <span class="tag">${esc(p.category.toUpperCase())}</span></div>
-   </div>
-   <button class="analyze-player" data-id="${esc(p.id)}" data-name="${esc(p.name)}" data-market="${esc(p.category)}">Analyze Recent Games</button>
-   <div class="stats">
-    ${p.stats.map(s=>`<div class="statbox">
-     <b>${esc(s.value)}</b><span>${esc(s.label)}</span>
-    </div>`).join("")}
-   </div>
-  </div>`;
- }).join("")||'<div class="card">No player statistics match your filters.</div>';
- document.querySelectorAll(".analyze-player").forEach(btn=>btn.addEventListener("click",()=>{
-  $("analysis-id").value=btn.dataset.id;
-  $("analysis-name").value=btn.dataset.name;
-  $("analysis-market").value=btn.dataset.market;
-  showTab("analysis");
-  runAnalysis();
- }));
+const category=$("player-market").value;
+const query=$("player-search").value.toLowerCase().trim();
+const filtered=loadedPlayers.filter(p=>
+(category==="all"||p.category===category)&&
+(!query||p.name.toLowerCase().includes(query))
+);
+$("player-grid").innerHTML=filtered.map(p=>{
+const image=p.image&&/^https:\/\//.test(p.image)?
+p.image:(p.id?headshot(p.id):"");
+const photo=image?`<img src="${esc(image)}" alt="" loading="lazy" onerror="this.style.display='none'">`:"";
+return `<div class="card">
+<div class="player">${photo}<div>
+<strong>${esc(p.name)}</strong>
+<small>${esc(p.team)} • ${esc(p.position)}</small>
+<span class="tag">${esc(p.category.toUpperCase())}</span>
+</div></div>
+<button class="analyze-player"
+data-id="${esc(p.id)}"
+data-name="${esc(p.name)}"
+data-market="${esc(p.category)}">Analyze Recent Games</button>
+<div class="stats">${p.stats.map(s=>`
+<div class="statbox"><b>${esc(s.value)}</b>
+<span>${esc(s.label)}</span></div>`).join("")}</div>
+</div>`;
+}).join("")||'<div class="card">No player statistics match your filters.</div>';
+
+document.querySelectorAll(".analyze-player").forEach(btn=>{
+btn.addEventListener("click",()=>{
+$("analysis-id").value=btn.dataset.id;
+$("analysis-name").value=btn.dataset.name;
+$("analysis-market").value=btn.dataset.market;
+showTab("analysis");
+runAnalysis();
+});
+});
 }
 
 async function loadPlayers(){
- const id=$("player-game").value;
- if(!id){
-  $("player-message").textContent="Select a game first.";
-  return;
- }
- $("load-players").disabled=true;
- $("player-message").textContent="Loading player box scores...";
- $("player-grid").innerHTML="";
- loadedPlayers=[];
- try{
-  const data=await getJSON(BASE+"/summary?event="+encodeURIComponent(id));
-  loadedPlayers=parsePlayers(data);
-  if(!loadedPlayers.length){
-   $("player-message").textContent=
-    "No player box-score statistics are available yet. Try a completed game.";
-   return;
-  }
-  const unique=new Set(loadedPlayers.map(p=>p.id+"-"+p.category));
-  $("player-message").textContent=
-   unique.size+" player stat entries loaded from this game's box score.";
-  renderPlayers();
- }catch(err){
-  $("player-message").textContent="Could not load player statistics: "+err.message;
- }finally{$("load-players").disabled=false;}
+const id=$("player-game").value;
+if(!id){
+$("player-message").textContent="Select a game first.";
+return;
 }
-
+$("load-players").disabled=true;
+$("player-message").textContent="Loading player statistics...";
+$("player-grid").innerHTML="";
+loadedPlayers=[];
+try{
+const data=await getJSON(BASE+"/summary?event="+encodeURIComponent(id));
+loadedPlayers=parsePlayers(data);
+$("player-message").textContent=loadedPlayers.length?
+loadedPlayers.length+" player stat entries loaded.":
+"No box-score statistics available. Try a completed game.";
+renderPlayers();
+}catch(err){
+$("player-message").textContent="Error: "+err.message;
+}finally{$("load-players").disabled=false;}
+}
 $("load-players").addEventListener("click",loadPlayers);
 $("player-market").addEventListener("change",renderPlayers);
 $("player-search").addEventListener("input",renderPlayers);
 
-
-// Game logs are a separate, unofficial ESPN endpoint. Missing or changed data is
-// shown as unavailable; it is never replaced with fabricated statistics.
 function extractGameLog(data,market){
- const result=[];
- const keyHints={passing:["passingYards","passYds","PYDS"],rushing:["rushingYards","rushYds","RYDS"],receiving:["receivingYards","recYds","RECYDS"],receptions:["receptions","REC"]};
- const hints=keyHints[market];
- const names=(data.names||data.labels||[]).map(String);
- const events=data.events||{};
- function pushRow(id,raw){
-  if(!raw||typeof raw!=="object")return;
-  let val;
-  const obj=raw.stats||raw.statistics||raw;
-  if(Array.isArray(obj)){
-   const idx=names.findIndex(n=>hints.some(h=>h.toLowerCase()===n.toLowerCase()));
-   if(idx>=0)val=obj[idx];
-  }else if(obj&&typeof obj==="object"){
-   for(const k of hints){if(obj[k]!=null){val=obj[k];break;}}
-   if(val==null&&Array.isArray(obj.stats)){
-    const idx=names.findIndex(n=>hints.some(h=>h.toLowerCase()===n.toLowerCase()));
-    if(idx>=0)val=obj.stats[idx];
-   }
-  }
-  const num=Number(val);
-  if(val==null||val===""||!Number.isFinite(num))return;
-  const event=events[id]||{};
-  result.push({id,date:event.gameDate||event.date||raw.date||"",value:num});
- }
- // Common ESPN gamelog structure: seasonTypes[].categories[].events[]
- for(const st of data.seasonTypes||[]){
-  for(const cat of st.categories||[]){
-   for(const row of cat.events||[]){pushRow(String(row.eventId||row.id||""),row);}
-  }
- }
- // Alternative ESPN response: per-event objects keyed by game ID
- if(!result.length){
-  for(const [id,row] of Object.entries(data.gameLog||data.gameLogs||{}))pushRow(id,row);
- }
- const unique=new Map();
- for(const r of result)if(r.id)unique.set(r.id,r);
- return [...unique.values()].sort((a,b)=>String(b.date).localeCompare(String(a.date)));
+const result=[];
+const hints={
+passing:["passingYards","passYds","PYDS"],
+rushing:["rushingYards","rushYds","RYDS"],
+receiving:["receivingYards","recYds","RECYDS"],
+receptions:["receptions","REC"]
+}[market];
+const names=(data.names||data.labels||[]).map(String);
+const events=data.events||{};
+
+function pushRow(id,raw){
+if(!raw||typeof raw!=="object")return;
+let val;
+const obj=raw.stats||raw.statistics||raw;
+if(Array.isArray(obj)){
+const idx=names.findIndex(n=>hints.some(h=>h.toLowerCase()===n.toLowerCase()));
+if(idx>=0)val=obj[idx];
+}else if(obj&&typeof obj==="object"){
+for(const k of hints)if(obj[k]!=null){val=obj[k];break;}
 }
+const num=Number(val);
+if(val==null||val===""||!Number.isFinite(num))return;
+const event=events[id]||{};
+result.push({id,date:event.gameDate||event.date||raw.date||"",value:num});
+}
+
+for(const st of data.seasonTypes||[]){
+for(const cat of st.categories||[]){
+for(const row of cat.events||[]){
+pushRow(String(row.eventId||row.id||""),row);
+}
+}
+}
+if(!result.length){
+for(const [id,row] of Object.entries(data.gameLog||data.gameLogs||{})){
+pushRow(id,row);
+}
+}
+const unique=new Map();
+for(const r of result)if(r.id)unique.set(r.id,r);
+return [...unique.values()].sort((a,b)=>String(b.date).localeCompare(String(a.date)));
+}
+
 async function runAnalysis(){
- const id=$("analysis-id").value.trim();
- const season=Number($("analysis-season").value);
- const market=$("analysis-market").value;
- const line=Number($("analysis-line").value);
- if(!/^\d+$/.test(id)||!Number.isInteger(season)||season<2000||season>2100||$("analysis-line").value===""||!Number.isFinite(line)){
-  $("analysis-message").textContent="Select a player and enter a valid season and prop line.";return;
- }
- $("analysis-results").innerHTML="";
- $("analysis-message").textContent="Loading season game log...";
- $("run-analysis").disabled=true;
- try{
-  const url="https://site.web.api.espn.com/apis/common/v3/sports/football/nfl/athletes/"+encodeURIComponent(id)+"/gamelog?season="+season;
-  const data=await getJSON(url);
-  const rows=extractGameLog(data,market);
-  if(!rows.length){
-   $("analysis-message").textContent="The game-log response did not contain verified "+market+" values. This ESPN endpoint may use a different format or have no data for this player/season.";
-   return;
-  }
-  const last=rows.slice(0,5);
-  const average=arr=>arr.reduce((sum,r)=>sum+r.value,0)/arr.length;
-  const hits=arr=>arr.filter(r=>r.value>line).length;
-  $("analysis-message").textContent=rows.length+" games found for "+($("analysis-name").value||"this player")+" ("+season+").";
-  $("analysis-results").innerHTML=`<div class="grid">
-   <div class="card"><p class="muted">Last ${last.length} average</p><div class="stat">${average(last).toFixed(1)}</div></div>
-   <div class="card"><p class="muted">Season average (${rows.length} games)</p><div class="stat">${average(rows).toFixed(1)}</div></div>
-   <div class="card"><p class="muted">Last ${last.length} over ${esc(line)}</p><div class="stat">${hits(last)}/${last.length}</div></div>
-   <div class="card"><p class="muted">Season over ${esc(line)}</p><div class="stat">${hits(rows)}/${rows.length}</div></div>
-   </div><h3>Most recent games</h3><div class="grid">${last.map(r=>`<div class="card"><strong>${esc(r.date||r.id)}</strong><div class="stat">${esc(r.value)}</div><small>${esc(market)}</small></div>`).join("")}</div>
-   <p class="note">Historical hit rates describe past results against your entered line. They are not model probabilities or sportsbook recommendations. Games equal to the line are not counted as overs.</p>`;
- }catch(err){
-  $("analysis-message").textContent="Could not retrieve game logs: "+err.message+". The unofficial ESPN endpoint may be blocked or unavailable.";
- }finally{$("run-analysis").disabled=false;}
+const id=$("analysis-id").value.trim();
+const season=Number($("analysis-season").value);
+const market=$("analysis-market").value;
+const line=Number($("analysis-line").value);
+if(!/^\d+$/.test(id)||!Number.isInteger(season)||
+season<2000||season>2100||
+$("analysis-line").value===""||!Number.isFinite(line)){
+$("analysis-message").textContent="Enter a valid player, season and line.";
+return;
+}
+$("analysis-results").innerHTML="";
+$("analysis-message").textContent="Loading game logs...";
+$("run-analysis").disabled=true;
+try{
+const data=await getJSON(LOG+encodeURIComponent(id)+"/gamelog?season="+season);
+const rows=extractGameLog(data,market);
+if(!rows.length){
+$("analysis-message").textContent=
+"No verified game-log values were found for this player and market.";
+return;
+}
+const last=rows.slice(0,5);
+const avg=a=>a.reduce((s,r)=>s+r.value,0)/a.length;
+const hits=a=>a.filter(r=>r.value>line).length;
+$("analysis-message").textContent=rows.length+" game(s) found.";
+$("analysis-results").innerHTML=`
+<div class="grid">
+<div class="card"><p class="muted">Last ${last.length} Average</p><div class="stat">${avg(last).toFixed(1)}</div></div>
+<div class="card"><p class="muted">Season Average</p><div class="stat">${avg(rows).toFixed(1)}</div></div>
+<div class="card"><p class="muted">Recent Over Rate</p><div class="stat">${hits(last)}/${last.length}</div></div>
+<div class="card"><p class="muted">Season Over Rate</p><div class="stat">${hits(rows)}/${rows.length}</div></div>
+</div>
+<h3>Recent Games</h3>
+<div class="grid">${last.map(r=>`
+<div class="card"><strong>${esc(r.date||r.id)}</strong>
+<div class="stat">${esc(r.value)}</div><small>${esc(market)}</small></div>
+`).join("")}</div>`;
+}catch(err){
+$("analysis-message").textContent="Game-log error: "+err.message;
+}finally{$("run-analysis").disabled=false;}
 }
 $("run-analysis").addEventListener("click",runAnalysis);
 
+// -------------------------------------------------
+// FULL-SLATE HISTORICAL SCANNER
+// -------------------------------------------------
+
+let lastRankings=[];
+
+function average(nums){
+return nums.reduce((a,b)=>a+b,0)/nums.length;
+}
+
+function eventTeams(event){
+return (event.competitions?.[0]?.competitors||[])
+.map(c=>String(c.team?.id||""))
+.filter(Boolean);
+}
+
+function isCompleted(event){
+return event.status?.type?.completed===true||
+event.status?.type?.state==="post";
+}
+
+async function teamRecentGames(teamId,date){
+const year=Number(date.slice(0,4));
+const url=BASE+"/teams/"+encodeURIComponent(teamId)+
+"/schedule?season="+year;
+
+const data=await getJSON(url);
+return (data.events||[]).filter(e=>
+e.date&&e.date.slice(0,10)<date&&isCompleted(e)
+).sort((a,b)=>b.date.localeCompare(a.date)).slice(0,5);
+}
+
+async function pooled(items,limit,worker){
+let next=0;
+const results=new Array(items.length);
+async function runner(){
+while(next<items.length){
+const i=next++;
+try{results[i]=await worker(items[i],i);}
+catch(err){results[i]={error:err.message};}
+}
+}
+await Promise.all(Array.from({length:Math.min(limit,items.length)},runner));
+return results;
+}
+
+function scanRowHTML(r,i){
+const pct=(r.hits/r.games*100);
+const img=r.image&&/^https:\/\//.test(r.image)?
+r.image:headshot(r.id);
+return `<div class="card">
+<div class="player">
+<img src="${esc(img)}" alt="" loading="lazy"
+onerror="this.style.display='none'">
+<div>
+<div class="rank">#${i+1}</div>
+<strong>${esc(r.name)}</strong>
+<small>${esc(r.team)} • ${esc(r.position)}</small>
+</div></div>
+<div class="stats">
+<div class="statbox"><b>${pct.toFixed(0)}%</b><span>Historical over rate</span></div>
+<div class="statbox"><b>${r.average.toFixed(1)}</b><span>Sample average</span></div>
+<div class="statbox"><b>${r.hits}/${r.games}</b><span>Games over line</span></div>
+<div class="statbox"><b>${esc(r.line)}</b><span>Comparison line</span></div>
+</div>
+<div class="progress"><div style="width:${pct}%"></div></div>
+<p class="muted">Recent results (newest first)</p>
+<div>${r.values.map(v=>`<span class="pill">${esc(v)}</span>`).join("")}</div>
+<p class="muted">Sample: ${r.games} available games • ${esc(r.market)}</p>
+</div>`;
+}
+
+function renderRankings(){
+$("top-ten").innerHTML=lastRankings.slice(0,10)
+.map(scanRowHTML).join("");
+$("rankings-message").textContent=lastRankings.length?
+"Top 10 of "+lastRankings.length+
+" qualifying player trends. Ranked by historical over rate, then average margin.":
+"No qualifying trends. Run a scan or lower the minimum games requirement.";
+}
+
+async function runScan(){
+const date=$("scan-date").value;
+const market=$("scan-market").value;
+const rawLine=$("scan-line").value;
+const line=Number(rawLine);
+const minGames=Number($("scan-min").value);
+
+if(!date||rawLine===""||!Number.isFinite(line)){
+$("scan-message").textContent="Choose a date and enter a valid comparison line.";
+return;
+}
+
+$("run-scan").disabled=true;
+$("scan-results").innerHTML="";
+$("scan-summary").innerHTML="";
+$("scan-message").textContent="Step 1: Finding games on the selected date...";
+
+try{
+const slate=await scheduleEvents(date);
+
+if(!slate.length){
+$("scan-message").textContent="No NFL games on this date.";
+return;
+}
+
+const teamIds=[...new Set(slate.flatMap(eventTeams))];
+
+$("scan-message").textContent=
+"Step 2: Looking up recent completed games for "+teamIds.length+" teams...";
+
+const schedules=await pooled(teamIds,4,async id=>{
+return await teamRecentGames(id,date);
+});
+
+const successful=schedules.filter(Array.isArray);
+const failed=schedules.length-successful.length;
+
+const recentGames=new Map();
+
+successful.forEach(list=>{
+list.forEach(e=>{
+if(e.id&&!recentGames.has(String(e.id))){
+recentGames.set(String(e.id),e);
+}
+});
+});
+
+const selected=[...recentGames.values()]
+.sort((a,b)=>b.date.localeCompare(a.date));
+
+if(!selected.length){
+$("scan-message").textContent=
+"No completed recent games were retrieved. "+
+"Some team schedules may be unavailable.";
+return;
+}
+
+$("scan-message").textContent=
+"Step 3: Loading "+selected.length+" recent game box scores...";
+
+const summaries=await pooled(selected,4,async event=>{
+const data=await getJSON(BASE+"/summary?event="+encodeURIComponent(event.id));
+return {event,players:parsePlayers(data)};
+});
+
+const allowed=new Set(teamIds);
+const byPlayer=new Map();
+let loaded=0;
+let failedSummaries=0;
+
+summaries.forEach(item=>{
+if(!item||item.error||!item.players){
+failedSummaries++;
+return;
+}
+loaded++;
+const gameId=String(item.event.id);
+
+item.players.forEach(p=>{
+if(!p.id||!allowed.has(p.teamId))return;
+const value=getStat(p,market);
+if(value===null)return;
+
+const key=p.id+"|"+market;
+if(!byPlayer.has(key)){
+byPlayer.set(key,{
+id:p.id,name:p.name,team:p.team,
+position:p.position,image:p.image,
+market,records:new Map()
+});
+}
+byPlayer.get(key).records.set(gameId,{
+date:item.event.date,value
+});
+});
+});
+
+const rankings=[];
+
+for(const p of byPlayer.values()){
+const records=[...p.records.values()]
+.sort((a,b)=>b.date.localeCompare(a.date))
+.slice(0,5);
+
+if(records.length<minGames)continue;
+
+const values=records.map(r=>r.value);
+const hits=values.filter(v=>v>line).length;
+const pushes=values.filter(v=>v===line).length;
+
+rankings.push({
+id:p.id,name:p.name,team:p.team,
+position:p.position,image:p.image,
+market,line,
+games:values.length,
+hits,pushes,values,
+average:average(values),
+margin:average(values)-line
+});
+}
+
+rankings.sort((a,b)=>
+(b.hits/b.games)-(a.hits/a.games)||
+b.margin-a.margin||
+b.games-a.games||
+a.name.localeCompare(b.name)
+);
+
+lastRankings=rankings;
+renderRankings();
+
+$("scan-summary").innerHTML=`
+<div class="card"><p class="muted">Slate Games</p>
+<div class="stat">${slate.length}</div></div>
+<div class="card"><p class="muted">Box Scores Loaded</p>
+<div class="stat">${loaded}</div></div>
+<div class="card"><p class="muted">Players Evaluated</p>
+<div class="stat">${byPlayer.size}</div></div>
+<div class="card"><p class="muted">Qualified Trends</p>
+<div class="stat">${rankings.length}</div></div>`;
+
+$("scan-message").textContent=
+"Scan complete. "+rankings.length+" qualifying player trends. "+
+(failed||failedSummaries?
+"Some data requests failed ("+(failed+failedSummaries)+
+"); results may be incomplete. ":"")+
+"Only games with available box-score statistics are counted.";
+
+if(!rankings.length){
+$("scan-results").innerHTML=
+'<p class="note">No players met the minimum game requirement. Try a lower minimum or a different date.</p>';
+return;
+}
+
+$("scan-results").innerHTML=`
+<div class="tablewrap"><table>
+<thead><tr>
+<th>Rank</th><th>Player</th><th>Team</th>
+<th>Average</th><th>Over Rate</th><th>Recent Values</th>
+</tr></thead>
+<tbody>${rankings.map((r,i)=>`
+<tr>
+<td>${i+1}</td>
+<td>${esc(r.name)}</td>
+<td>${esc(r.team)}</td>
+<td>${r.average.toFixed(1)}</td>
+<td>${r.hits}/${r.games} (${(100*r.hits/r.games).toFixed(0)}%)</td>
+<td>${r.values.map(esc).join(", ")}</td>
+</tr>`).join("")}</tbody>
+</table></div>
+<p class="note">
+Historical results only. Missing games and unrecorded statistics
+can affect the rankings. The scanner does not determine whether
+a player is active or whether a sportsbook offers this line.
+</p>`;
+
+}catch(err){
+$("scan-message").textContent="Scanner error: "+err.message;
+}finally{
+$("run-scan").disabled=false;
+}
+}
+
+$("run-scan").addEventListener("click",runScan);
+
+// -------------------------------------------------
+// PROBABILITY CALCULATOR
+// -------------------------------------------------
+
 function erf(x){
- const sign=x<0?-1:1;
- x=Math.abs(x);
- const t=1/(1+0.3275911*x);
- return sign*(1-(((((1.061405429*t-1.453152027)*t)+1.421413741)*t-0.284496736)*t+0.254829592)*t*Math.exp(-x*x));
+const sign=x<0?-1:1;
+x=Math.abs(x);
+const t=1/(1+0.3275911*x);
+return sign*(1-(((((1.061405429*t-1.453152027)*t)+
+1.421413741)*t-0.284496736)*t+0.254829592)*t*Math.exp(-x*x));
 }
 function cdf(x){return .5*(1+erf(x/Math.sqrt(2)));}
 function implied(o){return o<0?-o/(-o+100):100/(o+100);}
 function american(p){
- if(p<=0||p>=1)return "N/A";
- return p>=.5?String(Math.round(-100*p/(1-p))):
-  "+"+Math.round(100*(1-p)/p);
+if(p<=0||p>=1)return "N/A";
+return p>=.5?String(Math.round(-100*p/(1-p))):
+"+"+Math.round(100*(1-p)/p);
 }
 
 $("calculate").addEventListener("click",()=>{
- const fields=["line","mean","sd","odds"];
- const values=fields.map(id=>$(id).value);
- const [line,mean,sd,odds]=values.map(Number);
- if(values.some(v=>v.trim()==="")||
-  ![line,mean,sd,odds].every(Number.isFinite)||
-  sd<=0||odds===0||Math.abs(odds)<100){
-  $("calc-results").textContent="Enter valid values and American odds.";
-  return;
- }
- const over=1-cdf((line-mean)/sd);
- const under=1-over;
- const edge=(over-implied(odds))*100;
- $("calc-results").innerHTML=`
-  <div class="grid">
-   <div class="card"><p class="muted">Estimated Over</p><div class="stat">${(over*100).toFixed(1)}%</div></div>
-   <div class="card"><p class="muted">Estimated Under</p><div class="stat">${(under*100).toFixed(1)}%</div></div>
-   <div class="card"><p class="muted">Over Fair Odds</p><div class="stat">${american(over)}</div></div>
-   <div class="card"><p class="muted">Estimated Edge</p><div class="stat">${edge.toFixed(1)} pp</div></div>
-  </div>
-  <p class="muted">Normal-distribution estimate using your inputs. Whole-number lines may push, which this simplified model does not account for.</p>`;
+const fields=["line","mean","sd","odds"];
+const values=fields.map(id=>$(id).value);
+const [line,mean,sd,odds]=values.map(Number);
+if(values.some(v=>v.trim()==="")||
+![line,mean,sd,odds].every(Number.isFinite)||
+sd<=0||odds===0||Math.abs(odds)<100){
+$("calc-results").textContent="Enter valid values and American odds.";
+return;
+}
+const over=1-cdf((line-mean)/sd);
+const under=1-over;
+const edge=(over-implied(odds))*100;
+$("calc-results").innerHTML=`
+<div class="grid">
+<div class="card"><p class="muted">Estimated Over</p>
+<div class="stat">${(over*100).toFixed(1)}%</div></div>
+<div class="card"><p class="muted">Estimated Under</p>
+<div class="stat">${(under*100).toFixed(1)}%</div></div>
+<div class="card"><p class="muted">Over Fair Odds</p>
+<div class="stat">${american(over)}</div></div>
+<div class="card"><p class="muted">Estimated Edge</p>
+<div class="stat">${edge.toFixed(1)} pp</div></div>
+</div>
+<p class="note">This is a model estimate using your inputs,
+not a prediction independently generated by NFL EDGE.</p>`;
 });
 
 })();
