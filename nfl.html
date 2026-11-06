@@ -653,14 +653,28 @@ event.status?.type?.state==="post";
 }
 
 async function teamRecentGames(teamId,date){
-const year=Number(date.slice(0,4));
-const url=BASE+"/teams/"+encodeURIComponent(teamId)+
-"/schedule?season="+year;
+ const year=Number(date.slice(0,4));
+ const month=Number(date.slice(5,7));
 
-const data=await getJSON(url);
-return (data.events||[]).filter(e=>
-e.date&&e.date.slice(0,10)<date&&isCompleted(e)
-).sort((a,b)=>b.date.localeCompare(a.date)).slice(0,5);
+ // NFL seasons span two calendar years.
+ const season=month<=3?year-1:year;
+
+ const url=BASE+"/teams/"+encodeURIComponent(teamId)+
+ "/schedule?season="+season+"&seasontype=2";
+
+ const data=await getJSON(url);
+
+ const events=Array.isArray(data.events)?data.events:[];
+
+ return events.filter(e=>{
+  if(!e.date||e.date.slice(0,10)>=date)return false;
+
+  const status=e.status?.type||{};
+  return status.completed===true||
+         status.state==="post"||
+         status.name==="STATUS_FINAL"||
+         status.description==="Final";
+ }).sort((a,b)=>b.date.localeCompare(a.date)).slice(0,5);
 }
 
 async function pooled(items,limit,worker){
