@@ -68,6 +68,7 @@ footer{padding:20px;color:var(--muted);text-align:center;border-top:1px solid va
 <nav id="tabs">
  <button class="active" data-tab="schedule">Live Schedule</button>
  <button data-tab="players">Player Stats</button>
+ <button data-tab="analysis">Player Analysis</button>
  <button data-tab="teams">32 Teams</button>
  <button data-tab="rankings">Top 10</button>
  <button data-tab="scanner">Prop Scanner</button>
@@ -115,6 +116,23 @@ footer{padding:20px;color:var(--muted);text-align:center;border-top:1px solid va
   </div>
  </div>
  <div id="player-grid" class="grid"></div>
+</section>
+
+<section id="analysis">
+ <div class="card">
+  <h2>Player Analysis • Last 5 & Season</h2>
+  <p class="muted">Select a player from a completed game's Player Stats cards, or enter an ESPN athlete ID. Game-log data is requested separately from ESPN and may be unavailable.</p>
+  <div class="controls">
+   <div><label for="analysis-id">ESPN athlete ID</label><input id="analysis-id" placeholder="Select player or enter ID"></div>
+   <div><label for="analysis-name">Player name</label><input id="analysis-name" placeholder="Player"></div>
+   <div><label for="analysis-season">Season</label><input id="analysis-season" type="number" min="2000" max="2100" value="2026"></div>
+   <div><label for="analysis-market">Market</label><select id="analysis-market"><option value="passing">Passing yards</option><option value="rushing">Rushing yards</option><option value="receiving">Receiving yards</option><option value="receptions">Receptions</option></select></div>
+   <div><label for="analysis-line">Your prop line</label><input id="analysis-line" type="number" step="0.5" value="65.5"></div>
+   <button class="primary" id="run-analysis">Analyze</button>
+  </div>
+  <p id="analysis-message" aria-live="polite">Choose a player to begin.</p>
+  <div id="analysis-results"></div>
+ </div>
 </section>
 
 <section id="teams">
@@ -401,6 +419,7 @@ function renderPlayers(){
     <small>${esc(p.team)} • ${esc(p.position)}</small>
     <span class="tag">${esc(p.category.toUpperCase())}</span></div>
    </div>
+   <button class="analyze-player" data-id="${esc(p.id)}" data-name="${esc(p.name)}" data-market="${esc(p.category)}">Analyze Recent Games</button>
    <div class="stats">
     ${p.stats.map(s=>`<div class="statbox">
      <b>${esc(s.value)}</b><span>${esc(s.label)}</span>
@@ -408,6 +427,13 @@ function renderPlayers(){
    </div>
   </div>`;
  }).join("")||'<div class="card">No player statistics match your filters.</div>';
+ document.querySelectorAll(".analyze-player").forEach(btn=>btn.addEventListener("click",()=>{
+  $("analysis-id").value=btn.dataset.id;
+  $("analysis-name").value=btn.dataset.name;
+  $("analysis-market").value=btn.dataset.market;
+  showTab("analysis");
+  runAnalysis();
+ }));
 }
 
 async function loadPlayers(){
@@ -440,6 +466,84 @@ async function loadPlayers(){
 $("load-players").addEventListener("click",loadPlayers);
 $("player-market").addEventListener("change",renderPlayers);
 $("player-search").addEventListener("input",renderPlayers);
+
+
+// Game logs are a separate, unofficial ESPN endpoint. Missing or changed data is
+// shown as unavailable; it is never replaced with fabricated statistics.
+function extractGameLog(data,market){
+ const result=[];
+ const keyHints={passing:["passingYards","passYds","PYDS"],rushing:["rushingYards","rushYds","RYDS"],receiving:["receivingYards","recYds","RECYDS"],receptions:["receptions","REC"]};
+ const hints=keyHints[market];
+ const names=(data.names||data.labels||[]).map(String);
+ const events=data.events||{};
+ function pushRow(id,raw){
+  if(!raw||typeof raw!=="object")return;
+  let val;
+  const obj=raw.stats||raw.statistics||raw;
+  if(Array.isArray(obj)){
+   const idx=names.findIndex(n=>hints.some(h=>h.toLowerCase()===n.toLowerCase()));
+   if(idx>=0)val=obj[idx];
+  }else if(obj&&typeof obj==="object"){
+   for(const k of hints){if(obj[k]!=null){val=obj[k];break;}}
+   if(val==null&&Array.isArray(obj.stats)){
+    const idx=names.findIndex(n=>hints.some(h=>h.toLowerCase()===n.toLowerCase()));
+    if(idx>=0)val=obj.stats[idx];
+   }
+  }
+  const num=Number(val);
+  if(val==null||val===""||!Number.isFinite(num))return;
+  const event=events[id]||{};
+  result.push({id,date:event.gameDate||event.date||raw.date||"",value:num});
+ }
+ // Common ESPN gamelog structure: seasonTypes[].categories[].events[]
+ for(const st of data.seasonTypes||[]){
+  for(const cat of st.categories||[]){
+   for(const row of cat.events||[]){pushRow(String(row.eventId||row.id||""),row);}
+  }
+ }
+ // Alternative ESPN response: per-event objects keyed by game ID
+ if(!result.length){
+  for(const [id,row] of Object.entries(data.gameLog||data.gameLogs||{}))pushRow(id,row);
+ }
+ const unique=new Map();
+ for(const r of result)if(r.id)unique.set(r.id,r);
+ return [...unique.values()].sort((a,b)=>String(b.date).localeCompare(String(a.date)));
+}
+async function runAnalysis(){
+ const id=$("analysis-id").value.trim();
+ const season=Number($("analysis-season").value);
+ const market=$("analysis-market").value;
+ const line=Number($("analysis-line").value);
+ if(!/^\d+$/.test(id)||!Number.isInteger(season)||season<2000||season>2100||$("analysis-line").value===""||!Number.isFinite(line)){
+  $("analysis-message").textContent="Select a player and enter a valid season and prop line.";return;
+ }
+ $("analysis-results").innerHTML="";
+ $("analysis-message").textContent="Loading season game log...";
+ $("run-analysis").disabled=true;
+ try{
+  const url="https://site.web.api.espn.com/apis/common/v3/sports/football/nfl/athletes/"+encodeURIComponent(id)+"/gamelog?season="+season;
+  const data=await getJSON(url);
+  const rows=extractGameLog(data,market);
+  if(!rows.length){
+   $("analysis-message").textContent="The game-log response did not contain verified "+market+" values. This ESPN endpoint may use a different format or have no data for this player/season.";
+   return;
+  }
+  const last=rows.slice(0,5);
+  const average=arr=>arr.reduce((sum,r)=>sum+r.value,0)/arr.length;
+  const hits=arr=>arr.filter(r=>r.value>line).length;
+  $("analysis-message").textContent=rows.length+" games found for "+($("analysis-name").value||"this player")+" ("+season+").";
+  $("analysis-results").innerHTML=`<div class="grid">
+   <div class="card"><p class="muted">Last ${last.length} average</p><div class="stat">${average(last).toFixed(1)}</div></div>
+   <div class="card"><p class="muted">Season average (${rows.length} games)</p><div class="stat">${average(rows).toFixed(1)}</div></div>
+   <div class="card"><p class="muted">Last ${last.length} over ${esc(line)}</p><div class="stat">${hits(last)}/${last.length}</div></div>
+   <div class="card"><p class="muted">Season over ${esc(line)}</p><div class="stat">${hits(rows)}/${rows.length}</div></div>
+   </div><h3>Most recent games</h3><div class="grid">${last.map(r=>`<div class="card"><strong>${esc(r.date||r.id)}</strong><div class="stat">${esc(r.value)}</div><small>${esc(market)}</small></div>`).join("")}</div>
+   <p class="note">Historical hit rates describe past results against your entered line. They are not model probabilities or sportsbook recommendations. Games equal to the line are not counted as overs.</p>`;
+ }catch(err){
+  $("analysis-message").textContent="Could not retrieve game logs: "+err.message+". The unofficial ESPN endpoint may be blocked or unavailable.";
+ }finally{$("run-analysis").disabled=false;}
+}
+$("run-analysis").addEventListener("click",runAnalysis);
 
 function erf(x){
  const sign=x<0?-1:1;
