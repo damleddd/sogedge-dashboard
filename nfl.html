@@ -636,7 +636,6 @@ function extractGameLog(data,market) {
  const output=[];
  const names=Array.isArray(data.names)?data.names:[];
  const events=data.events||{};
- const target=MARKETS[market].key;
 
  function collect(categories) {
   for(const category of categories||[]){
@@ -1104,7 +1103,6 @@ async function runScanner() {
 
   const oddsResponses=[];
 
-  // Sequential requests keep API usage easier to monitor.
   for(let i=0;i<selected.length;i++){
    const event=selected[i];
 
@@ -1390,6 +1388,7 @@ function renderScan(results,responses,market) {
 
 /* =====================================
    TOP 10 HISTORICAL RANKINGS
+   UPDATED: PROP TYPE COLUMN
 ===================================== */
 
 function renderRankings(results,market) {
@@ -1412,9 +1411,13 @@ function renderRankings(results,market) {
  $("rankingsResults").innerHTML=`
   <table>
    <thead><tr>
-    <th>Rank</th><th>Player</th>
-    <th>Book</th><th>Side</th>
-    <th>Line</th><th>Odds</th>
+    <th>Rank</th>
+    <th>Player</th>
+    <th>Prop Type</th>
+    <th>Book</th>
+    <th>Side</th>
+    <th>Line</th>
+    <th>Odds</th>
     <th>Season Hit Rate</th>
     <th>Last 5 Hits</th>
     <th>Season Avg</th>
@@ -1426,6 +1429,7 @@ function renderRankings(results,market) {
      <tr>
       <td class="gold">#${i+1}</td>
       <td><strong>${escapeHTML(player.name)}</strong></td>
+      <td>${escapeHTML(MARKETS[market].label)}</td>
       <td>${escapeHTML(bookName(pick.book))}</td>
       <td>${escapeHTML(pick.side)}</td>
       <td>${fmt(pick.line)}</td>
