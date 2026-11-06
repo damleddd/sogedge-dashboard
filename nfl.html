@@ -4,83 +4,82 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>NFL EDGE | Pro Analytics</title>
+<title>NFL EDGE PRO | Football Analytics</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600;700;800&display=swap');
-:root{--bg:#080d15;--panel:#121b29;--panel2:#1a2636;--line:#2a374a;--text:#f4f7fb;--muted:#96a8be;--blue:#60a5fa;--green:#39d6a0;--red:#ff6b83;--gold:#ffc966}
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap');
+:root{--bg:#080e17;--panel:#131e2c;--panel2:#1a2a3c;--border:#2b4054;--text:#f2f7fd;--muted:#9eafc2;--green:#35d9a2;--blue:#6bb4ff;--gold:#f6cb71;--red:#ff8292}
 *{box-sizing:border-box}
-body{margin:0;background:radial-gradient(ellipse at 80% -15%,#17345a 0,transparent 42%),var(--bg);color:var(--text);font:14px Inter,system-ui,sans-serif;min-height:100vh}
-header{position:relative;overflow:hidden;padding:30px max(22px,calc((100vw - 1440px)/2));background:linear-gradient(112deg,#111d2e,#0a1422 75%);border-bottom:1px solid #293c54}
-header:after{content:"";position:absolute;right:5%;top:-90px;width:320px;height:260px;border:35px solid #60a5fa0b;transform:rotate(-24deg);pointer-events:none}
-.brand{font:800 42px/1 "Barlow Condensed",Impact,sans-serif;letter-spacing:1.4px}
+body{margin:0;background:radial-gradient(ellipse at 85% -10%,#193b55,transparent 40%),var(--bg);color:var(--text);font:14px Inter,Arial,sans-serif}
+button,input,select{font:inherit}
+button{cursor:pointer;border:1px solid #375168;border-radius:9px;background:#203247;color:#f3f8ff;padding:11px 15px;font-weight:700}
+button:hover{background:#2a425a;border-color:#5f96ae}
+button:disabled{opacity:.55;cursor:wait}
+button.primary{background:#139b77;border-color:#2bd5a2}
+button.primary:hover{background:#16b18a}
+input,select{background:#1a2b3e;border:1px solid #3b5268;border-radius:8px;padding:11px;color:white;max-width:100%}
+header{padding:27px max(20px,calc((100vw - 1400px)/2));background:linear-gradient(110deg,#14283a,#0d1725);border-bottom:1px solid #2c4055}
+.brand{font:800 44px 'Barlow Condensed',sans-serif;letter-spacing:1px}
 .brand span{color:var(--green)}
-.brand small{font:700 10px Inter,sans-serif;letter-spacing:2px;vertical-align:middle;background:#163e3b;color:#75eac1;border:1px solid #28685c;border-radius:20px;padding:7px 10px;margin-left:13px}
-.sub{color:var(--muted);margin-top:11px;font-size:13px}
-nav{display:flex;gap:7px;padding:13px max(18px,calc((100vw - 1440px)/2));overflow-x:auto;background:#0d1522e8;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:10;backdrop-filter:blur(15px)}
-button,select,input{font:inherit;border-radius:9px;border:1px solid #34465d;background:#1b2a3c;color:var(--text);padding:11px 13px;transition:.16s ease}
-button{cursor:pointer;font-weight:700}
-button:hover{border-color:var(--blue);background:#263b52}
-nav button{white-space:nowrap;background:transparent;border-color:transparent;color:#a6b6ca;padding:11px 16px;font-size:12px}
-nav button.active{background:#1a3549;border:1px solid #2e6b78;color:#8af2d0;box-shadow:inset 0 -2px 0 var(--green)}
-.primary{background:linear-gradient(120deg,#1ba77e,#0e806e);border-color:#37c99e;color:#fff;box-shadow:0 5px 20px #00c9981b}
-.primary:hover{background:#20bb8c}
-button:disabled{opacity:.5;cursor:wait}
-input:focus,select:focus{outline:2px solid #3fcfa466;outline-offset:1px}
-input,select{max-width:100%}
-main{max-width:1480px;margin:auto;padding:26px 22px}
-.tab{display:none;animation:fadein .2s ease}.tab.active{display:block}
-@keyframes fadein{from{opacity:.6;transform:translateY(4px)}to{opacity:1;transform:none}}
-h2{font:800 32px/1.1 "Barlow Condensed",Impact,sans-serif;letter-spacing:.3px;margin:6px 0 20px}
-h2:before{content:"";display:inline-block;width:5px;height:24px;background:var(--green);border-radius:3px;margin-right:12px;vertical-align:-3px}
-h3{font:700 21px "Barlow Condensed",sans-serif;margin:0 0 15px}
-p{line-height:1.65}
-.panel{background:linear-gradient(155deg,#152031,#101925);border:1px solid #2a3b50;border-radius:16px;padding:22px;margin-bottom:19px;box-shadow:0 12px 38px #00000024}
-.controls{display:flex;flex-wrap:wrap;gap:13px;align-items:end;margin-bottom:15px}
+.brand small{font:800 10px Inter,sans-serif;letter-spacing:1px;color:var(--green);background:#173f3a;border:1px solid #296f60;padding:7px 10px;border-radius:30px;vertical-align:middle;margin-left:10px}
+.subtitle{color:var(--muted);margin-top:5px}
+nav{display:flex;gap:6px;padding:11px max(14px,calc((100vw - 1400px)/2));overflow-x:auto;position:sticky;top:0;z-index:20;background:#0e1926ed;border-bottom:1px solid var(--border);backdrop-filter:blur(12px)}
+nav button{border:1px solid transparent;background:transparent;color:#a7bacd;white-space:nowrap;font-size:12px}
+nav button.active{background:#1a3b43;border-color:#347c70;color:#8cf1cf}
+main{max-width:1440px;padding:24px 20px;margin:auto}
+.tab{display:none}.tab.active{display:block}
+h2,h3,.big{font-family:'Barlow Condensed',sans-serif}
+h2{font-size:34px;margin:0 0 18px}
+h3{font-size:24px;margin:0 0 13px}
+.panel{background:linear-gradient(145deg,#162334,#111b29);border:1px solid var(--border);border-radius:16px;padding:22px;margin-bottom:18px}
+.muted,.small{color:var(--muted)}.small{font-size:11px}
+.green{color:var(--green)}.red{color:var(--red)}.gold{color:var(--gold)}
+.controls{display:flex;flex-wrap:wrap;align-items:end;gap:12px;margin-bottom:16px}
 .field{display:flex;flex-direction:column;gap:7px}
-label{font-size:11px;color:#9fb0c6;font-weight:700;text-transform:uppercase;letter-spacing:.9px}
-.status{color:var(--muted);padding:12px 0;white-space:pre-wrap;line-height:1.6}
-.good{color:var(--green)}.bad{color:var(--red)}.gold{color:var(--gold)}.muted{color:var(--muted)}
-.tablewrap{overflow-x:auto;border:1px solid #29384a;border-radius:12px}
+.field label{color:#aebed0;font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase}
+.status{color:var(--muted);white-space:pre-wrap;padding:12px 0;line-height:1.6}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+.card{background:linear-gradient(145deg,#1d3043,#142232);border:1px solid #344b61;border-radius:15px;padding:19px}
+.card:hover{border-color:#5c8c9d}
+.metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:18px}
+.metric{background:#192b3c;border:1px solid #31495e;border-radius:12px;padding:17px;color:var(--muted);font-size:12px}
+.metric strong{display:block;color:white;font:800 34px 'Barlow Condensed',sans-serif;margin-top:8px}
+.tablewrap{overflow-x:auto;border:1px solid #2a3e51;border-radius:12px}
 table{width:100%;border-collapse:collapse;white-space:nowrap}
-th,td{padding:13px 14px;text-align:left;border-bottom:1px solid #263447}
-th{color:#9fb4ca;font-size:10px;text-transform:uppercase;letter-spacing:1px;background:#1a283a;position:sticky;top:0;z-index:1}
-tbody tr:nth-child(even){background:#ffffff04}
-tbody tr:hover td{background:#21334a}
-tbody tr:last-child td{border-bottom:0}
-.metricgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:12px}
-.metric{padding:18px;background:linear-gradient(140deg,#1c2c3f,#162233);border:1px solid #30445b;border-radius:13px;color:#9fb2c7;font-size:12px}
-.metric strong{display:block;font:800 31px "Barlow Condensed",sans-serif;color:#f1f8ff;margin-top:8px}
-.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:13px}
-.card{padding:19px;background:linear-gradient(145deg,#1b2c40,#152132);border:1px solid #34485e;border-radius:14px;transition:transform .18s,border-color .18s}
-.card:hover{transform:translateY(-2px);border-color:#4d8094}
-.card strong{font-size:15px}
-.pill{display:inline-block;padding:5px 9px;border-radius:6px;background:#21364b;font-size:11px;margin:2px;font-weight:700}
-.pill.dk{color:#a7f3d0}.pill.fd{color:#93c5fd}
-.small{font-size:11px;color:var(--muted)}
-.bar{height:8px;background:#27364b;border-radius:5px;overflow:hidden;margin-top:7px}
-.bar>div{height:100%;background:var(--green)}
-.row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
-hr{border:0;border-top:1px solid var(--line);margin:17px 0}
-.player-cell{display:flex;align-items:center;gap:11px;min-width:175px}
-.headshot{height:44px;width:44px;flex:0 0 44px;object-fit:cover;object-position:center top;background:radial-gradient(circle at 50% 20%,#38576c,#172535);border:1px solid #435c72;border-radius:50%}
-.player-name{font-weight:800;color:#f5f9ff}
-.player-cell .small{margin-top:4px}
-.playerSelect{padding:0;border:0;background:none;text-align:left;color:#eaf7ff}
-.playerSelect:hover{color:var(--green);background:none}
-.rank-chip{display:inline-grid;place-items:center;min-width:33px;height:33px;border-radius:9px;background:#3b3424;border:1px solid #75633c;color:#ffd47b;font-weight:800}
-.prop-tag{display:inline-block;background:#1d3548;border:1px solid #345c73;color:#a9e3fa;padding:6px 9px;border-radius:7px;font-size:11px;font-weight:700}
-footer{color:var(--muted);font-size:11px;text-align:center;padding:30px}
-@media(max-width:600px){header{padding:22px 16px}.brand{font-size:35px}.brand small{font-size:9px;margin-left:7px}main{padding:17px 11px}.panel{padding:15px}nav{padding:9px}nav button{padding:10px 12px}h2{font-size:27px}th,td{padding:10px}.headshot{width:37px;height:37px;flex-basis:37px}}
+th,td{padding:12px 13px;text-align:left;border-bottom:1px solid #293d50}
+th{background:#203146;font-size:10px;text-transform:uppercase;letter-spacing:.8px;color:#b2c3d5}
+tbody tr:hover{background:#203449}
+.player{display:flex;align-items:center;gap:11px;min-width:155px}
+.headshot{width:48px;height:48px;object-fit:cover;object-position:center top;border-radius:50%;border:1px solid #426078;background:#233b50}
+.player strong{display:block}
+.player button{border:0;background:none;padding:0;text-align:left}
+.player button:hover{color:var(--green)}
+.tag{display:inline-block;padding:6px 9px;border-radius:7px;background:#1b3b4c;border:1px solid #32627a;color:#b2e5fb;font-size:11px;font-weight:700}
+.rank{display:inline-grid;place-items:center;width:32px;height:32px;border-radius:9px;background:#453a25;color:var(--gold);font-weight:800}
+.hero{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(280px,1fr);gap:17px;margin-bottom:19px}
+.hero-main{min-height:300px;padding:33px;border-radius:19px;border:1px solid #3d6475;background:radial-gradient(circle at 85% 25%,#256774,transparent 45%),linear-gradient(120deg,#1d3b50,#101c2c)}
+.eyebrow{font-size:10px;letter-spacing:2px;text-transform:uppercase;font-weight:800;color:var(--green)}
+.hero-title{font:800 clamp(43px,6vw,76px)/.9 'Barlow Condensed',sans-serif;margin:20px 0}
+.hero-desc{color:#bdd0df;max-width:470px;line-height:1.7}
+.hero-side{background:linear-gradient(145deg,#20394a,#142332);border:1px solid #3b586c;border-radius:19px;padding:25px;display:flex;flex-direction:column;justify-content:space-between;gap:15px}
+.hero-side .headshot{width:75px;height:75px}
+.section-heading{display:flex;align-items:center;justify-content:space-between;margin:26px 0 13px;gap:12px}
+.section-heading h3{margin:0}
+.leader-stat{font:800 44px 'Barlow Condensed',sans-serif;margin:13px 0;color:white}
+.team-row{display:flex;align-items:center;gap:13px}
+.team-logo{width:54px;height:54px;object-fit:contain}
+footer{text-align:center;color:var(--muted);padding:25px;font-size:11px}
+@media(max-width:800px){.hero{grid-template-columns:1fr}.hero-main{min-height:250px}main{padding:15px 11px}.panel{padding:15px}header{padding:20px 15px}.brand{font-size:37px}nav{padding:8px}.hero-title{font-size:50px}}
 </style>
 </head>
 <body>
 <header>
 <div class="brand">NFL <span>EDGE</span><small>PRO ANALYTICS</small></div>
-<div class="sub">NFL player analytics • ESPN statistics • DraftKings + FanDuel sportsbook comparisons</div>
+<div class="subtitle">Football intelligence • Player statistics • Sportsbook research</div>
 </header>
 
-<nav id="tabs">
-<button class="active" data-tab="schedule">Live Schedule</button>
+<nav id="navigation">
+<button class="active" data-tab="home">Home</button>
+<button data-tab="schedule">Live Schedule</button>
 <button data-tab="players">Player Stats</button>
 <button data-tab="analysis">Player Analysis</button>
 <button data-tab="teams">32 Teams</button>
@@ -90,12 +89,34 @@ footer{color:var(--muted);font-size:11px;text-align:center;padding:30px}
 </nav>
 
 <main>
-<section id="schedule" class="tab active">
+<section id="home" class="tab active">
+<div class="hero">
+<div class="hero-main">
+<div class="eyebrow">NFL EDGE / WEEKLY INTELLIGENCE</div>
+<div class="hero-title">THE GAME<br>BEHIND THE GAME.</div>
+<p class="hero-desc">Last week's standout performances, upcoming NFL matchups and data-driven player prop research.</p>
+<button class="primary" onclick="showTab('scanner')">Explore Prop Scanner</button>
+</div>
+<div class="hero-side">
+<div class="eyebrow">FEATURED PROP / LATEST SCAN</div>
+<div id="homeFeatured" class="status">Run the Prop Scanner to display a featured historical prop result with sportsbook odds.</div>
+<button onclick="showTab('rankings')">View Top 10 Rankings</button>
+</div>
+</div>
+<div id="homeMetrics" class="metrics"></div>
+<div class="section-heading"><h3>Last Week's Standouts</h3><span id="homeWeek" class="small"></span></div>
+<div id="homeLeaders" class="cards"><div class="status">Loading last week's statistics...</div></div>
+<div class="section-heading"><h3>Upcoming Matchups</h3><span class="small">ESPN Schedule</span></div>
+<div id="homeGames" class="cards"></div>
+<p class="small" style="margin-top:20px">Featured props are ranked by historical hit rate, not a forecast or guaranteed betting edge. Statistics depend on available ESPN data.</p>
+</section>
+
+<section id="schedule" class="tab">
 <h2>Live NFL Schedule</h2>
 <div class="panel">
 <div class="controls">
-<div class="field"><label>Game date</label><input type="date" id="scheduleDate"></div>
-<button class="primary" id="loadSchedule">Load Games</button>
+<div class="field"><label>Game Date</label><input type="date" id="scheduleDate"></div>
+<button class="primary" onclick="loadSchedule()">Load Games</button>
 </div>
 <div id="scheduleStatus" class="status"></div>
 <div id="scheduleResults" class="cards"></div>
@@ -106,10 +127,10 @@ footer{color:var(--muted);font-size:11px;text-align:center;padding:30px}
 <h2>Player Stats</h2>
 <div class="panel">
 <div class="controls">
-<div class="field"><label>Game date</label><input type="date" id="playerDate"></div>
-<button class="primary" id="loadPlayers">Load Box Scores</button>
+<div class="field"><label>Game Date</label><input type="date" id="playerDate"></div>
+<button class="primary" onclick="loadPlayers()">Load Box Scores</button>
 </div>
-<div id="playersStatus" class="status">Select a game date to load player box scores.</div>
+<div id="playersStatus" class="status">Select a game date to view player statistics.</div>
 <div id="playersResults" class="tablewrap"></div>
 </div>
 </section>
@@ -118,19 +139,19 @@ footer{color:var(--muted);font-size:11px;text-align:center;padding:30px}
 <h2>Player Analysis</h2>
 <div class="panel">
 <div class="controls">
-<div class="field"><label>ESPN athlete ID</label><input id="athleteId" placeholder="e.g. 3916387"></div>
-<div class="field"><label>Season</label><input id="analysisSeason" type="number" min="2020" max="2035"></div>
-<div class="field"><label>Stat category</label>
+<div class="field"><label>ESPN Player ID</label><input id="athleteId" placeholder="Player ID"></div>
+<div class="field"><label>Season</label><input id="analysisSeason" type="number"></div>
+<div class="field"><label>Prop Type</label>
 <select id="analysisMarket">
-<option value="passing">Passing yards</option>
-<option value="rushing">Rushing yards</option>
-<option value="receiving">Receiving yards</option>
+<option value="passing">Passing Yards</option>
+<option value="rushing">Rushing Yards</option>
+<option value="receiving">Receiving Yards</option>
 <option value="receptions">Receptions</option>
 </select></div>
-<div class="field"><label>Comparison line</label><input id="analysisLine" type="number" step=".5" value="50.5"></div>
-<button class="primary" id="runAnalysis">Analyze</button>
+<div class="field"><label>Prop Line</label><input id="analysisLine" type="number" step=".5" value="50.5"></div>
+<button class="primary" onclick="runAnalysis()">Analyze Player</button>
 </div>
-<div class="small">Load a game under Player Stats and click an athlete's name to populate their ESPN ID here.</div>
+<p class="small">Click a player in the Player Stats tab to automatically select their ESPN ID.</p>
 <div id="analysisStatus" class="status"></div>
 <div id="analysisResults"></div>
 </div>
@@ -139,7 +160,7 @@ footer{color:var(--muted);font-size:11px;text-align:center;padding:30px}
 <section id="teams" class="tab">
 <h2>32 NFL Teams</h2>
 <div class="panel">
-<button class="primary" id="loadTeams">Load Teams</button>
+<button class="primary" onclick="loadTeams()">Load All Teams</button>
 <div id="teamsStatus" class="status"></div>
 <div id="teamsResults" class="cards"></div>
 </div>
@@ -148,8 +169,8 @@ footer{color:var(--muted);font-size:11px;text-align:center;padding:30px}
 <section id="rankings" class="tab">
 <h2>Top 10 Player Props</h2>
 <div class="panel">
-<p class="muted">Rankings are generated by the Prop Scanner using sportsbook-specific lines and ESPN game logs. Historical hit rates are not predictions.</p>
-<div id="rankingsStatus" class="status">Run the Prop Scanner to generate rankings.</div>
+<p class="muted">Ranked by historical performance against available DraftKings and FanDuel lines. Minimum three historical games.</p>
+<div id="rankingsStatus" class="status">Run the Prop Scanner to populate the rankings.</div>
 <div id="rankingsResults" class="tablewrap"></div>
 </div>
 </section>
@@ -158,32 +179,31 @@ footer{color:var(--muted);font-size:11px;text-align:center;padding:30px}
 <h2>DraftKings + FanDuel Prop Scanner</h2>
 <div class="panel">
 <div class="controls">
-<div class="field"><label>Game date</label><input type="date" id="scanDate"></div>
-<div class="field"><label>Prop market</label>
+<div class="field"><label>Game Date</label><input type="date" id="scanDate"></div>
+<div class="field"><label>Prop Type</label>
 <select id="scanMarket">
-<option value="all">All Props — 4 categories</option>
-<option value="receiving">Receiving yards</option>
-<option value="rushing">Rushing yards</option>
-<option value="passing">Passing yards</option>
+<option value="all">All Props</option>
+<option value="passing">Passing Yards</option>
+<option value="rushing">Rushing Yards</option>
+<option value="receiving">Receiving Yards</option>
 <option value="receptions">Receptions</option>
 </select></div>
-<div class="field"><label>Maximum games</label>
+<div class="field"><label>Games to Scan</label>
 <select id="maxGames">
-<option value="1">1 game — testing</option>
-<option value="3" selected>3 games</option>
-<option value="6">6 games</option>
-<option value="16">Full slate</option>
+<option value="1">1 Game — Testing</option>
+<option value="3" selected>3 Games</option>
+<option value="6">6 Games</option>
+<option value="16">Full Slate</option>
 </select></div>
-<button class="primary" id="runScanner">Scan Sportsbook Props</button>
+<button class="primary" id="scanButton" onclick="runScanner()">Scan Player Props</button>
 </div>
-<div class="small">Each uncached event/market request may consume API credits. Odds are cached by your Worker for approximately two minutes.</div>
-<div id="scanEstimate" class="status"></div>
+<p class="small">Each uncached game/market odds request may use API credits. Scans of more than three uncached combinations require confirmation.</p>
 <div id="scanStatus" class="status"></div>
-<div id="scanMetrics" class="metricgrid"></div>
+<div id="scanMetrics" class="metrics"></div>
 </div>
 <div class="panel">
 <h3>Sportsbook Comparison</h3>
-<div class="tablewrap" id="scanResults"></div>
+<div id="scanResults" class="tablewrap"></div>
 </div>
 </section>
 
@@ -191,226 +211,194 @@ footer{color:var(--muted);font-size:11px;text-align:center;padding:30px}
 <h2>Prop Calculator</h2>
 <div class="panel">
 <div class="controls">
-<div class="field"><label>American odds</label><input type="number" id="calcOdds" value="-110"></div>
-<div class="field"><label>Stake ($)</label><input type="number" id="calcStake" value="10" min=".01"></div>
-<div class="field"><label>Estimated win probability (%)</label><input type="number" id="calcProb" value="55" min="0" max="100" step=".1"></div>
-<button class="primary" id="calculate">Calculate</button>
+<div class="field"><label>American Odds</label><input id="calcOdds" type="number" value="-110"></div>
+<div class="field"><label>Stake ($)</label><input id="calcStake" type="number" value="10"></div>
+<div class="field"><label>Estimated Win Probability (%)</label><input id="calcProb" type="number" value="55" min="0" max="100"></div>
+<button class="primary" onclick="calculate()">Calculate</button>
 </div>
-<div id="calcResults" class="metricgrid"></div>
-<p class="small">Enter your own probability estimate. Historical hit rates alone are not calibrated win probabilities.</p>
+<div id="calcResults" class="metrics"></div>
+<p class="small">Use an independently estimated win probability. Historical hit rates are not calibrated probabilities.</p>
 </div>
 </section>
 </main>
 
-<footer>NFL EDGE • Unofficial analytics dashboard • ESPN data and third-party sportsbook feeds</footer>
+<footer>NFL EDGE PRO • Unofficial analytics dashboard • ESPN and third-party odds data</footer>
 
 <script>
 "use strict";
 
 const ESPN="https://site.api.espn.com/apis/site/v2/sports/football/nfl";
-const ESPN_LOG="https://site.web.api.espn.com/apis/common/v3/sports/football/nfl/athletes/";
-const ODDS_API="https://damleddd-nfl-odds.damleddd.workers.dev";
-
+const LOG_API="https://site.web.api.espn.com/apis/common/v3/sports/football/nfl/athletes/";
+const ODDS="https://damleddd-nfl-odds.damleddd.workers.dev";
 const MARKETS={
-passing:{label:"Passing yards",key:"passingYards"},
-rushing:{label:"Rushing yards",key:"rushingYards"},
-receiving:{label:"Receiving yards",key:"receivingYards"},
-receptions:{label:"Receptions",key:"receptions"}
+passing:"Passing Yards",
+rushing:"Rushing Yards",
+receiving:"Receiving Yards",
+receptions:"Receptions"
 };
+const cache=new Map();
+let latestScan=[];
+let scanning=false;
 
-const memoryCache=new Map();
-let lastScan=[];
-let scanBusy=false;
 const $=id=>document.getElementById(id);
-
-function escapeHTML(v){
-return String(v??"").replace(/[&<>"']/g,c=>({
+const esc=v=>String(v??"").replace(/[&<>"']/g,c=>({
 "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
 })[c]);
-}
-
-function fmt(n,d=1){
-return Number.isFinite(Number(n))?Number(n).toFixed(d):"—";
-}
-
-function percent(n){
-return Number.isFinite(n)?fmt(n*100,0)+"%":"—";
-}
-
-function num(v){
-if(v===null||v===undefined||v===""||v==="--")return NaN;
-const x=Number(String(v).replace(/,/g,""));
-return Number.isFinite(x)?x:NaN;
-}
-
-function average(values){
-const good=values.filter(Number.isFinite);
-return good.length?good.reduce((a,b)=>a+b,0)/good.length:NaN;
-}
-
-function playerHeadshot(id,name){
-const valid=/^\d+$/.test(String(id||""));
-const src=valid?"https://a.espncdn.com/i/headshots/nfl/players/full/"+encodeURIComponent(id)+".png":"";
-const initials=String(name||"P").split(/\s+/).map(x=>x[0]||"").slice(0,2).join("").toUpperCase();
-const fallback="data:image/svg+xml,"+encodeURIComponent(
-'<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96"><rect width="96" height="96" rx="48" fill="#20364b"/><text x="48" y="57" text-anchor="middle" font-family="Arial" font-size="30" font-weight="bold" fill="#a9c9da">'+initials+'</text></svg>');
-return '<img class="headshot" loading="lazy" alt="" src="'+(src||fallback)+'" onerror="this.onerror=null;this.src=\''+fallback+'\'">';
-}
-
-function playerIdentity(name,id,subtitle=""){
-return '<div class="player-cell">'+playerHeadshot(id,name)+
-'<div><div class="player-name">'+escapeHTML(name)+'</div>'+
-(subtitle?'<div class="small">'+escapeHTML(subtitle)+'</div>':"")+
-'</div></div>';
-}
-
-function normalizeName(name){
-return String(name||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"")
-.toLowerCase().replace(/\b(jr|sr|ii|iii|iv)\b/g,"")
+const number=v=>{
+if(v==null||v===""||v==="--")return NaN;
+const n=Number(String(v).replace(/,/g,""));
+return Number.isFinite(n)?n:NaN;
+};
+const fmt=(n,d=1)=>Number.isFinite(n)?n.toFixed(d):"—";
+const pct=n=>Number.isFinite(n)?fmt(n*100,0)+"%":"—";
+const avg=a=>{
+const valid=a.filter(Number.isFinite);
+return valid.length?valid.reduce((x,y)=>x+y,0)/valid.length:NaN;
+};
+const nameKey=s=>String(s||"").normalize("NFD")
+.replace(/[\u0300-\u036f]/g,"").toLowerCase()
+.replace(/\b(jr|sr|ii|iii|iv)\b/g,"")
 .replace(/[^a-z0-9]/g,"");
+const oddsText=n=>Number.isFinite(number(n))?
+(number(n)>0?"+":"")+number(n):"—";
+
+function dateLocal(d=new Date()){
+return d.getFullYear()+"-"+
+String(d.getMonth()+1).padStart(2,"0")+"-"+
+String(d.getDate()).padStart(2,"0");
 }
 
-function american(odds){
-const n=Number(odds);
-return Number.isFinite(n)?(n>0?"+":"")+n:"—";
+function chicagoDate(d){
+return new Intl.DateTimeFormat("en-CA",{
+timeZone:"America/Chicago",
+year:"numeric",month:"2-digit",day:"2-digit"
+}).format(d);
 }
 
-function implied(odds){
-const n=Number(odds);
-if(!Number.isFinite(n)||n===0)return NaN;
-return n>0?100/(n+100):(-n)/(-n+100);
+function status(id,text,error=false){
+$(id).textContent=text;
+$(id).style.color=error?"var(--red)":"var(--muted)";
 }
 
-function seasonFor(date){return Number(date.slice(0,4))}
-
-function localDate(d=new Date()){
-const y=d.getFullYear();
-const m=String(d.getMonth()+1).padStart(2,"0");
-const day=String(d.getDate()).padStart(2,"0");
-return y+"-"+m+"-"+day;
-}
-
-function setStatus(id,message,error=false){
-$(id).textContent=message;
-$(id).className="status"+(error?" bad":"");
-}
-
-async function getJSON(url,ttl=60000){
-const now=Date.now();
-const old=memoryCache.get(url);
-if(old&&old.expires>now)return old.value;
+async function json(url,ttl=60000){
+const item=cache.get(url);
+if(item&&item.until>Date.now())return item.data;
 const controller=new AbortController();
-const timeout=setTimeout(()=>controller.abort(),20000);
+const timer=setTimeout(()=>controller.abort(),20000);
 try{
 const response=await fetch(url,{signal:controller.signal});
-const text=await response.text();
-let data;
-try{data=JSON.parse(text)}
-catch{throw new Error("Invalid JSON response")}
-if(!response.ok){
-throw new Error(data.error||data.message||"HTTP "+response.status);
-}
-memoryCache.set(url,{value:data,expires:Date.now()+ttl});
+const data=await response.json();
+if(!response.ok)throw Error(data.error||data.message||"HTTP "+response.status);
+cache.set(url,{data,until:Date.now()+ttl});
 return data;
-}finally{clearTimeout(timeout)}
+}finally{clearTimeout(timer)}
 }
 
-async function batches(items,size,fn){
-const results=[];
+async function batch(items,size,fn){
+const output=[];
 for(let i=0;i<items.length;i+=size){
-const chunk=items.slice(i,i+size);
-const values=await Promise.all(chunk.map(x=>
+const part=await Promise.all(items.slice(i,i+size).map(x=>
 Promise.resolve().then(()=>fn(x)).catch(error=>({error:error.message}))
 ));
-results.push(...values);
+output.push(...part);
 }
-return results;
+return output;
 }
 
-document.querySelectorAll("#tabs button").forEach(button=>{
-button.addEventListener("click",()=>{
-document.querySelectorAll("#tabs button").forEach(x=>x.classList.remove("active"));
-document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));
-button.classList.add("active");
-$(button.dataset.tab).classList.add("active");
+function photo(id,name){
+const initials=String(name||"P").split(/\s+/)
+.slice(0,2).map(x=>x[0]||"").join("").toUpperCase();
+const svg='<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96">'+
+'<rect width="96" height="96" rx="48" fill="#254157"/>'+
+'<text x="48" y="58" text-anchor="middle" font-family="Arial" font-size="30" fill="white">'+
+esc(initials)+'</text></svg>';
+const fallback="data:image/svg+xml,"+encodeURIComponent(svg);
+const src=/^\d+$/.test(String(id||""))?
+"https://a.espncdn.com/i/headshots/nfl/players/full/"+encodeURIComponent(id)+".png":fallback;
+return `<img class="headshot" loading="lazy" alt=""
+src="${src}" onerror="this.onerror=null;this.src='${fallback}'">`;
+}
+
+function playerHTML(name,id,subtitle=""){
+return `<div class="player">${photo(id,name)}<div>
+<strong>${esc(name)}</strong><div class="small">${esc(subtitle)}</div>
+</div></div>`;
+}
+
+function showTab(id){
+document.querySelectorAll(".tab").forEach(x=>x.classList.toggle("active",x.id===id));
+document.querySelectorAll("nav button").forEach(x=>x.classList.toggle("active",x.dataset.tab===id));
+window.scrollTo({top:0,behavior:"smooth"});
+}
+
+document.querySelectorAll("nav button").forEach(button=>{
+button.onclick=()=>showTab(button.dataset.tab);
 });
+
+async function gamesOn(date){
+const data=await json(ESPN+"/scoreboard?dates="+date.replace(/-/g,"")+"&limit=100");
+return data.events||[];
+}
+
+function teamsInGame(game){
+const entries=game.competitions?.[0]?.competitors||[];
+return {
+home:entries.find(x=>x.homeAway==="home"),
+away:entries.find(x=>x.homeAway==="away")
+};
+}
+
+function gameName(game){
+const t=teamsInGame(game);
+return (t.away?.team?.displayName||"Away")+" @ "+
+(t.home?.team?.displayName||"Home");
+}
+
+function gameCard(game){
+const t=teamsInGame(game);
+const played=game.status?.type?.state!=="pre";
+const score=played?
+`<div class="leader-stat">${esc(t.away?.score||"0")} – ${esc(t.home?.score||"0")}</div>`:"";
+const time=new Date(game.date).toLocaleString(undefined,{
+weekday:"short",hour:"numeric",minute:"2-digit"
 });
-
-function goTab(name){
-document.querySelector('#tabs button[data-tab="'+name+'"]').click();
-}
-
-async function scheduleEvents(date){
-const value=date.replace(/-/g,"");
-const data=await getJSON(ESPN+"/scoreboard?dates="+value+"&limit=100",60000);
-return Array.isArray(data.events)?data.events:[];
-}
-
-function competitors(event){
-return event.competitions?.[0]?.competitors||[];
-}
-
-function gameTeams(event){
-const teams=competitors(event);
-const home=teams.find(t=>t.homeAway==="home");
-const away=teams.find(t=>t.homeAway==="away");
-return {home,away};
-}
-
-function gameLabel(event){
-const {home,away}=gameTeams(event);
-return (away?.team?.displayName||"Away")+" @ "+(home?.team?.displayName||"Home");
-}
-
-function gameScore(event){
-const {home,away}=gameTeams(event);
-if(!home||!away)return "";
-if(event.status?.type?.state==="pre")return "";
-return (away.score??"0")+" – "+(home.score??"0");
-}
-
-function gameTime(event){
-const d=new Date(event.date);
-return Number.isNaN(d.getTime())?"—":
-d.toLocaleString(undefined,{weekday:"short",hour:"numeric",minute:"2-digit"});
+return `<div class="card">
+<div class="small">${esc(time)}</div>
+<h3 style="margin:12px 0">${esc(gameName(game))}</h3>
+${score}
+<div class="small">${esc(game.status?.type?.detail||"Scheduled")}</div>
+</div>`;
 }
 
 async function loadSchedule(){
-setStatus("scheduleStatus","Loading NFL schedule...");
+status("scheduleStatus","Loading NFL schedule...");
 $("scheduleResults").innerHTML="";
 try{
-const games=await scheduleEvents($("scheduleDate").value);
-setStatus("scheduleStatus",games.length+" games found.");
-$("scheduleResults").innerHTML=games.map(game=>`
-<div class="card">
-<strong>${escapeHTML(gameLabel(game))}</strong>
-<p class="muted">${escapeHTML(gameTime(game))}</p>
-<div style="font-size:23px;font-weight:800">${escapeHTML(gameScore(game))}</div>
-<p class="small">${escapeHTML(game.status?.type?.detail||"Scheduled")}</p>
-</div>`).join("");
-}catch(error){setStatus("scheduleStatus",error.message,true)}
+const games=await gamesOn($("scheduleDate").value);
+$("scheduleResults").innerHTML=games.map(gameCard).join("")||
+'<p class="muted">No games scheduled.</p>';
+status("scheduleStatus",games.length+" games found.");
+}catch(e){status("scheduleStatus",e.message,true)}
 }
 
-$("loadSchedule").onclick=loadSchedule;
-
-async function gameSummary(id){
-return getJSON(ESPN+"/summary?event="+encodeURIComponent(id),120000);
+async function summary(id){
+return json(ESPN+"/summary?event="+encodeURIComponent(id),120000);
 }
 
-function extractBoxscore(data,game){
+function boxRows(data,game){
 const rows=[];
 for(const team of data.boxscore?.players||[]){
-for(const category of team.statistics||[]){
-const labels=category.labels||category.names||[];
-for(const player of category.athletes||[]){
-const athlete=player.athlete||{};
-const stats=player.stats||[];
+for(const group of team.statistics||[]){
+const labels=group.labels||group.names||[];
+for(const entry of group.athletes||[]){
+const athlete=entry.athlete||{};
+const stats=entry.stats||[];
 rows.push({
-game,team:team.team?.abbreviation||"",
-athleteId:String(athlete.id||""),
+id:String(athlete.id||""),
 name:athlete.displayName||athlete.fullName||"",
-category:category.name||category.label||"",
-stats:labels.map((label,i)=>label+": "+(stats[i]??"—")).join(" | ")
+team:team.team?.abbreviation||"",
+category:group.name||group.label||"",
+labels,stats,game
 });
 }
 }
@@ -419,785 +407,535 @@ return rows;
 }
 
 async function loadPlayers(){
+status("playersStatus","Loading box scores...");
 $("playersResults").innerHTML="";
-setStatus("playersStatus","Loading game box scores...");
 try{
-const events=await scheduleEvents($("playerDate").value);
-if(!events.length){
-setStatus("playersStatus","No games found.");
-return;
-}
-const summaries=await batches(events,4,async game=>{
-const data=await gameSummary(game.id);
-return extractBoxscore(data,gameLabel(game));
-});
-const rows=summaries.filter(Array.isArray).flat();
-setStatus("playersStatus",rows.length+" player-stat rows loaded.");
+const games=await gamesOn($("playerDate").value);
+const responses=await batch(games,4,async game=>
+boxRows(await summary(game.id),gameName(game)));
+const rows=responses.filter(Array.isArray).flat();
 $("playersResults").innerHTML=`
-<table>
-<thead><tr>
-<th>Player</th><th>Team</th><th>Category</th><th>Statistics</th><th>Game</th>
-</tr></thead>
-<tbody>${rows.map(row=>`
-<tr>
-<td><div class="player-cell">
-${playerHeadshot(row.athleteId,row.name)}
-<button class="playerSelect" data-id="${escapeHTML(row.athleteId)}">
-${escapeHTML(row.name)}</button>
-</div></td>
-<td>${escapeHTML(row.team)}</td>
-<td>${escapeHTML(row.category)}</td>
-<td>${escapeHTML(row.stats)}</td>
-<td>${escapeHTML(row.game)}</td>
-</tr>`).join("")}</tbody>
-</table>`;
-document.querySelectorAll(".playerSelect").forEach(button=>{
+<table><thead><tr><th>Player</th><th>Team</th><th>Category</th><th>Stats</th><th>Game</th></tr></thead>
+<tbody>${rows.map(row=>`<tr>
+<td><div class="player">${photo(row.id,row.name)}
+<button data-athlete="${esc(row.id)}">${esc(row.name)}</button></div></td>
+<td>${esc(row.team)}</td>
+<td>${esc(row.category)}</td>
+<td>${esc(row.labels.map((x,i)=>x+": "+(row.stats[i]??"—")).join(" | "))}</td>
+<td>${esc(row.game)}</td>
+</tr>`).join("")}</tbody></table>`;
+$("playersResults").querySelectorAll("[data-athlete]").forEach(button=>{
 button.onclick=()=>{
-$("athleteId").value=button.dataset.id;
-goTab("analysis");
+$("athleteId").value=button.dataset.athlete;
+showTab("analysis");
 };
 });
-}catch(error){setStatus("playersStatus",error.message,true)}
+status("playersStatus",rows.length+" player-stat rows loaded.");
+}catch(e){status("playersStatus",e.message,true)}
 }
 
-$("loadPlayers").onclick=loadPlayers;
-
-async function athleteGameLog(id,season){
-return getJSON(ESPN_LOG+encodeURIComponent(id)+
-"/gamelog?season="+encodeURIComponent(season),300000);
+async function gameLog(id,season){
+return json(LOG_API+encodeURIComponent(id)+"/gamelog?season="+season,300000);
 }
 
-function extractGameLog(data,market){
-const output=[];
-const names=Array.isArray(data.names)?data.names:[];
+function parseLog(data,market){
 const events=data.events||{};
-
-function collect(categories){
-for(const category of categories||[]){
-const keys=category.names||category.keys||names;
-for(const entry of category.events||[]){
-const eventId=String(entry.eventId||entry.id||entry.event?.id||"");
-let stats={};
-if(entry.stats&&!Array.isArray(entry.stats)){
-stats=entry.stats;
-}else if(Array.isArray(entry.stats)){
-entry.stats.forEach((v,i)=>{if(keys[i])stats[keys[i]]=v});
+const aliases={
+passing:["passingyards","passyds","pyds"],
+rushing:["rushingyards","rushyds","ryds"],
+receiving:["receivingyards","recyds","recyds"],
+receptions:["receptions","receivingreceptions","rec"]
+}[market];
+const rows=[];
+function collect(groups){
+for(const group of groups||[]){
+const keys=group.names||group.keys||data.names||[];
+for(const item of group.events||[]){
+const id=String(item.eventId||item.id||item.event?.id||"");
+const stats={};
+if(Array.isArray(item.stats)){
+item.stats.forEach((v,i)=>{if(keys[i])stats[keys[i]]=v});
+}else if(item.stats&&typeof item.stats==="object"){
+Object.assign(stats,item.stats);
 }
-const eventInfo=events[eventId]||{};
-const date=eventInfo.gameDate||eventInfo.date||entry.date||"";
-output.push({eventId,date,stats});
-}
-}
-}
-
-for(const type of data.seasonTypes||[])collect(type.categories);
-if(!output.length)collect(data.categories);
-
-const statAliases={
-passing:["passingYards","passing_yards","passYds","PYDS","passing yards"],
-rushing:["rushingYards","rushing_yards","rushYds","RYDS","rushing yards"],
-receiving:["receivingYards","receiving_yards","recYds","RECYDS","receiving yards"],
-receptions:["receptions","receivingReceptions","REC","receiving receptions"]
-};
-
-const aliases=statAliases[market].map(normalizeName);
-const rows=output.map(row=>{
 let value=NaN;
-for(const [key,v] of Object.entries(row.stats)){
-if(aliases.includes(normalizeName(key))){
-value=num(v);
-break;
+for(const [key,v] of Object.entries(stats)){
+if(aliases.includes(nameKey(key))){value=number(v);break}
+}
+if(Number.isFinite(value)){
+rows.push({
+id,
+date:events[id]?.gameDate||events[id]?.date||item.date||"",
+value
+});
 }
 }
-return {eventId:row.eventId,date:row.date,value};
-}).filter(row=>Number.isFinite(row.value));
-
+}
+}
+for(const type of data.seasonTypes||[])collect(type.categories);
+if(!rows.length)collect(data.categories);
 const unique=new Map();
-rows.forEach(row=>{
-const key=row.eventId||row.date+"-"+row.value;
-if(!unique.has(key))unique.set(key,row);
-});
-return [...unique.values()].sort((a,b)=>
-String(b.date).localeCompare(String(a.date)));
-}
-
-function beforeGame(rows,date){
-const cutoff=Date.parse(date+"T00:00:00Z");
-return rows.filter(row=>{
-if(!row.date)return true;
-const t=Date.parse(row.date);
-return !Number.isFinite(t)||t<cutoff;
-});
+rows.forEach(r=>unique.set(r.id||r.date+"-"+r.value,r));
+return [...unique.values()].sort((a,b)=>String(b.date).localeCompare(String(a.date)));
 }
 
 function evaluate(rows,line){
 const values=rows.map(x=>x.value).filter(Number.isFinite);
 const recent=values.slice(0,5);
-const over=values.filter(v=>v>line).length;
-const under=values.filter(v=>v<line).length;
-const push=values.filter(v=>v===line).length;
-const last5Over=recent.filter(v=>v>line).length;
-const last5Under=recent.filter(v=>v<line).length;
+const over=values.filter(x=>x>line).length;
+const under=values.filter(x=>x<line).length;
 return {
 games:values.length,
-avg:average(values),
-last5Avg:average(recent),
-over,under,push,
+average:avg(values),
+recentAverage:avg(recent),
 overRate:values.length?over/values.length:NaN,
 underRate:values.length?under/values.length:NaN,
-last5Over,last5Under,recentGames:recent.length,
-margin:average(recent)-line
+last5Over:recent.filter(x=>x>line).length,
+last5Under:recent.filter(x=>x<line).length,
+recentGames:recent.length
 };
 }
 
 async function runAnalysis(){
+status("analysisStatus","Loading ESPN player game log...");
 $("analysisResults").innerHTML="";
-setStatus("analysisStatus","Loading ESPN game logs...");
 try{
 const id=$("athleteId").value.trim();
 const season=Number($("analysisSeason").value);
 const market=$("analysisMarket").value;
-const line=num($("analysisLine").value);
-if(!/^\d+$/.test(id))throw new Error("Enter a valid ESPN athlete ID.");
-if(!Number.isFinite(line))throw new Error("Enter a valid comparison line.");
-const data=await athleteGameLog(id,season);
-const rows=extractGameLog(data,market);
+const line=number($("analysisLine").value);
+if(!/^\d+$/.test(id)||!Number.isFinite(line))throw Error("Enter a valid athlete ID and line.");
+const rows=parseLog(await gameLog(id,season),market);
 const result=evaluate(rows,line);
-setStatus("analysisStatus",rows.length+" games found for athlete "+id+".");
 $("analysisResults").innerHTML=`
-<div class="metricgrid">
-<div class="metric">Season average<strong>${fmt(result.avg)}</strong></div>
-<div class="metric">Last 5 average<strong>${fmt(result.last5Avg)}</strong></div>
-<div class="metric">Season over rate<strong>${percent(result.overRate)}</strong></div>
-<div class="metric">Last 5 overs<strong>${result.last5Over}/${result.recentGames}</strong></div>
+<div class="metrics">
+<div class="metric">Season Average<strong>${fmt(result.average)}</strong></div>
+<div class="metric">Last 5 Average<strong>${fmt(result.recentAverage)}</strong></div>
+<div class="metric">Over Hit Rate<strong>${pct(result.overRate)}</strong></div>
+<div class="metric">Last 5 Overs<strong>${result.last5Over}/${result.recentGames}</strong></div>
 </div>
-<h3 style="margin-top:20px">Game Log</h3>
-<div class="tablewrap"><table>
-<thead><tr><th>Date</th><th>Stat</th><th>Vs. ${fmt(line)}</th></tr></thead>
-<tbody>${rows.map(row=>`
-<tr><td>${escapeHTML(row.date||row.eventId)}</td>
-<td>${fmt(row.value)}</td>
-<td class="${row.value>line?"good":row.value<line?"bad":"gold"}">
-${row.value>line?"OVER":row.value<line?"UNDER":"PUSH"}
-</td></tr>`).join("")}</tbody>
-</table></div>`;
-}catch(error){setStatus("analysisStatus",error.message,true)}
+<div class="tablewrap"><table><thead><tr><th>Game Date</th><th>${MARKETS[market]}</th><th>Result vs ${fmt(line)}</th></tr></thead>
+<tbody>${rows.map(r=>`<tr><td>${esc(r.date||r.id)}</td>
+<td>${fmt(r.value)}</td>
+<td class="${r.value>line?"green":r.value<line?"red":"gold"}">${r.value>line?"OVER":r.value<line?"UNDER":"PUSH"}</td>
+</tr>`).join("")}</tbody></table></div>`;
+status("analysisStatus",rows.length+" historical games found.");
+}catch(e){status("analysisStatus",e.message,true)}
 }
 
-$("runAnalysis").onclick=runAnalysis;
-
-/* =====================================
-   FIXED 32 NFL TEAMS
-   ESPN + BUILT-IN FALLBACK
-===================================== */
-
-const NFL_TEAMS_FALLBACK=[
-[22,"Arizona Cardinals","ARI"],
-[1,"Atlanta Falcons","ATL"],
-[33,"Baltimore Ravens","BAL"],
-[2,"Buffalo Bills","BUF"],
-[29,"Carolina Panthers","CAR"],
-[3,"Chicago Bears","CHI"],
-[4,"Cincinnati Bengals","CIN"],
-[5,"Cleveland Browns","CLE"],
-[6,"Dallas Cowboys","DAL"],
-[7,"Denver Broncos","DEN"],
-[8,"Detroit Lions","DET"],
-[9,"Green Bay Packers","GB"],
-[34,"Houston Texans","HOU"],
-[11,"Indianapolis Colts","IND"],
-[30,"Jacksonville Jaguars","JAX"],
-[12,"Kansas City Chiefs","KC"],
-[13,"Las Vegas Raiders","LV"],
-[24,"Los Angeles Chargers","LAC"],
-[14,"Los Angeles Rams","LAR"],
-[15,"Miami Dolphins","MIA"],
-[16,"Minnesota Vikings","MIN"],
-[17,"New England Patriots","NE"],
-[18,"New Orleans Saints","NO"],
-[19,"New York Giants","NYG"],
-[20,"New York Jets","NYJ"],
-[21,"Philadelphia Eagles","PHI"],
-[23,"Pittsburgh Steelers","PIT"],
-[25,"San Francisco 49ers","SF"],
-[26,"Seattle Seahawks","SEA"],
-[27,"Tampa Bay Buccaneers","TB"],
-[10,"Tennessee Titans","TEN"],
-[28,"Washington Commanders","WSH"]
+/* 32 NFL TEAMS — ESPN + FALLBACK */
+const TEAM_DATA=[
+[22,"Arizona Cardinals","ARI"],[1,"Atlanta Falcons","ATL"],
+[33,"Baltimore Ravens","BAL"],[2,"Buffalo Bills","BUF"],
+[29,"Carolina Panthers","CAR"],[3,"Chicago Bears","CHI"],
+[4,"Cincinnati Bengals","CIN"],[5,"Cleveland Browns","CLE"],
+[6,"Dallas Cowboys","DAL"],[7,"Denver Broncos","DEN"],
+[8,"Detroit Lions","DET"],[9,"Green Bay Packers","GB"],
+[34,"Houston Texans","HOU"],[11,"Indianapolis Colts","IND"],
+[30,"Jacksonville Jaguars","JAX"],[12,"Kansas City Chiefs","KC"],
+[13,"Las Vegas Raiders","LV"],[24,"Los Angeles Chargers","LAC"],
+[14,"Los Angeles Rams","LAR"],[15,"Miami Dolphins","MIA"],
+[16,"Minnesota Vikings","MIN"],[17,"New England Patriots","NE"],
+[18,"New Orleans Saints","NO"],[19,"New York Giants","NYG"],
+[20,"New York Jets","NYJ"],[21,"Philadelphia Eagles","PHI"],
+[23,"Pittsburgh Steelers","PIT"],[25,"San Francisco 49ers","SF"],
+[26,"Seattle Seahawks","SEA"],[27,"Tampa Bay Buccaneers","TB"],
+[10,"Tennessee Titans","TEN"],[28,"Washington Commanders","WSH"]
 ].map(([id,displayName,abbreviation])=>({
 id,displayName,abbreviation,
-logos:[{
-href:"https://a.espncdn.com/i/teamlogos/nfl/500/"+
-abbreviation.toLowerCase()+".png"
-}]
+logos:[{href:"https://a.espncdn.com/i/teamlogos/nfl/500/"+abbreviation.toLowerCase()+".png"}]
 }));
 
 async function loadTeams(){
-setStatus("teamsStatus","Loading all 32 NFL teams...");
-$("teamsResults").innerHTML="";
-
-let teams=NFL_TEAMS_FALLBACK;
-let source="Built-in NFL team directory";
-
+status("teamsStatus","Loading all NFL teams...");
+let teams=TEAM_DATA;
+let source="Built-in team directory";
 try{
-const data=await getJSON(ESPN+"/teams?limit=50",3600000);
-const received=data.sports?.[0]?.leagues?.[0]?.teams;
-if(Array.isArray(received)&&received.length>=32){
-teams=received.map(item=>item.team||item);
+const data=await json(ESPN+"/teams?limit=50",3600000);
+const result=data.sports?.[0]?.leagues?.[0]?.teams;
+if(Array.isArray(result)&&result.length>=32){
+teams=result.map(x=>x.team||x);
 source="ESPN";
 }
-}catch(error){
-console.warn("ESPN teams unavailable. Using fallback:",error);
+}catch(e){console.warn("Using fallback team directory",e)}
+teams.sort((a,b)=>a.displayName.localeCompare(b.displayName));
+$("teamsResults").innerHTML=teams.map(team=>`
+<div class="card"><div class="team-row">
+<img class="team-logo" loading="lazy" src="${esc(team.logos?.[0]?.href||"")}" alt="">
+<div><strong>${esc(team.displayName)}</strong><div class="small">${esc(team.abbreviation)}</div></div>
+</div></div>`).join("");
+status("teamsStatus",teams.length+" teams loaded • "+source);
 }
 
-teams=[...teams].sort((a,b)=>
-a.displayName.localeCompare(b.displayName));
+/* HOME — PREVIOUS WEEK'S ESPN STATS */
+function lastWeekDates(){
+const now=new Date();
+const day=now.getDay();
+const lastMonday=new Date(now);
+lastMonday.setDate(now.getDate()-((day+6)%7)-7);
+const dates=[];
+for(let i=0;i<7;i++){
+const d=new Date(lastMonday);
+d.setDate(lastMonday.getDate()+i);
+dates.push(dateLocal(d));
+}
+return dates;
+}
 
-$("teamsResults").innerHTML=teams.map(team=>{
-const logo=team.logos?.[0]?.href||"";
-return `
-<div class="card">
-<div class="row">
-${logo?`
-<img src="${escapeHTML(logo)}"
-width="55" height="55" loading="lazy"
-alt="${escapeHTML(team.displayName)} logo"
-onerror="this.style.display='none'">`:""}
-<div>
-<strong>${escapeHTML(team.displayName)}</strong>
-<div class="small">${escapeHTML(team.abbreviation||"")}</div>
-</div>
-</div>
+function statFromBox(row,market){
+const aliases={
+passing:["yds","passingyards","passyds"],
+rushing:["yds","rushingyards","rushyds"],
+receiving:["yds","receivingyards","recyds"]
+}[market];
+const category=nameKey(row.category);
+if(market==="passing"&&!category.includes("passing"))return NaN;
+if(market==="rushing"&&!category.includes("rushing"))return NaN;
+if(market==="receiving"&&!category.includes("receiving"))return NaN;
+for(let i=0;i<row.labels.length;i++){
+if(aliases.includes(nameKey(row.labels[i])))return number(row.stats[i]);
+}
+return NaN;
+}
+
+async function loadHome(){
+$("homeMetrics").innerHTML=`
+<div class="metric">NFL Teams<strong>32</strong></div>
+<div class="metric">Prop Markets<strong>4</strong></div>
+<div class="metric">Sportsbooks<strong>2</strong></div>
+<div class="metric">Live Data<strong class="green">ESPN</strong></div>`;
+const dates=lastWeekDates();
+$("homeWeek").textContent=dates[0]+" through "+dates[6];
+try{
+const weekly=await Promise.all(dates.map(date=>gamesOn(date).catch(()=>[])));
+const games=[...new Map(weekly.flat().map(x=>[x.id,x])).values()]
+.filter(x=>x.status?.type?.state==="post");
+const selected=games.slice(0,20);
+const results=await batch(selected,5,async game=>
+boxRows(await summary(game.id),gameName(game)));
+const rows=results.filter(Array.isArray).flat();
+const categories=[
+["passing","Passing Yards Leader"],
+["rushing","Rushing Yards Leader"],
+["receiving","Receiving Yards Leader"]
+];
+$("homeLeaders").innerHTML=categories.map(([market,label])=>{
+const leaders=rows.map(row=>({...row,value:statFromBox(row,market)}))
+.filter(x=>Number.isFinite(x.value)).sort((a,b)=>b.value-a.value);
+const best=leaders[0];
+if(!best)return `<div class="card"><div class="eyebrow">${label}</div>
+<p class="muted">No completed game statistics available.</p></div>`;
+return `<div class="card">
+<div class="eyebrow">${label}</div>
+<div class="leader-stat">${fmt(best.value,0)} <span class="small">YDS</span></div>
+${playerHTML(best.name,best.id,best.team)}
+<p class="small">${esc(best.game)}</p>
 </div>`;
 }).join("");
-
-setStatus("teamsStatus",teams.length+" teams loaded • "+source);
+}catch(e){
+$("homeLeaders").innerHTML='<div class="card">Weekly ESPN statistics are temporarily unavailable.</div>';
+}
+try{
+const dates=[];
+for(let i=0;i<14;i++){
+const d=new Date();
+d.setDate(d.getDate()+i);
+dates.push(dateLocal(d));
+}
+const schedules=await Promise.all(dates.map(d=>gamesOn(d).catch(()=>[])));
+const upcoming=[...new Map(schedules.flat().map(x=>[x.id,x])).values()]
+.filter(g=>g.status?.type?.state==="pre")
+.sort((a,b)=>new Date(a.date)-new Date(b.date)).slice(0,6);
+$("homeGames").innerHTML=upcoming.map(gameCard).join("")||
+'<div class="card">No upcoming games found in the next 14 days.</div>';
+}catch(e){
+$("homeGames").innerHTML='<div class="card">Upcoming schedule unavailable.</div>';
+}
 }
 
-$("loadTeams").onclick=loadTeams;
+function renderFeatured(){
+const top=latestScan.filter(x=>x.best&&x.best.games>=3)
+.sort((a,b)=>b.best.rate-a.best.rate)[0];
+if(!top){
+$("homeFeatured").innerHTML='<p class="muted">Run the Prop Scanner to display the leading historical prop result.</p>';
+return;
+}
+$("homeFeatured").innerHTML=`
+${playerHTML(top.name,top.athlete?.id,top.athlete?.team||"")}
+<h3 style="margin:15px 0 5px">${esc(top.best.side)} ${fmt(top.best.line)} ${esc(MARKETS[top.market])}</h3>
+<div class="small">${esc(top.best.book==="draftkings"?"DraftKings":"FanDuel")} • ${oddsText(top.best.odds)}</div>
+<div class="leader-stat green">${pct(top.best.rate)}</div>
+<div class="small">Historical hit rate • ${top.best.games} games • ${top.best.last5}/${top.best.recentGames} last five</div>`;
+}
 
-/* =====================================
-   ESPN ROSTERS
-===================================== */
-
-function rosterAthletes(data){
-const found=[];
-function add(athlete){
-if(!athlete||!athlete.id)return;
-found.push({
-id:String(athlete.id),
-name:athlete.displayName||athlete.fullName||athlete.name||"",
-position:athlete.position?.abbreviation||athlete.position?.name||"",
-team:""
+/* ESPN ROSTER MATCHING */
+function rosterPlayers(data){
+const result=[];
+function walk(items){
+for(const x of items||[]){
+if(Array.isArray(x.items)){walk(x.items);continue}
+if(Array.isArray(x.athletes)){walk(x.athletes);continue}
+const a=x.athlete||x;
+if(!a.id)continue;
+result.push({
+id:String(a.id),
+name:a.displayName||a.fullName||a.name||"",
+position:a.position?.abbreviation||""
 });
-}
-function walk(list){
-if(!Array.isArray(list))return;
-for(const entry of list){
-if(Array.isArray(entry.items))walk(entry.items);
-else if(Array.isArray(entry.athletes))walk(entry.athletes);
-else add(entry.athlete||entry);
 }
 }
 walk(data.athletes);
 walk(data.team?.athletes);
-return [...new Map(found.map(x=>[x.id,x])).values()];
+return result;
 }
 
-function eligible(position,market){
-const p=String(position).toUpperCase();
-if(market==="all")return ["QB","RB","FB","WR","TE"].includes(p);
-if(market==="passing")return p==="QB";
-if(market==="rushing")return ["QB","RB","FB"].includes(p);
-return ["WR","TE","RB","FB"].includes(p);
-}
-
-async function slateRoster(events,market){
+async function rosterForGames(games){
 const teams=new Map();
-for(const event of events){
-for(const competitor of competitors(event)){
-const team=competitor.team;
-if(team?.id)teams.set(String(team.id),{
-id:String(team.id),
-name:team.displayName||team.name||"",
-abbreviation:team.abbreviation||""
-});
+for(const game of games){
+for(const c of game.competitions?.[0]?.competitors||[]){
+if(c.team?.id)teams.set(c.team.id,c.team);
 }
 }
-const results=await batches([...teams.values()],4,async team=>{
-const data=await getJSON(ESPN+"/teams/"+team.id+"/roster",300000);
-return rosterAthletes(data)
-.filter(p=>eligible(p.position,market))
-.map(p=>({...p,team:team.abbreviation}));
+const responses=await batch([...teams.values()],4,async team=>{
+const data=await json(ESPN+"/teams/"+team.id+"/roster",300000);
+return rosterPlayers(data).map(x=>({...x,team:team.abbreviation}));
 });
-return {
-players:[...new Map(results.filter(Array.isArray).flat()
-.map(x=>[x.id,x])).values()],
-teamCount:teams.size,
-failed:results.filter(x=>x?.error).length
-};
+return [...new Map(responses.filter(Array.isArray).flat()
+.map(x=>[nameKey(x.name),x])).entries()];
 }
 
-/* =====================================
-   SPORTSBOOK ODDS
-===================================== */
-
+/* SPORTSBOOK ODDS */
 async function oddsEvents(){
-const response=await getJSON(ODDS_API+"/events",60000);
-return response.data||[];
+const response=await json(ODDS+"/events");
+return Array.isArray(response)?response:response.data||[];
 }
 
-async function oddsProps(eventId,market){
-const url=ODDS_API+"/props?eventId="+
-encodeURIComponent(eventId)+"&market="+encodeURIComponent(market);
-return getJSON(url,120000);
+async function oddsProps(id,market){
+return json(ODDS+"/props?eventId="+encodeURIComponent(id)+
+"&market="+encodeURIComponent(market),120000);
 }
 
-function parseBookmakerOdds(data){
+function parseOdds(data){
 const players=new Map();
 for(const bookmaker of data.bookmakers||[]){
-const book=bookmaker.key;
-if(book!=="draftkings"&&book!=="fanduel")continue;
+if(!["draftkings","fanduel"].includes(bookmaker.key))continue;
 for(const market of bookmaker.markets||[]){
 for(const outcome of market.outcomes||[]){
 const name=outcome.description;
-if(!name||!Number.isFinite(num(outcome.point)))continue;
-const key=normalizeName(name);
+const line=number(outcome.point);
+if(!name||!Number.isFinite(line))continue;
+const key=nameKey(name);
 if(!players.has(key))players.set(key,{name,books:{}});
-const player=players.get(key);
-if(!player.books[book]){
-player.books[book]={line:num(outcome.point),over:null,under:null};
-}
+const p=players.get(key);
+const book=bookmaker.key;
+if(!p.books[book])p.books[book]={line,over:null,under:null};
 const side=String(outcome.name).toLowerCase();
-if(side==="over")player.books[book].over=outcome.price;
-if(side==="under")player.books[book].under=outcome.price;
+if(side==="over"||side==="under")p.books[book][side]=number(outcome.price);
 }
 }
 }
 return [...players.values()];
 }
 
-function sameGame(a,b){
-const left=[normalizeName(a.home_team),normalizeName(a.away_team)]
-.sort().join("|");
-const right=[normalizeName(b.home_team),normalizeName(b.away_team)]
-.sort().join("|");
-return left===right;
-}
-
-function selectSlateGames(events,date,maxGames){
-const games=events.filter(event=>{
-if(!event.commence_time)return false;
-const d=new Date(event.commence_time);
-if(Number.isNaN(d.getTime()))return false;
-const local=new Intl.DateTimeFormat("en-CA",{
-timeZone:"America/Chicago",year:"numeric",month:"2-digit",day:"2-digit"
-}).format(d);
-return local===date;
-});
-return games.slice(0,maxGames);
-}
-
-function bestSide(books,side){
-const entries=Object.entries(books).filter(([key,b])=>
-Number.isFinite(b.line)&&Number.isFinite(Number(b[side])));
-if(!entries.length)return null;
-entries.sort((a,b)=>{
-const A=a[1],B=b[1];
-if(side==="over"&&A.line!==B.line)return A.line-B.line;
-if(side==="under"&&A.line!==B.line)return B.line-A.line;
-return Number(B[side])-Number(A[side]);
-});
-return {book:entries[0][0],...entries[0][1]};
-}
-
-function bookName(key){
-return key==="draftkings"?"DraftKings":
-key==="fanduel"?"FanDuel":key;
-}
-
 function bookCell(book){
-if(!book)return '<span class="muted">Unavailable</span>';
-return `<strong>${fmt(book.line)}</strong><br>
-<span class="small">O ${american(book.over)} / U ${american(book.under)}</span>`;
+if(!book)return "—";
+return `<strong>${fmt(book.line)}</strong>
+<div class="small">O ${oddsText(book.over)} / U ${oddsText(book.under)}</div>`;
 }
 
-function selectedMarkets(){
-return $("scanMarket").value==="all"?
-Object.keys(MARKETS):[$("scanMarket").value];
-}
-
-function updateScanEstimate(){
-const count=selectedMarkets().length;
-const games=Number($("maxGames").value);
-const max=games*count;
-$("scanEstimate").textContent=
-"Potential requests: up to "+max+" game/market calls ("+
-games+" games × "+count+" markets). Actual usage may be lower if fewer games are available or results are cached.";
-}
-
-$("scanMarket").addEventListener("change",updateScanEstimate);
-$("maxGames").addEventListener("change",updateScanEstimate);
-
-/* =====================================
-   PROP SCANNER
-===================================== */
-
-async function runScanner(){
-if(scanBusy)return;
-const date=$("scanDate").value;
-const markets=selectedMarkets();
-const maxGames=Number($("maxGames").value);
-if(!date){setStatus("scanStatus","Select a game date.",true);return}
-scanBusy=true;
-$("runScanner").disabled=true;
-try{
-setStatus("scanStatus","Step 1/4: Finding NFL games from The Odds API...");
-const oddsSchedule=await oddsEvents();
-const selected=selectSlateGames(oddsSchedule,date,maxGames);
-if(!selected.length)throw new Error(
-"No Odds API games found for this date. Try an upcoming NFL game date.");
-
-const requests=[];
-for(const event of selected){
-for(const market of markets)requests.push({event,market});
-}
-
-const uncached=requests.filter(({event,market})=>{
-const url=ODDS_API+"/props?eventId="+encodeURIComponent(event.id)+
-"&market="+encodeURIComponent(market);
-const entry=memoryCache.get(url);
-return !(entry&&entry.expires>Date.now());
-}).length;
-
-if(uncached>3){
-const proceed=window.confirm(
-"NFL EDGE will request "+requests.length+" game/market combinations.\n"+
-"Up to "+uncached+" are not cached in this browser.\n"+
-"Your Cloudflare Worker may already cache some results.\n\nContinue?");
-if(!proceed){
-setStatus("scanStatus","Scan canceled. No prop requests sent.");
-return;
-}
-}
-
-$("scanResults").innerHTML="";
-$("scanMetrics").innerHTML="";
-const oddsResponses=[];
-
-for(let i=0;i<requests.length;i++){
-const {event,market}=requests[i];
-setStatus("scanStatus","Step 2/4: Loading sportsbook odds "+(i+1)+
-"/"+requests.length+" — "+MARKETS[market].label+"\n"+
-event.away_team+" @ "+event.home_team);
-try{
-const response=await oddsProps(event.id,market);
-oddsResponses.push({
-event,market,response,
-players:parseBookmakerOdds(response.data||{})
-});
-}catch(error){
-oddsResponses.push({
-event,market,error:error.message,players:[]
-});
-if(/quota|limit|429|remaining/i.test(error.message))break;
-}
-}
-
-const sportsbookPlayers=oddsResponses.flatMap(result=>
-result.players.map(player=>({
-...player,event:result.event,market:result.market
-})));
-
-if(!sportsbookPlayers.length){
-const errors=oddsResponses.filter(x=>x.error)
-.map(x=>x.error).join("; ");
-throw new Error("No sportsbook player props returned. "+
-(errors||"This market may not be available yet."));
-}
-
-setStatus("scanStatus","Step 3/4: Finding ESPN player IDs...");
-let rosterPlayers=[];
-
-try{
-const espnGames=await scheduleEvents(date);
-const selectedESPN=espnGames.filter(game=>{
-const teams=gameTeams(game);
-return selected.some(oddsGame=>sameGame(oddsGame,{
-home_team:teams.home?.team?.displayName||"",
-away_team:teams.away?.team?.displayName||""
-}));
-});
-const roster=await slateRoster(
-selectedESPN.length?selectedESPN:espnGames,
-markets.length===4?"all":markets[0]
-);
-rosterPlayers=roster.players;
-}catch(error){console.warn("ESPN roster discovery:",error)}
-
-const rosterMap=new Map(rosterPlayers.map(p=>[
-normalizeName(p.name),p
-]));
-
-const matched=sportsbookPlayers.map(player=>({
-...player,athlete:rosterMap.get(normalizeName(player.name))
-}));
-
-const uniqueAthletes=[...new Map(
-matched.filter(x=>x.athlete)
-.map(x=>[x.athlete.id,x.athlete])
-).values()];
-
-setStatus("scanStatus","Step 4/4: Loading ESPN game logs for "+
-uniqueAthletes.length+" unique athletes...");
-
-const logResults=await batches(uniqueAthletes,5,async athlete=>({
-id:athlete.id,
-data:await athleteGameLog(athlete.id,seasonFor(date))
-}));
-
-const logMap=new Map(logResults.filter(x=>x?.id)
-.map(x=>[x.id,x.data]));
-
-const parsedLogCache=new Map();
-
-function gameRows(athlete,market){
-if(!athlete||!logMap.has(athlete.id))return [];
-const key=athlete.id+":"+market;
-if(!parsedLogCache.has(key)){
-parsedLogCache.set(key,beforeGame(
-extractGameLog(logMap.get(athlete.id),market),date
-));
-}
-return parsedLogCache.get(key);
-}
-
-const results=matched.map(player=>{
-const rows=gameRows(player.athlete,player.market);
-const dk=player.books.draftkings||null;
-const fd=player.books.fanduel||null;
-const dkStats=dk?evaluate(rows,dk.line):null;
-const fdStats=fd?evaluate(rows,fd.line):null;
-const bestOver=bestSide(player.books,"over");
-const bestUnder=bestSide(player.books,"under");
+function historicalPick(rows,books){
 const candidates=[];
-
-for(const [book,entry,stats] of [
-["draftkings",dk,dkStats],
-["fanduel",fd,fdStats]
-]){
-if(!entry||!stats||!stats.games)continue;
+for(const [book,entry] of Object.entries(books)){
+const stats=evaluate(rows,entry.line);
+if(!stats.games)continue;
 for(const side of ["Over","Under"]){
 const odds=entry[side.toLowerCase()];
-if(odds==null)continue;
+if(!Number.isFinite(odds))continue;
 candidates.push({
 book,side,line:entry.line,odds,
 rate:side==="Over"?stats.overRate:stats.underRate,
 last5:side==="Over"?stats.last5Over:stats.last5Under,
 games:stats.games,recentGames:stats.recentGames,
-avg:stats.avg,last5Avg:stats.last5Avg
+average:stats.average,recentAverage:stats.recentAverage
 });
 }
 }
-
-candidates.sort((a,b)=>
-b.rate-a.rate||b.last5-a.last5||
-b.recentGames-a.recentGames);
-
-return {
-...player,dk,fd,dkStats,fdStats,bestOver,bestUnder,
-bestHistorical:candidates[0]||null,
-games:rows.length,
-seasonAverage:average(rows.map(x=>x.value)),
-last5Average:average(rows.slice(0,5).map(x=>x.value))
-};
-});
-
-results.sort((a,b)=>
-(b.bestHistorical?.rate??-1)-
-(a.bestHistorical?.rate??-1));
-
-lastScan=results;
-renderScan(results,oddsResponses);
-renderRankings(results,markets.length===4?"all":markets[0]);
-
-const remaining=oddsResponses.map(x=>x.response?.remaining)
-.filter(x=>x!=null).at(-1);
-const failures=oddsResponses.filter(x=>x.error);
-
-setStatus("scanStatus",
-"Scan complete: "+results.length+
-" player/market props across "+markets.length+
-" categories. "+matched.filter(x=>x.athlete).length+
-" ESPN matches."+
-(failures.length?"\n"+failures.length+
-" market requests failed; results may be partial.":"")+
-(remaining!=null?"\nLast reported API credits remaining: "+
-remaining:""));
-
-}catch(error){
-setStatus("scanStatus",error.message,true);
-}finally{
-scanBusy=false;
-$("runScanner").disabled=false;
-}
+return candidates.sort((a,b)=>b.rate-a.rate||b.last5-a.last5)[0]||null;
 }
 
-/* =====================================
-   SCANNER RESULTS
-===================================== */
+async function runScanner(){
+if(scanning)return;
+scanning=true;
+$("scanButton").disabled=true;
+try{
+const date=$("scanDate").value;
+const markets=$("scanMarket").value==="all"?
+Object.keys(MARKETS):[$("scanMarket").value];
+status("scanStatus","Loading available NFL games...");
+const events=await oddsEvents();
+const selected=events.filter(x=>{
+const d=new Date(x.commence_time);
+return !Number.isNaN(d.getTime())&&chicagoDate(d)===date;
+}).slice(0,Number($("maxGames").value));
+if(!selected.length)throw Error("No available sportsbook games for this date.");
 
-function renderScan(results,responses){
-const matched=results.filter(x=>x.athlete).length;
-const withLogs=results.filter(x=>x.games>0).length;
-const remaining=responses.map(x=>x.response?.remaining)
-.filter(x=>x!=null).at(-1);
-
-$("scanMetrics").innerHTML=`
-<div class="metric">Players with odds<strong>${results.length}</strong></div>
-<div class="metric">ESPN matched<strong>${matched}</strong></div>
-<div class="metric">With game logs<strong>${withLogs}</strong></div>
-<div class="metric">Credits remaining<strong>${escapeHTML(remaining??"—")}</strong></div>`;
-
-$("scanResults").innerHTML=`
-<table>
-<thead><tr>
-<th>Player</th><th>Prop Type</th><th>Matchup</th>
-<th>DraftKings</th><th>FanDuel</th>
-<th>Season Avg</th><th>Last 5 Avg</th>
-<th>DK Over Hit</th><th>FD Over Hit</th>
-<th>Best Over Line</th><th>Best Under Line</th>
-</tr></thead>
-<tbody>${results.map(player=>`
-<tr>
-<td>${playerIdentity(player.name,player.athlete?.id,
-player.athlete?"ESPN matched":"Odds only")}</td>
-<td><span class="prop-tag">${escapeHTML(MARKETS[player.market].label)}</span></td>
-<td>${escapeHTML(player.event.away_team+" @ "+
-player.event.home_team)}</td>
-<td>${bookCell(player.dk)}</td>
-<td>${bookCell(player.fd)}</td>
-<td>${fmt(player.seasonAverage)}</td>
-<td>${fmt(player.last5Average)}</td>
-<td>${player.dkStats?percent(player.dkStats.overRate):"—"}</td>
-<td>${player.fdStats?percent(player.fdStats.overRate):"—"}</td>
-<td>${player.bestOver?
-escapeHTML(bookName(player.bestOver.book))+
-" "+fmt(player.bestOver.line):"—"}</td>
-<td>${player.bestUnder?
-escapeHTML(bookName(player.bestUnder.book))+
-" "+fmt(player.bestUnder.line):"—"}</td>
-</tr>`).join("")}</tbody>
-</table>`;
-}
-
-/* =====================================
-   TOP 10 RANKINGS
-===================================== */
-
-function renderRankings(results,market){
-const ranked=results.filter(player=>
-player.bestHistorical&&player.games>=3
-).sort((a,b)=>{
-const A=a.bestHistorical;
-const B=b.bestHistorical;
-return B.rate-A.rate||B.last5-A.last5||B.games-A.games;
-}).slice(0,10);
-
-$("rankingsStatus").textContent=
-ranked.length+" ranked props — "+
-(market==="all"?"All Props":MARKETS[market].label)+
-". Minimum three historical games.";
-
-$("rankingsResults").innerHTML=`
-<table>
-<thead><tr>
-<th>Rank</th><th>Player</th><th>Prop Type</th>
-<th>Book</th><th>Side</th><th>Line</th><th>Odds</th>
-<th>Season Hit Rate</th><th>Last 5 Hits</th>
-<th>Season Avg</th><th>Last 5 Avg</th>
-</tr></thead>
-<tbody>${ranked.map((player,i)=>{
-const pick=player.bestHistorical;
-return `<tr>
-<td><span class="rank-chip">#${i+1}</span></td>
-<td>${playerIdentity(player.name,player.athlete?.id)}</td>
-<td><span class="prop-tag">${escapeHTML(MARKETS[player.market].label)}</span></td>
-<td>${escapeHTML(bookName(pick.book))}</td>
-<td>${escapeHTML(pick.side)}</td>
-<td>${fmt(pick.line)}</td>
-<td>${american(pick.odds)}</td>
-<td class="good">${percent(pick.rate)}
-<div class="small">${pick.games} games</div></td>
-<td>${pick.last5}/${pick.recentGames}</td>
-<td>${fmt(pick.avg)}</td>
-<td>${fmt(pick.last5Avg)}</td>
-</tr>`;
-}).join("")}</tbody>
-</table>`;
-
-if(!ranked.length){
-$("rankingsResults").innerHTML=
-'<p class="muted">No players with sufficient historical game logs were found.</p>';
-}
-}
-
-$("runScanner").onclick=runScanner;
-
-/* =====================================
-   BETTING CALCULATOR
-===================================== */
-
-function calculate(){
-const odds=num($("calcOdds").value);
-const stake=num($("calcStake").value);
-const probability=num($("calcProb").value)/100;
-
-if(!Number.isFinite(odds)||odds===0||
-!Number.isFinite(stake)||stake<=0||
-!Number.isFinite(probability)||
-probability<0||probability>1){
-$("calcResults").innerHTML=
-'<p class="bad">Enter valid calculator values.</p>';
+const requests=selected.flatMap(event=>markets.map(market=>({event,market})));
+const uncached=requests.filter(x=>{
+const key=ODDS+"/props?eventId="+encodeURIComponent(x.event.id)+
+"&market="+encodeURIComponent(x.market);
+return !(cache.get(key)?.until>Date.now());
+}).length;
+if(uncached>3&&!confirm(
+"Up to "+uncached+" uncached sportsbook requests may consume API credits. Continue?"
+)){
+status("scanStatus","Scan canceled.");
 return;
 }
 
-const profit=odds>0?
-stake*odds/100:stake*100/Math.abs(odds);
-const payout=stake+profit;
-const breakEven=implied(odds);
-const expected=probability*profit-(1-probability)*stake;
+const responses=[];
+for(let i=0;i<requests.length;i++){
+const {event,market}=requests[i];
+status("scanStatus","Loading sportsbook odds "+(i+1)+"/"+requests.length);
+try{
+const data=await oddsProps(event.id,market);
+responses.push({
+event,market,
+players:parseOdds(data.data||data)
+});
+}catch(e){
+console.warn("Odds request failed:",e);
+}
+}
+const props=responses.flatMap(r=>r.players.map(p=>({
+...p,event:r.event,market:r.market
+})));
+if(!props.length)throw Error("No player prop odds returned. Check the game date and Worker.");
 
-$("calcResults").innerHTML=`
-<div class="metric">Potential Profit<strong>$${fmt(profit,2)}</strong></div>
-<div class="metric">Total Return<strong>$${fmt(payout,2)}</strong></div>
-<div class="metric">Break-even Probability<strong>${percent(breakEven)}</strong></div>
-<div class="metric">Expected Value
-<strong class="${expected>=0?"good":"bad"}">$${fmt(expected,2)}</strong></div>`;
+status("scanStatus","Matching ESPN players...");
+let athletes=new Map();
+try{
+const games=await gamesOn(date);
+athletes=new Map(await rosterForGames(games));
+}catch(e){console.warn("Roster lookup failed:",e)}
+
+const matched=props.map(p=>({...p,athlete:athletes.get(nameKey(p.name))}));
+const unique=[...new Map(matched.filter(p=>p.athlete)
+.map(p=>[p.athlete.id,p.athlete])).values()];
+status("scanStatus","Loading "+unique.length+" player game logs...");
+const season=Number(date.slice(0,4));
+const logs=await batch(unique,5,async a=>({
+id:a.id,data:await gameLog(a.id,season)
+}));
+const logMap=new Map(logs.filter(x=>x.id).map(x=>[x.id,x.data]));
+const parsed=new Map();
+
+function rowsFor(player){
+if(!player.athlete||!logMap.has(player.athlete.id))return [];
+const key=player.athlete.id+":"+player.market;
+if(!parsed.has(key)){
+const cutoff=Date.parse(date+"T00:00:00Z");
+parsed.set(key,parseLog(logMap.get(player.athlete.id),player.market)
+.filter(x=>!x.date||Date.parse(x.date)<cutoff));
+}
+return parsed.get(key);
 }
 
-$("calculate").onclick=calculate;
+latestScan=matched.map(p=>{
+const rows=rowsFor(p);
+return {...p,rows,best:historicalPick(rows,p.books),
+average:avg(rows.map(x=>x.value)),
+recentAverage:avg(rows.slice(0,5).map(x=>x.value))};
+}).sort((a,b)=>(b.best?.rate??-1)-(a.best?.rate??-1));
 
-/* =====================================
-   INITIALIZE DASHBOARD
-===================================== */
+renderScanner();
+renderRankings();
+renderFeatured();
+status("scanStatus","Scan complete • "+latestScan.length+" player props found.");
+}catch(e){
+status("scanStatus",e.message,true);
+}finally{
+scanning=false;
+$("scanButton").disabled=false;
+}
+}
+
+function renderScanner(){
+const matched=latestScan.filter(x=>x.athlete).length;
+$("scanMetrics").innerHTML=`
+<div class="metric">Player Props<strong>${latestScan.length}</strong></div>
+<div class="metric">ESPN Matched<strong>${matched}</strong></div>
+<div class="metric">With Game Logs<strong>${latestScan.filter(x=>x.rows.length).length}</strong></div>
+<div class="metric">Prop Categories<strong>${new Set(latestScan.map(x=>x.market)).size}</strong></div>`;
+$("scanResults").innerHTML=`
+<table><thead><tr>
+<th>Player</th><th>Prop Type</th><th>Matchup</th>
+<th>DraftKings</th><th>FanDuel</th><th>Season Avg</th><th>Last 5 Avg</th>
+<th>Historical Best</th>
+</tr></thead><tbody>${latestScan.map(p=>`
+<tr>
+<td>${playerHTML(p.name,p.athlete?.id,p.athlete?.team||"")}</td>
+<td><span class="tag">${MARKETS[p.market]}</span></td>
+<td>${esc(p.event.away_team+" @ "+p.event.home_team)}</td>
+<td>${bookCell(p.books.draftkings)}</td>
+<td>${bookCell(p.books.fanduel)}</td>
+<td>${fmt(p.average)}</td><td>${fmt(p.recentAverage)}</td>
+<td>${p.best?
+`<strong>${p.best.side} ${fmt(p.best.line)}</strong>
+<div class="small">${pct(p.best.rate)} historical hits</div>`:"—"}</td>
+</tr>`).join("")}</tbody></table>`;
+}
+
+function renderRankings(){
+const ranked=latestScan.filter(p=>p.best&&p.best.games>=3).slice(0,10);
+status("rankingsStatus",ranked.length+" ranked historical props.");
+$("rankingsResults").innerHTML=`
+<table><thead><tr>
+<th>Rank</th><th>Player</th><th>Prop Pick</th><th>Sportsbook</th>
+<th>Odds</th><th>Season Hit Rate</th><th>Last 5</th><th>Season Avg</th>
+</tr></thead><tbody>${ranked.map((p,i)=>`
+<tr>
+<td><span class="rank">#${i+1}</span></td>
+<td>${playerHTML(p.name,p.athlete?.id,p.athlete?.team||"")}</td>
+<td><strong>${p.best.side} ${fmt(p.best.line)}</strong>
+<div class="small">${MARKETS[p.market]}</div></td>
+<td>${p.best.book==="draftkings"?"DraftKings":"FanDuel"}</td>
+<td>${oddsText(p.best.odds)}</td>
+<td class="green"><strong>${pct(p.best.rate)}</strong>
+<div class="small">${p.best.games} games</div></td>
+<td>${p.best.last5}/${p.best.recentGames}</td>
+<td>${fmt(p.best.average)}</td>
+</tr>`).join("")}</tbody></table>`;
+}
+
+function calculate(){
+const odds=number($("calcOdds").value);
+const stake=number($("calcStake").value);
+const probability=number($("calcProb").value)/100;
+if(!Number.isFinite(odds)||odds===0||!Number.isFinite(stake)||
+stake<=0||!Number.isFinite(probability)||probability<0||probability>1){
+$("calcResults").textContent="Enter valid values.";
+return;
+}
+const profit=odds>0?stake*odds/100:stake*100/Math.abs(odds);
+const implied=odds>0?100/(odds+100):-odds/(100-odds);
+const ev=probability*profit-(1-probability)*stake;
+$("calcResults").innerHTML=`
+<div class="metric">Potential Profit<strong>$${fmt(profit,2)}</strong></div>
+<div class="metric">Total Return<strong>$${fmt(stake+profit,2)}</strong></div>
+<div class="metric">Break-even Rate<strong>${pct(implied)}</strong></div>
+<div class="metric">Expected Value<strong class="${ev>=0?"green":"red"}">$${fmt(ev,2)}</strong></div>`;
+}
 
 function init(){
-const today=localDate();
+const today=dateLocal();
 const sunday=new Date();
-const day=sunday.getDay();
-const daysUntilSunday=(7-day)%7;
-sunday.setDate(sunday.getDate()+daysUntilSunday);
-const nextSunday=localDate(sunday);
-
-$("scheduleDate").value=nextSunday;
+sunday.setDate(sunday.getDate()+(7-sunday.getDay())%7);
+$("scheduleDate").value=dateLocal(sunday);
+$("scanDate").value=dateLocal(sunday);
 $("playerDate").value=today;
-$("scanDate").value=nextSunday;
-$("analysisSeason").value=seasonFor(today);
-
-updateScanEstimate();
+$("analysisSeason").value=Number(today.slice(0,4));
 calculate();
-loadSchedule();
+loadHome();
 }
 
 init();
