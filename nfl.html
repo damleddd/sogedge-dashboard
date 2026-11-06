@@ -655,6 +655,9 @@ event.status?.type?.state==="post";
 
 const recentScoreboardCache = new Map();
 
+
+const recentScoreboardCache = new Map();
+
 async function teamRecentGames(teamId, date) {
   // Reuse one historical scoreboard search for every team.
   if (!recentScoreboardCache.has(date)) {
@@ -681,6 +684,64 @@ async function teamRecentGames(teamId, date) {
           "&limit=500"
         );
       }
+
+      let successfulRequests = 0;
+
+      // Fetch in small batches.
+      for (let i = 0; i < windows.length; i += 3) {
+        const batch = await Promise.allSettled(
+          windows.slice(i, i + 3).map(url => getJSON(url))
+        );
+
+        for (const result of batch) {
+          if (result.status !== "fulfilled") continue;
+
+          successfulRequests++;
+
+          for (const event of result.value.events || []) {
+            if (!event.id || !event.date) continue;
+
+            const status = event.status?.type || {};
+
+            const completed =
+              status.completed === true ||
+              status.state === "post" ||
+              status.name === "STATUS_FINAL";
+
+            if (!completed) continue;
+
+            if (new Date(event.date) >= cutoff) continue;
+
+            allGames.set(String(event.id), event);
+          }
+        }
+      }
+
+      if (successfulRequests === 0) {
+        throw new Error(
+          "Historical scoreboard requests failed."
+        );
+      }
+
+      return [...allGames.values()].sort(
+        (a, b) => new Date(b.date) - new Date(a.date)
+      );
+    })();
+
+    recentScoreboardCache.set(date, search);
+  }
+
+  const games = await recentScoreboardCache.get(date);
+
+  return games.filter(event => {
+    const ids = (
+      event.competitions?.[0]?.competitors || []
+    ).map(c => String(c.team?.id || ""));
+
+    return ids.includes(String(teamId));
+  }).slice(0, 5);
+}
+
 
       let successfulRequests = 0;
 
