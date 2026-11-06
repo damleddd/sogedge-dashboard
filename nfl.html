@@ -78,6 +78,7 @@ footer{color:var(--muted);font-size:11px;text-align:center;padding:30px}
 <div class="brand">NFL <span>EDGE</span><small>PRO ANALYTICS</small></div>
 <div class="sub">NFL player analytics • ESPN statistics • DraftKings + FanDuel sportsbook comparisons</div>
 </header>
+
 <nav id="tabs">
 <button class="active" data-tab="schedule">Live Schedule</button>
 <button data-tab="players">Player Stats</button>
@@ -87,6 +88,7 @@ footer{color:var(--muted);font-size:11px;text-align:center;padding:30px}
 <button data-tab="scanner">Prop Scanner</button>
 <button data-tab="calculator">Calculator</button>
 </nav>
+
 <main>
 <section id="schedule" class="tab active">
 <h2>Live NFL Schedule</h2>
@@ -99,6 +101,7 @@ footer{color:var(--muted);font-size:11px;text-align:center;padding:30px}
 <div id="scheduleResults" class="cards"></div>
 </div>
 </section>
+
 <section id="players" class="tab">
 <h2>Player Stats</h2>
 <div class="panel">
@@ -110,6 +113,7 @@ footer{color:var(--muted);font-size:11px;text-align:center;padding:30px}
 <div id="playersResults" class="tablewrap"></div>
 </div>
 </section>
+
 <section id="analysis" class="tab">
 <h2>Player Analysis</h2>
 <div class="panel">
@@ -131,6 +135,7 @@ footer{color:var(--muted);font-size:11px;text-align:center;padding:30px}
 <div id="analysisResults"></div>
 </div>
 </section>
+
 <section id="teams" class="tab">
 <h2>32 NFL Teams</h2>
 <div class="panel">
@@ -139,6 +144,7 @@ footer{color:var(--muted);font-size:11px;text-align:center;padding:30px}
 <div id="teamsResults" class="cards"></div>
 </div>
 </section>
+
 <section id="rankings" class="tab">
 <h2>Top 10 Player Props</h2>
 <div class="panel">
@@ -147,6 +153,7 @@ footer{color:var(--muted);font-size:11px;text-align:center;padding:30px}
 <div id="rankingsResults" class="tablewrap"></div>
 </div>
 </section>
+
 <section id="scanner" class="tab">
 <h2>DraftKings + FanDuel Prop Scanner</h2>
 <div class="panel">
@@ -179,6 +186,7 @@ footer{color:var(--muted);font-size:11px;text-align:center;padding:30px}
 <div class="tablewrap" id="scanResults"></div>
 </div>
 </section>
+
 <section id="calculator" class="tab">
 <h2>Prop Calculator</h2>
 <div class="panel">
@@ -193,42 +201,53 @@ footer{color:var(--muted);font-size:11px;text-align:center;padding:30px}
 </div>
 </section>
 </main>
+
 <footer>NFL EDGE • Unofficial analytics dashboard • ESPN data and third-party sportsbook feeds</footer>
+
 <script>
 "use strict";
+
 const ESPN="https://site.api.espn.com/apis/site/v2/sports/football/nfl";
 const ESPN_LOG="https://site.web.api.espn.com/apis/common/v3/sports/football/nfl/athletes/";
 const ODDS_API="https://damleddd-nfl-odds.damleddd.workers.dev";
+
 const MARKETS={
 passing:{label:"Passing yards",key:"passingYards"},
 rushing:{label:"Rushing yards",key:"rushingYards"},
 receiving:{label:"Receiving yards",key:"receivingYards"},
 receptions:{label:"Receptions",key:"receptions"}
 };
+
 const memoryCache=new Map();
 let lastScan=[];
 let scanBusy=false;
 const $=id=>document.getElementById(id);
+
 function escapeHTML(v){
 return String(v??"").replace(/[&<>"']/g,c=>({
 "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
 })[c]);
 }
+
 function fmt(n,d=1){
 return Number.isFinite(Number(n))?Number(n).toFixed(d):"—";
 }
+
 function percent(n){
 return Number.isFinite(n)?fmt(n*100,0)+"%":"—";
 }
+
 function num(v){
 if(v===null||v===undefined||v===""||v==="--")return NaN;
 const x=Number(String(v).replace(/,/g,""));
 return Number.isFinite(x)?x:NaN;
 }
+
 function average(values){
 const good=values.filter(Number.isFinite);
 return good.length?good.reduce((a,b)=>a+b,0)/good.length:NaN;
 }
+
 function playerHeadshot(id,name){
 const valid=/^\d+$/.test(String(id||""));
 const src=valid?"https://a.espncdn.com/i/headshots/nfl/players/full/"+encodeURIComponent(id)+".png":"";
@@ -237,37 +256,45 @@ const fallback="data:image/svg+xml,"+encodeURIComponent(
 '<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96"><rect width="96" height="96" rx="48" fill="#20364b"/><text x="48" y="57" text-anchor="middle" font-family="Arial" font-size="30" font-weight="bold" fill="#a9c9da">'+initials+'</text></svg>');
 return '<img class="headshot" loading="lazy" alt="" src="'+(src||fallback)+'" onerror="this.onerror=null;this.src=\''+fallback+'\'">';
 }
+
 function playerIdentity(name,id,subtitle=""){
 return '<div class="player-cell">'+playerHeadshot(id,name)+
 '<div><div class="player-name">'+escapeHTML(name)+'</div>'+
 (subtitle?'<div class="small">'+escapeHTML(subtitle)+'</div>':"")+
 '</div></div>';
 }
+
 function normalizeName(name){
 return String(name||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"")
 .toLowerCase().replace(/\b(jr|sr|ii|iii|iv)\b/g,"")
 .replace(/[^a-z0-9]/g,"");
 }
+
 function american(odds){
 const n=Number(odds);
 return Number.isFinite(n)?(n>0?"+":"")+n:"—";
 }
+
 function implied(odds){
 const n=Number(odds);
 if(!Number.isFinite(n)||n===0)return NaN;
 return n>0?100/(n+100):(-n)/(-n+100);
 }
+
 function seasonFor(date){return Number(date.slice(0,4))}
+
 function localDate(d=new Date()){
 const y=d.getFullYear();
 const m=String(d.getMonth()+1).padStart(2,"0");
 const day=String(d.getDate()).padStart(2,"0");
 return y+"-"+m+"-"+day;
 }
+
 function setStatus(id,message,error=false){
 $(id).textContent=message;
 $(id).className="status"+(error?" bad":"");
 }
+
 async function getJSON(url,ttl=60000){
 const now=Date.now();
 const old=memoryCache.get(url);
@@ -287,6 +314,7 @@ memoryCache.set(url,{value:data,expires:Date.now()+ttl});
 return data;
 }finally{clearTimeout(timeout)}
 }
+
 async function batches(items,size,fn){
 const results=[];
 for(let i=0;i<items.length;i+=size){
@@ -298,6 +326,7 @@ results.push(...values);
 }
 return results;
 }
+
 document.querySelectorAll("#tabs button").forEach(button=>{
 button.addEventListener("click",()=>{
 document.querySelectorAll("#tabs button").forEach(x=>x.classList.remove("active"));
@@ -306,38 +335,46 @@ button.classList.add("active");
 $(button.dataset.tab).classList.add("active");
 });
 });
+
 function goTab(name){
 document.querySelector('#tabs button[data-tab="'+name+'"]').click();
 }
+
 async function scheduleEvents(date){
 const value=date.replace(/-/g,"");
 const data=await getJSON(ESPN+"/scoreboard?dates="+value+"&limit=100",60000);
 return Array.isArray(data.events)?data.events:[];
 }
+
 function competitors(event){
 return event.competitions?.[0]?.competitors||[];
 }
+
 function gameTeams(event){
 const teams=competitors(event);
 const home=teams.find(t=>t.homeAway==="home");
 const away=teams.find(t=>t.homeAway==="away");
 return {home,away};
 }
+
 function gameLabel(event){
 const {home,away}=gameTeams(event);
 return (away?.team?.displayName||"Away")+" @ "+(home?.team?.displayName||"Home");
 }
+
 function gameScore(event){
 const {home,away}=gameTeams(event);
 if(!home||!away)return "";
 if(event.status?.type?.state==="pre")return "";
 return (away.score??"0")+" – "+(home.score??"0");
 }
+
 function gameTime(event){
 const d=new Date(event.date);
 return Number.isNaN(d.getTime())?"—":
 d.toLocaleString(undefined,{weekday:"short",hour:"numeric",minute:"2-digit"});
 }
+
 async function loadSchedule(){
 setStatus("scheduleStatus","Loading NFL schedule...");
 $("scheduleResults").innerHTML="";
@@ -353,10 +390,13 @@ $("scheduleResults").innerHTML=games.map(game=>`
 </div>`).join("");
 }catch(error){setStatus("scheduleStatus",error.message,true)}
 }
+
 $("loadSchedule").onclick=loadSchedule;
+
 async function gameSummary(id){
 return getJSON(ESPN+"/summary?event="+encodeURIComponent(id),120000);
 }
+
 function extractBoxscore(data,game){
 const rows=[];
 for(const team of data.boxscore?.players||[]){
@@ -377,6 +417,7 @@ stats:labels.map((label,i)=>label+": "+(stats[i]??"—")).join(" | ")
 }
 return rows;
 }
+
 async function loadPlayers(){
 $("playersResults").innerHTML="";
 setStatus("playersStatus","Loading game box scores...");
@@ -418,15 +459,19 @@ goTab("analysis");
 });
 }catch(error){setStatus("playersStatus",error.message,true)}
 }
+
 $("loadPlayers").onclick=loadPlayers;
+
 async function athleteGameLog(id,season){
 return getJSON(ESPN_LOG+encodeURIComponent(id)+
 "/gamelog?season="+encodeURIComponent(season),300000);
 }
+
 function extractGameLog(data,market){
 const output=[];
 const names=Array.isArray(data.names)?data.names:[];
 const events=data.events||{};
+
 function collect(categories){
 for(const category of categories||[]){
 const keys=category.names||category.keys||names;
@@ -444,14 +489,17 @@ output.push({eventId,date,stats});
 }
 }
 }
+
 for(const type of data.seasonTypes||[])collect(type.categories);
 if(!output.length)collect(data.categories);
+
 const statAliases={
 passing:["passingYards","passing_yards","passYds","PYDS","passing yards"],
 rushing:["rushingYards","rushing_yards","rushYds","RYDS","rushing yards"],
 receiving:["receivingYards","receiving_yards","recYds","RECYDS","receiving yards"],
 receptions:["receptions","receivingReceptions","REC","receiving receptions"]
 };
+
 const aliases=statAliases[market].map(normalizeName);
 const rows=output.map(row=>{
 let value=NaN;
@@ -463,6 +511,7 @@ break;
 }
 return {eventId:row.eventId,date:row.date,value};
 }).filter(row=>Number.isFinite(row.value));
+
 const unique=new Map();
 rows.forEach(row=>{
 const key=row.eventId||row.date+"-"+row.value;
@@ -471,6 +520,7 @@ if(!unique.has(key))unique.set(key,row);
 return [...unique.values()].sort((a,b)=>
 String(b.date).localeCompare(String(a.date)));
 }
+
 function beforeGame(rows,date){
 const cutoff=Date.parse(date+"T00:00:00Z");
 return rows.filter(row=>{
@@ -479,6 +529,7 @@ const t=Date.parse(row.date);
 return !Number.isFinite(t)||t<cutoff;
 });
 }
+
 function evaluate(rows,line){
 const values=rows.map(x=>x.value).filter(Number.isFinite);
 const recent=values.slice(0,5);
@@ -498,6 +549,7 @@ last5Over,last5Under,recentGames:recent.length,
 margin:average(recent)-line
 };
 }
+
 async function runAnalysis(){
 $("analysisResults").innerHTML="";
 setStatus("analysisStatus","Loading ESPN game logs...");
@@ -531,27 +583,103 @@ ${row.value>line?"OVER":row.value<line?"UNDER":"PUSH"}
 </table></div>`;
 }catch(error){setStatus("analysisStatus",error.message,true)}
 }
+
 $("runAnalysis").onclick=runAnalysis;
+
+/* =====================================
+   FIXED 32 NFL TEAMS
+   ESPN + BUILT-IN FALLBACK
+===================================== */
+
+const NFL_TEAMS_FALLBACK=[
+[22,"Arizona Cardinals","ARI"],
+[1,"Atlanta Falcons","ATL"],
+[33,"Baltimore Ravens","BAL"],
+[2,"Buffalo Bills","BUF"],
+[29,"Carolina Panthers","CAR"],
+[3,"Chicago Bears","CHI"],
+[4,"Cincinnati Bengals","CIN"],
+[5,"Cleveland Browns","CLE"],
+[6,"Dallas Cowboys","DAL"],
+[7,"Denver Broncos","DEN"],
+[8,"Detroit Lions","DET"],
+[9,"Green Bay Packers","GB"],
+[34,"Houston Texans","HOU"],
+[11,"Indianapolis Colts","IND"],
+[30,"Jacksonville Jaguars","JAX"],
+[12,"Kansas City Chiefs","KC"],
+[13,"Las Vegas Raiders","LV"],
+[24,"Los Angeles Chargers","LAC"],
+[14,"Los Angeles Rams","LAR"],
+[15,"Miami Dolphins","MIA"],
+[16,"Minnesota Vikings","MIN"],
+[17,"New England Patriots","NE"],
+[18,"New Orleans Saints","NO"],
+[19,"New York Giants","NYG"],
+[20,"New York Jets","NYJ"],
+[21,"Philadelphia Eagles","PHI"],
+[23,"Pittsburgh Steelers","PIT"],
+[25,"San Francisco 49ers","SF"],
+[26,"Seattle Seahawks","SEA"],
+[27,"Tampa Bay Buccaneers","TB"],
+[10,"Tennessee Titans","TEN"],
+[28,"Washington Commanders","WSH"]
+].map(([id,displayName,abbreviation])=>({
+id,displayName,abbreviation,
+logos:[{
+href:"https://a.espncdn.com/i/teamlogos/nfl/500/"+
+abbreviation.toLowerCase()+".png"
+}]
+}));
+
 async function loadTeams(){
-setStatus("teamsStatus","Loading NFL teams...");
+setStatus("teamsStatus","Loading all 32 NFL teams...");
+$("teamsResults").innerHTML="";
+
+let teams=NFL_TEAMS_FALLBACK;
+let source="Built-in NFL team directory";
+
 try{
-const data=await getJSON(ESPN+"/teams",3600000);
-const teams=data.sports?.[0]?.leagues?.[0]?.teams||[];
-$("teamsResults").innerHTML=teams.map(item=>{
-const team=item.team||item;
-return `<div class="card">
+const data=await getJSON(ESPN+"/teams?limit=50",3600000);
+const received=data.sports?.[0]?.leagues?.[0]?.teams;
+if(Array.isArray(received)&&received.length>=32){
+teams=received.map(item=>item.team||item);
+source="ESPN";
+}
+}catch(error){
+console.warn("ESPN teams unavailable. Using fallback:",error);
+}
+
+teams=[...teams].sort((a,b)=>
+a.displayName.localeCompare(b.displayName));
+
+$("teamsResults").innerHTML=teams.map(team=>{
+const logo=team.logos?.[0]?.href||"";
+return `
+<div class="card">
 <div class="row">
-${team.logos?.[0]?.href?
-`<img src="${escapeHTML(team.logos[0].href)}" width="46" height="46" alt="">`:""}
+${logo?`
+<img src="${escapeHTML(logo)}"
+width="55" height="55" loading="lazy"
+alt="${escapeHTML(team.displayName)} logo"
+onerror="this.style.display='none'">`:""}
+<div>
 <strong>${escapeHTML(team.displayName)}</strong>
+<div class="small">${escapeHTML(team.abbreviation||"")}</div>
 </div>
-<p class="muted">${escapeHTML(team.abbreviation||"")}</p>
+</div>
 </div>`;
 }).join("");
-setStatus("teamsStatus",teams.length+" teams loaded.");
-}catch(error){setStatus("teamsStatus",error.message,true)}
+
+setStatus("teamsStatus",teams.length+" teams loaded • "+source);
 }
+
 $("loadTeams").onclick=loadTeams;
+
+/* =====================================
+   ESPN ROSTERS
+===================================== */
+
 function rosterAthletes(data){
 const found=[];
 function add(athlete){
@@ -575,6 +703,7 @@ walk(data.athletes);
 walk(data.team?.athletes);
 return [...new Map(found.map(x=>[x.id,x])).values()];
 }
+
 function eligible(position,market){
 const p=String(position).toUpperCase();
 if(market==="all")return ["QB","RB","FB","WR","TE"].includes(p);
@@ -582,6 +711,7 @@ if(market==="passing")return p==="QB";
 if(market==="rushing")return ["QB","RB","FB"].includes(p);
 return ["WR","TE","RB","FB"].includes(p);
 }
+
 async function slateRoster(events,market){
 const teams=new Map();
 for(const event of events){
@@ -607,15 +737,22 @@ teamCount:teams.size,
 failed:results.filter(x=>x?.error).length
 };
 }
+
+/* =====================================
+   SPORTSBOOK ODDS
+===================================== */
+
 async function oddsEvents(){
 const response=await getJSON(ODDS_API+"/events",60000);
 return response.data||[];
 }
+
 async function oddsProps(eventId,market){
 const url=ODDS_API+"/props?eventId="+
 encodeURIComponent(eventId)+"&market="+encodeURIComponent(market);
 return getJSON(url,120000);
 }
+
 function parseBookmakerOdds(data){
 const players=new Map();
 for(const bookmaker of data.bookmakers||[]){
@@ -639,6 +776,7 @@ if(side==="under")player.books[book].under=outcome.price;
 }
 return [...players.values()];
 }
+
 function sameGame(a,b){
 const left=[normalizeName(a.home_team),normalizeName(a.away_team)]
 .sort().join("|");
@@ -646,6 +784,7 @@ const right=[normalizeName(b.home_team),normalizeName(b.away_team)]
 .sort().join("|");
 return left===right;
 }
+
 function selectSlateGames(events,date,maxGames){
 const games=events.filter(event=>{
 if(!event.commence_time)return false;
@@ -658,6 +797,7 @@ return local===date;
 });
 return games.slice(0,maxGames);
 }
+
 function bestSide(books,side){
 const entries=Object.entries(books).filter(([key,b])=>
 Number.isFinite(b.line)&&Number.isFinite(Number(b[side])));
@@ -670,19 +810,23 @@ return Number(B[side])-Number(A[side]);
 });
 return {book:entries[0][0],...entries[0][1]};
 }
+
 function bookName(key){
 return key==="draftkings"?"DraftKings":
 key==="fanduel"?"FanDuel":key;
 }
+
 function bookCell(book){
 if(!book)return '<span class="muted">Unavailable</span>';
 return `<strong>${fmt(book.line)}</strong><br>
 <span class="small">O ${american(book.over)} / U ${american(book.under)}</span>`;
 }
+
 function selectedMarkets(){
 return $("scanMarket").value==="all"?
 Object.keys(MARKETS):[$("scanMarket").value];
 }
+
 function updateScanEstimate(){
 const count=selectedMarkets().length;
 const games=Number($("maxGames").value);
@@ -691,8 +835,14 @@ $("scanEstimate").textContent=
 "Potential requests: up to "+max+" game/market calls ("+
 games+" games × "+count+" markets). Actual usage may be lower if fewer games are available or results are cached.";
 }
+
 $("scanMarket").addEventListener("change",updateScanEstimate);
 $("maxGames").addEventListener("change",updateScanEstimate);
+
+/* =====================================
+   PROP SCANNER
+===================================== */
+
 async function runScanner(){
 if(scanBusy)return;
 const date=$("scanDate").value;
@@ -707,16 +857,19 @@ const oddsSchedule=await oddsEvents();
 const selected=selectSlateGames(oddsSchedule,date,maxGames);
 if(!selected.length)throw new Error(
 "No Odds API games found for this date. Try an upcoming NFL game date.");
+
 const requests=[];
 for(const event of selected){
 for(const market of markets)requests.push({event,market});
 }
+
 const uncached=requests.filter(({event,market})=>{
 const url=ODDS_API+"/props?eventId="+encodeURIComponent(event.id)+
 "&market="+encodeURIComponent(market);
 const entry=memoryCache.get(url);
 return !(entry&&entry.expires>Date.now());
 }).length;
+
 if(uncached>3){
 const proceed=window.confirm(
 "NFL EDGE will request "+requests.length+" game/market combinations.\n"+
@@ -727,9 +880,11 @@ setStatus("scanStatus","Scan canceled. No prop requests sent.");
 return;
 }
 }
+
 $("scanResults").innerHTML="";
 $("scanMetrics").innerHTML="";
 const oddsResponses=[];
+
 for(let i=0;i<requests.length;i++){
 const {event,market}=requests[i];
 setStatus("scanStatus","Step 2/4: Loading sportsbook odds "+(i+1)+
@@ -748,18 +903,22 @@ event,market,error:error.message,players:[]
 if(/quota|limit|429|remaining/i.test(error.message))break;
 }
 }
+
 const sportsbookPlayers=oddsResponses.flatMap(result=>
 result.players.map(player=>({
 ...player,event:result.event,market:result.market
 })));
+
 if(!sportsbookPlayers.length){
 const errors=oddsResponses.filter(x=>x.error)
 .map(x=>x.error).join("; ");
 throw new Error("No sportsbook player props returned. "+
 (errors||"This market may not be available yet."));
 }
+
 setStatus("scanStatus","Step 3/4: Finding ESPN player IDs...");
 let rosterPlayers=[];
+
 try{
 const espnGames=await scheduleEvents(date);
 const selectedESPN=espnGames.filter(game=>{
@@ -775,25 +934,33 @@ markets.length===4?"all":markets[0]
 );
 rosterPlayers=roster.players;
 }catch(error){console.warn("ESPN roster discovery:",error)}
+
 const rosterMap=new Map(rosterPlayers.map(p=>[
 normalizeName(p.name),p
 ]));
+
 const matched=sportsbookPlayers.map(player=>({
 ...player,athlete:rosterMap.get(normalizeName(player.name))
 }));
+
 const uniqueAthletes=[...new Map(
 matched.filter(x=>x.athlete)
 .map(x=>[x.athlete.id,x.athlete])
 ).values()];
+
 setStatus("scanStatus","Step 4/4: Loading ESPN game logs for "+
 uniqueAthletes.length+" unique athletes...");
+
 const logResults=await batches(uniqueAthletes,5,async athlete=>({
 id:athlete.id,
 data:await athleteGameLog(athlete.id,seasonFor(date))
 }));
+
 const logMap=new Map(logResults.filter(x=>x?.id)
 .map(x=>[x.id,x.data]));
+
 const parsedLogCache=new Map();
+
 function gameRows(athlete,market){
 if(!athlete||!logMap.has(athlete.id))return [];
 const key=athlete.id+":"+market;
@@ -804,6 +971,7 @@ extractGameLog(logMap.get(athlete.id),market),date
 }
 return parsedLogCache.get(key);
 }
+
 const results=matched.map(player=>{
 const rows=gameRows(player.athlete,player.market);
 const dk=player.books.draftkings||null;
@@ -813,6 +981,7 @@ const fdStats=fd?evaluate(rows,fd.line):null;
 const bestOver=bestSide(player.books,"over");
 const bestUnder=bestSide(player.books,"under");
 const candidates=[];
+
 for(const [book,entry,stats] of [
 ["draftkings",dk,dkStats],
 ["fanduel",fd,fdStats]
@@ -830,9 +999,11 @@ avg:stats.avg,last5Avg:stats.last5Avg
 });
 }
 }
+
 candidates.sort((a,b)=>
 b.rate-a.rate||b.last5-a.last5||
 b.recentGames-a.recentGames);
+
 return {
 ...player,dk,fd,dkStats,fdStats,bestOver,bestUnder,
 bestHistorical:candidates[0]||null,
@@ -841,15 +1012,19 @@ seasonAverage:average(rows.map(x=>x.value)),
 last5Average:average(rows.slice(0,5).map(x=>x.value))
 };
 });
+
 results.sort((a,b)=>
 (b.bestHistorical?.rate??-1)-
 (a.bestHistorical?.rate??-1));
+
 lastScan=results;
 renderScan(results,oddsResponses);
 renderRankings(results,markets.length===4?"all":markets[0]);
+
 const remaining=oddsResponses.map(x=>x.response?.remaining)
 .filter(x=>x!=null).at(-1);
 const failures=oddsResponses.filter(x=>x.error);
+
 setStatus("scanStatus",
 "Scan complete: "+results.length+
 " player/market props across "+markets.length+
@@ -859,6 +1034,7 @@ setStatus("scanStatus",
 " market requests failed; results may be partial.":"")+
 (remaining!=null?"\nLast reported API credits remaining: "+
 remaining:""));
+
 }catch(error){
 setStatus("scanStatus",error.message,true);
 }finally{
@@ -866,16 +1042,23 @@ scanBusy=false;
 $("runScanner").disabled=false;
 }
 }
+
+/* =====================================
+   SCANNER RESULTS
+===================================== */
+
 function renderScan(results,responses){
 const matched=results.filter(x=>x.athlete).length;
 const withLogs=results.filter(x=>x.games>0).length;
 const remaining=responses.map(x=>x.response?.remaining)
 .filter(x=>x!=null).at(-1);
+
 $("scanMetrics").innerHTML=`
 <div class="metric">Players with odds<strong>${results.length}</strong></div>
 <div class="metric">ESPN matched<strong>${matched}</strong></div>
 <div class="metric">With game logs<strong>${withLogs}</strong></div>
 <div class="metric">Credits remaining<strong>${escapeHTML(remaining??"—")}</strong></div>`;
+
 $("scanResults").innerHTML=`
 <table>
 <thead><tr>
@@ -907,6 +1090,11 @@ escapeHTML(bookName(player.bestUnder.book))+
 </tr>`).join("")}</tbody>
 </table>`;
 }
+
+/* =====================================
+   TOP 10 RANKINGS
+===================================== */
+
 function renderRankings(results,market){
 const ranked=results.filter(player=>
 player.bestHistorical&&player.games>=3
@@ -915,10 +1103,12 @@ const A=a.bestHistorical;
 const B=b.bestHistorical;
 return B.rate-A.rate||B.last5-A.last5||B.games-A.games;
 }).slice(0,10);
+
 $("rankingsStatus").textContent=
 ranked.length+" ranked props — "+
 (market==="all"?"All Props":MARKETS[market].label)+
 ". Minimum three historical games.";
+
 $("rankingsResults").innerHTML=`
 <table>
 <thead><tr>
@@ -945,16 +1135,24 @@ return `<tr>
 </tr>`;
 }).join("")}</tbody>
 </table>`;
+
 if(!ranked.length){
 $("rankingsResults").innerHTML=
 '<p class="muted">No players with sufficient historical game logs were found.</p>';
 }
 }
+
 $("runScanner").onclick=runScanner;
+
+/* =====================================
+   BETTING CALCULATOR
+===================================== */
+
 function calculate(){
 const odds=num($("calcOdds").value);
 const stake=num($("calcStake").value);
 const probability=num($("calcProb").value)/100;
+
 if(!Number.isFinite(odds)||odds===0||
 !Number.isFinite(stake)||stake<=0||
 !Number.isFinite(probability)||
@@ -963,11 +1161,13 @@ $("calcResults").innerHTML=
 '<p class="bad">Enter valid calculator values.</p>';
 return;
 }
+
 const profit=odds>0?
 stake*odds/100:stake*100/Math.abs(odds);
 const payout=stake+profit;
 const breakEven=implied(odds);
 const expected=probability*profit-(1-probability)*stake;
+
 $("calcResults").innerHTML=`
 <div class="metric">Potential Profit<strong>$${fmt(profit,2)}</strong></div>
 <div class="metric">Total Return<strong>$${fmt(payout,2)}</strong></div>
@@ -975,7 +1175,13 @@ $("calcResults").innerHTML=`
 <div class="metric">Expected Value
 <strong class="${expected>=0?"good":"bad"}">$${fmt(expected,2)}</strong></div>`;
 }
+
 $("calculate").onclick=calculate;
+
+/* =====================================
+   INITIALIZE DASHBOARD
+===================================== */
+
 function init(){
 const today=localDate();
 const sunday=new Date();
@@ -983,14 +1189,17 @@ const day=sunday.getDay();
 const daysUntilSunday=(7-day)%7;
 sunday.setDate(sunday.getDate()+daysUntilSunday);
 const nextSunday=localDate(sunday);
+
 $("scheduleDate").value=nextSunday;
 $("playerDate").value=today;
 $("scanDate").value=nextSunday;
 $("analysisSeason").value=seasonFor(today);
+
 updateScanEstimate();
 calculate();
 loadSchedule();
 }
+
 init();
 </script>
 </body>
